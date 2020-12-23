@@ -1,0 +1,2 @@
+# structure-boot
+structure-boot为单体项目的脚手架会对单体项目的引用和启动做一个简单的封装
