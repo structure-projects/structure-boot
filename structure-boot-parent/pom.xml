@@ -7,7 +7,7 @@
     <parent>
         <groupId>cn.structured</groupId>
         <artifactId>structure-dependencies</artifactId>
-        <version>1.1.1.RELEASE</version>
+        <version>1.1.2.RELEASE</version>
         <relativePath/>
     </parent>
 
@@ -37,7 +37,7 @@
     </modules>
 
     <properties>
-        <structure.version>${parent.version}</structure.version>
+        <structure.version>1.1.2.RELEASE</structure.version>
         <mysql.version>8.0.13</mysql.version>
     </properties>
 
