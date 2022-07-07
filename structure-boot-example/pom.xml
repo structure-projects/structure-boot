@@ -9,7 +9,8 @@
     <version>1.0.1</version>
 
     <properties>
-        <spring.boot.version>2.1.4.RELEASE</spring.boot.version>
+        <spring-boot.version>2.1.2.RELEASE</spring-boot.version>
+        <structure.version>1.2.0.RELEASE</structure.version>
     </properties>
 
     <dependencies>
@@ -24,7 +25,7 @@
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-parent</artifactId>
-                <version>${spring.boot.version}</version>
+                <version>${spring-boot.version}</version>
                 <scope>import</scope>
                 <type>pom</type>
             </dependency>

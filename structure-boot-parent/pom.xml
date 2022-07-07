@@ -7,8 +7,8 @@
     <parent>
         <groupId>cn.structured</groupId>
         <artifactId>structure-dependencies</artifactId>
-        <version>1.1.2.RELEASE</version>
-        <relativePath/>
+        <version>1.2.0.RELEASE</version>
+        <relativePath>../../structure-dependencies/pom.xml</relativePath>
     </parent>
 
     <modules>
@@ -24,10 +24,9 @@
         <!-- JWT -->
         <module>../../structure-jwt-security/structure-jwt-security-starter</module>
         <!-- LOG -->
-        <module>../../structure-log-starter</module>
+        <module>../../structure-log-starter/structure-log-starter</module>
         <!--minio -->
         <module>../../structure-minio/structure-minio-starter</module>
-        <module>../../structure-manager/structure-manager-starter</module>
         <module>../../structure-redis/structure-redis-starter</module>
         <module>../../structure-oauth/structure-oauth-starter</module>
         <module>../../structure-resource/structure-oauth-resource-starter</module>
@@ -37,7 +36,7 @@
     </modules>
 
     <properties>
-        <structure.version>1.1.2.RELEASE</structure.version>
+        <structure.version>${project.parent.version}</structure.version>
         <mysql.version>8.0.13</mysql.version>
     </properties>
 
@@ -105,11 +104,6 @@
             <dependency>
                 <groupId>cn.structured</groupId>
                 <artifactId>structure-common</artifactId>
-                <version>${structure.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>cn.structured</groupId>
-                <artifactId>structure-manager-starter</artifactId>
                 <version>${structure.version}</version>
             </dependency>
             <dependency>
@@ -192,6 +186,15 @@
                             <version>${mysql.version}</version>
                         </dependency>
                     </dependencies>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>${maven-compiler-plugin.version}</version>
+                    <configuration>
+                        <source>8</source>
+                        <target>8</target>
+                    </configuration>
                 </plugin>
             </plugins>
         </pluginManagement>
