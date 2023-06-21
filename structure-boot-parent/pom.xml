@@ -149,16 +149,6 @@
                 <artifactId>structure-mybatis-plus-generate</artifactId>
                 <version>${structure.version}</version>
             </dependency>
-            <dependency>
-                <groupId>cn.structured</groupId>
-                <artifactId>structure-netty-server-starter</artifactId>
-                <version>${structure.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>cn.structured</groupId>
-                <artifactId>structure-netty-client-starter</artifactId>
-                <version>${structure.version}</version>
-            </dependency>
         </dependencies>
     </dependencyManagement>
 
