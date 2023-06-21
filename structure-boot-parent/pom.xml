@@ -8,12 +8,10 @@
         <groupId>cn.structured</groupId>
         <artifactId>structure-dependencies</artifactId>
         <version>1.2.0.RELEASE</version>
-        <relativePath>../../structure-dependencies/pom.xml</relativePath>
+        <relativePath>../../../structure-dependencies/pom.xml</relativePath>
     </parent>
 
     <modules>
-        <!-- 基础组件 -->
-        <module>../../structure-common</module>
         <!-- web组件-->
         <module>../../structure-restful-web/structure-restful-web-starter</module>
         <!-- mybatis 组件-->
@@ -28,15 +26,10 @@
         <!--minio -->
         <module>../../structure-minio/structure-minio-starter</module>
         <module>../../structure-redis/structure-redis-starter</module>
-        <module>../../structure-oauth/structure-oauth-starter</module>
-        <module>../../structure-resource/structure-oauth-resource-starter</module>
-        <module>../../structure-netty-client-starter/structure-netty-client-starter</module>
-        <module>../../structure-netty-server-starter/structure-netty-server-starter</module>
-        <!--<module>../../structure-transaction/structure-transaction-client</module>-->
     </modules>
 
     <properties>
-        <structure.version>${project.parent.version}</structure.version>
+        <structure.version>1.2.1.RELEASE</structure.version>
         <mysql.version>8.0.13</mysql.version>
     </properties>
 

@@ -10,7 +10,7 @@
 
     <properties>
         <spring-boot.version>2.1.2.RELEASE</spring-boot.version>
-        <structure.version>1.2.0.RELEASE</structure.version>
+        <structure.version>1.2.1.RELEASE</structure.version>
     </properties>
 
     <dependencies>
