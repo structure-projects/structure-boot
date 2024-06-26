@@ -1,0 +1,8 @@
+server:
+  port: 18003
+spring:
+  datasource:
+    username: gcxm
+    password: WFJ4ekTwkhRwAiHZ
+    url: jdbc:mysql://39.97.124.2:3306/gcxm?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+    driver-class-name: com.mysql.cj.jdbc.Driver

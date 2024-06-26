@@ -8,24 +8,24 @@
         <groupId>cn.structured</groupId>
         <artifactId>structure-dependencies</artifactId>
         <version>1.2.0.RELEASE</version>
-        <relativePath>../../../structure-dependencies/pom.xml</relativePath>
+        <relativePath>../structure-dependencies/pom.xml</relativePath>
     </parent>
 
     <modules>
         <!-- web组件-->
-        <module>../../structure-restful-web/structure-restful-web-starter</module>
+        <module>../structure-restful-web-starter</module>
         <!-- mybatis 组件-->
-        <module>../../structure-mybatis/structure-mybatis-starter</module>
+        <module>../structure-mybatis-starter</module>
         <!-- mybatis-plus -->
-        <module>../../structure-mybatis-plus/structure-mybatis-plus-starter</module>
-        <module>../../structure-mybatis-plus/structure-mybatis-plus-generate</module>
-        <!-- JWT -->
-        <module>../../structure-jwt-security/structure-jwt-security-starter</module>
+        <module>../structure-mybatis-plus-starter</module>
+        <module>../structure-mybatis-plus-generate</module>
         <!-- LOG -->
-        <module>../../structure-log-starter/structure-log-starter</module>
+        <module>../structure-log-starter</module>
         <!--minio -->
-        <module>../../structure-minio/structure-minio-starter</module>
-        <module>../../structure-redis/structure-redis-starter</module>
+        <module>../structure-minio-starter</module>
+        <module>../structure-redis-starter</module>
+        <module>../structure-redisson-starter</module>
+        <module>../structure-ribbon-starter</module>
     </modules>
 
     <properties>

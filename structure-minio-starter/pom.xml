@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <groupId>cn.structured</groupId>
+        <artifactId>structure-dependencies</artifactId>
+        <version>1.2.0.RELEASE</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+    <version>1.2.1.RELEASE</version>
+    <packaging>jar</packaging>
+    <artifactId>structure-minio-starter</artifactId>
+    <name>structure-minio-starter</name>
+    <description>structure-minio-starter</description>
+
+    <url>https://projects.structured.cn/structure-boot</url>
+    <inceptionYear>2021</inceptionYear>
+    <organization>
+        <name>structure</name>
+    </organization>
+    <licenses>
+        <license>
+            <name>The Apache License, Version 2.0</name>
+            <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        </license>
+    </licenses>
+    <developers>
+        <developer>
+            <id>chuckLcq</id>
+            <name>chuck</name>
+            <email>15524415221@163.com</email>
+        </developer>
+        <developer>
+            <id>lchqJava</id>
+            <name>Chuanqiang Liu</name>
+            <email>361648887@qq.com</email>
+        </developer>
+    </developers>
+
+    <issueManagement>
+        <system>Github</system>
+        <url>https://github.com/structure-projects/structure-boot/issues</url>
+    </issueManagement>
+
+    <scm>
+        <url>https://github.com/structure-projects/structure-boot</url>
+        <connection>scm:git:git://github.com/structure-projects/structure-boot.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com:structure-projects/structure-boot.git</developerConnection>
+    </scm>
+
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-autoconfigure</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>io.minio</groupId>
+            <artifactId>minio</artifactId>
+        </dependency>
+    </dependencies>
+
+</project>
