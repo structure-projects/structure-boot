@@ -1,0 +1,8 @@
+server:
+  port: 19001
+structure:
+  minio:
+    url:  http://10.16.105.146:9011
+    access-key: root
+    secret-key: password
+    endpoint-enable: true # 是否开启endpoint

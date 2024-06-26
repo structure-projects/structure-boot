@@ -1,0 +1,1 @@
+package cn.structure.starter.minio;
