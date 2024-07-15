@@ -6,11 +6,12 @@ import java.lang.annotation.*;
 
 /**
  * <p>
- *     读缓存注解默认降序执行结构为 sort desc + 分页值存key 基础
+ * 读缓存注解默认降序执行结构为 sort desc + 分页值存key 基础
  * </p>
+ *
  * @author chuck
- * @since 2020-12-23
  * @version 1.0.1
+ * @since 2020-12-23
  */
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
@@ -24,12 +25,12 @@ public @interface RListCache {
     /**
      * 设置分页的大小
      */
-    String page() default "1" ;
+    String page() default "1";
 
     /**
      * 默认大小如果是集合需要设置大小
      */
-    String size() default "20" ;
+    String size() default "20";
 
     /**
      * 排序

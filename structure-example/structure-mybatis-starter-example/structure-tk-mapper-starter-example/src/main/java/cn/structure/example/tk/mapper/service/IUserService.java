@@ -18,6 +18,7 @@ public interface IUserService {
 
     /**
      * 通过ID获取用户
+     *
      * @param id
      * @return
      */
@@ -25,6 +26,7 @@ public interface IUserService {
 
     /**
      * 通过用户名获取用户
+     *
      * @param username
      * @return
      */
@@ -32,6 +34,7 @@ public interface IUserService {
 
     /**
      * 分页查找列表
+     *
      * @param username
      * @param pageSize
      * @param offset
@@ -41,6 +44,7 @@ public interface IUserService {
 
     /**
      * 插入用户信息
+     *
      * @param user
      * @return
      */
@@ -48,6 +52,7 @@ public interface IUserService {
 
     /**
      * 修改用户信息
+     *
      * @param user
      * @return
      */
@@ -55,6 +60,7 @@ public interface IUserService {
 
     /**
      * 删除用户信息
+     *
      * @param id
      * @return
      */

@@ -1,17 +1,24 @@
 # structure-boot
+
 structure-boot
 
-## 功能介绍 
+## 功能介绍
+
 对structure生态依赖的封装
+
 - structure-restful-web
 - structure-mybatis
 - structure-redis
 - structure-redisson
 - structure-log
 - structure-jwt-security
+
 ## 如何使用
+
 ### pom引用 ###
+
 引用最新文档版本的依赖
+
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"

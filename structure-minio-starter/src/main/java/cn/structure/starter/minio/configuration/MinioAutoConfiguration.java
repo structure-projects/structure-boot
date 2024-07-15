@@ -19,7 +19,7 @@ package cn.structure.starter.minio.configuration;
 
 import cn.structure.starter.minio.http.MinioEndpoint;
 import cn.structure.starter.minio.properties.MinioProperties;
-import cn.structure.starter.minio.service.v1.MinioTemplate;
+import cn.structure.starter.minio.service.MinioTemplate;
 import io.minio.MinioClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -51,7 +51,10 @@ public class MinioAutoConfiguration {
     @ConditionalOnMissingBean(MinioClient.class)
     @ConditionalOnProperty(name = "structure.minio.url")
     public MinioClient minioClient() throws Exception {
-        return new MinioClient(minioProperties.getUrl(),minioProperties.getAccessKey(),minioProperties.getSecretKey());
+        return MinioClient.builder()
+                .endpoint(minioProperties.getUrl())
+                .credentials(minioProperties.getAccessKey(), minioProperties.getSecretKey())
+                .build();
     }
 
 

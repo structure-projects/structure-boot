@@ -1,9 +1,15 @@
 # structure-redis
+
 这个项目是对redis相关的封装
+
 ## 主要功能
+
 - redis分布式锁进行了封装 structure-redis-starter 对spring-boot-starter-data-redis 启动器进行封装
-## 使用方法 
-### pom 引用 
+
+## 使用方法
+
+### pom 引用
+
 ```xml
         <dependency>
             <groupId>cn.structured</groupId>
@@ -13,9 +19,12 @@
 ```
 
 ### 使用分布式锁 ###
+
 - 注解使用分布式锁
 - 手动获取分布式锁
-####  注解使用redis锁 参数为非对象的使用
+
+#### 注解使用redis锁 参数为非对象的使用
+
 ```java
     /**
      * 注解使用redis锁 参数为非对象的使用
@@ -26,7 +35,9 @@
         System.out.println("redisLock ----> key = " + key);
     }
 ```
-####  注解使用redis锁 参数为对象的使用
+
+#### 注解使用redis锁 参数为对象的使用
+
 ```java
     /**
      * 注解使用redis锁 参数为对象的使用
@@ -37,7 +48,9 @@
         System.out.println("redisLock ----> redisLockBo ----> key = " + redisLockBo.getKey());
     }
 ```
-####  注解使用redis锁 多个key拼接的key
+
+#### 注解使用redis锁 多个key拼接的key
+
 ```java
     /**
      * 注解使用redis锁 多个key拼接的key
@@ -48,7 +61,9 @@
         System.out.println("redisLock ----> redisLockBo ----> key = " + redisLockBo.getKey()+ ":" + key);
     }
 ```
+
 #### 手动获取分布式锁的方式 - 更为灵活
+
 ```java
 
     @Resource
@@ -71,5 +86,7 @@
         iDistributedLock.releaseLock(key);
     }
 ```
+
 ### 案例 ###
+
 [structure-redis-example](structure-redis-example/README.md)

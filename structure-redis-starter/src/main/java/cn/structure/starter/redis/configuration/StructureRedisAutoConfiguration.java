@@ -12,8 +12,9 @@ import org.springframework.data.redis.core.RedisTemplate;
 
 /**
  * <p>
- *     redis自动装配类
+ * redis自动装配类
  * </p>
+ *
  * @author chuck
  * @version 1.0.1
  */
@@ -24,7 +25,7 @@ public class StructureRedisAutoConfiguration {
 
     @Bean
     @ConditionalOnBean(RedisTemplate.class)
-    public IDistributedLock iDistributedLock(RedisTemplate redisTemplate){
+    public IDistributedLock iDistributedLock(RedisTemplate redisTemplate) {
         return new RedisDistributedLockImpl(redisTemplate);
     }
 

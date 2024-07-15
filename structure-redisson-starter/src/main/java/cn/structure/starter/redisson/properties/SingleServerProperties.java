@@ -6,11 +6,12 @@ import lombok.ToString;
 
 /**
  * <p>
- *     单节点配置属性
+ * 单节点配置属性
  * </p>
+ *
  * @author chuck
- * @since 2020-12-23
  * @version 1.0.1
+ * @since 2020-12-23
  */
 @Setter
 @Getter

@@ -2,16 +2,18 @@ package cn.structure.starter.redisson.exception;
 
 /**
  * <p>
- *     分布式锁异常
+ * 分布式锁异常
  * </p>
+ *
  * @author chuck
- * @since 2020-12-23
  * @version 1.0.1
+ * @since 2020-12-23
  */
-public class LockException extends RuntimeException{
+public class LockException extends RuntimeException {
 
     public LockException() {
     }
+
     public LockException(String message) {
         super(message);
     }

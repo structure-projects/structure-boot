@@ -17,6 +17,7 @@ public interface IUserService extends IService<User> {
 
     /**
      * 修改用户
+     *
      * @param user
      * @return
      */
@@ -24,6 +25,7 @@ public interface IUserService extends IService<User> {
 
     /**
      * 插入用户
+     *
      * @param user
      * @return
      */
@@ -31,6 +33,7 @@ public interface IUserService extends IService<User> {
 
     /**
      * 通过用户名查找用户
+     *
      * @param username
      * @return
      */
@@ -38,20 +41,22 @@ public interface IUserService extends IService<User> {
 
     /**
      * 分页查找列表
+     *
      * @param username
      * @param pageSize
      * @param offset
      * @return
      */
-    List<User> listUserPage(String username,int pageSize,int offset);
+    List<User> listUserPage(String username, int pageSize, int offset);
 
     /**
      * 分页查找列表
+     *
      * @param user
      * @param pageSize
      * @param offset
      * @return
      */
-    List<User> listUserPage(User user,int pageSize,int offset);
+    List<User> listUserPage(User user, int pageSize, int offset);
 
 }

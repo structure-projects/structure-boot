@@ -14,15 +14,15 @@ import java.io.IOException;
 
 /**
  * @author chuck
- * @date 2020-12-18
  * @version 1.0.1
+ * @date 2020-12-18
  */
 @Controller
 @RequestMapping(value = "/redis")
 public class RedisController {
 
     @Autowired
-    private RedisTemplate<String,String> redisTemplate;
+    private RedisTemplate<String, String> redisTemplate;
 
     @Autowired
     private RedisLockService redisLockService;
@@ -30,7 +30,7 @@ public class RedisController {
     @GetMapping(value = "/getKey")
     public void getKey(@RequestParam(value = "key") String key, HttpServletResponse response) throws IOException {
         //你对redis的操作
-        redisTemplate.opsForValue().set(key,key);
+        redisTemplate.opsForValue().set(key, key);
         String value = redisTemplate.opsForValue().get(key);
         value = (null == value) ? "this value is null" : value;
         System.out.println("value = " + value);
@@ -38,6 +38,7 @@ public class RedisController {
         outputStream.write(value.getBytes());
         outputStream.close();
     }
+
     @GetMapping(value = "/redisLock")
     public void redisLock(@RequestParam(value = "key") String key, HttpServletResponse response) throws IOException {
         redisLockService.redisLock(key);

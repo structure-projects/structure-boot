@@ -17,7 +17,6 @@
 
 package cn.structure.starter.minio.vo;
 
-import io.minio.ObjectStat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -39,42 +38,33 @@ import java.util.Map;
 @Data
 @AllArgsConstructor
 public class MinioObject {
-	/**
-	 * 存储桶名
-	 */
-	private String bucketName;
-	/**
-	 * 名称
-	 */
-	private String name;
-	/**
-	 * 创建时间
-	 */
-	private Date createdTime;
-	/**
-	 * 长度
-	 */
-	private Long length;
-	/**
-	 * 标签
-	 */
-	private String etag;
-	/**
-	 * 内容类型
-	 */
-	private String contentType;
-	/**
-	 * 请求头信息
-	 */
-	private Map<String, List<String>> httpHeaders;
+    /**
+     * 存储桶名
+     */
+    private String bucketName;
+    /**
+     * 名称
+     */
+    private String name;
+    /**
+     * 创建时间
+     */
+    private Date createdTime;
+    /**
+     * 长度
+     */
+    private Long length;
+    /**
+     * 标签
+     */
+    private String etag;
+    /**
+     * 内容类型
+     */
+    private String contentType;
+    /**
+     * 请求头信息
+     */
+    private Map<String, List<String>> httpHeaders;
 
-	public MinioObject(ObjectStat os) {
-		this.bucketName = os.bucketName();
-		this.name = os.name();
-		this.createdTime = os.createdTime();
-		this.length = os.length();
-		this.etag = os.etag();
-		this.contentType = os.contentType();
-		this.httpHeaders = os.httpHeaders();
-	}
 }

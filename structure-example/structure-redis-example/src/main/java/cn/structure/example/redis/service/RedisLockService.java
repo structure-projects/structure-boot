@@ -10,6 +10,7 @@ import javax.annotation.Resource;
 
 /**
  * redis Lock 的service
+ *
  * @author chuck
  */
 @Service
@@ -20,15 +21,17 @@ public class RedisLockService {
 
     /**
      * 注解使用redis锁 参数为非对象的使用
+     *
      * @param key
      */
     @RedisLock("#key")
-    public void redisLock(String key){
+    public void redisLock(String key) {
         System.out.println("redisLock ----> key = " + key);
     }
 
     /**
      * 注解使用redis锁 参数为对象的使用
+     *
      * @param redisLockBo
      */
     @RedisLock("#key")

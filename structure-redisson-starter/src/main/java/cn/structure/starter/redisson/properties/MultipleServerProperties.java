@@ -8,11 +8,12 @@ import org.redisson.config.SubscriptionMode;
 
 /**
  * <p>
- *     多节点配置属性
+ * 多节点配置属性
  * </p>
+ *
  * @author chuck
- * @since 2020-12-23
  * @version 1.0.1
+ * @since 2020-12-23
  */
 @Getter
 @Setter
@@ -20,7 +21,7 @@ import org.redisson.config.SubscriptionMode;
 public class MultipleServerProperties {
     /**
      * <p>
-     *     负载均衡算法类的选择
+     * 负载均衡算法类的选择
      * </p>
      * <pre>
      * 默认值： org.redisson.connection.balancer.RoundRobinLoadBalancer
@@ -34,7 +35,7 @@ public class MultipleServerProperties {
 
     /**
      * <p>
-     *     从节点最小空闲连接数
+     * 从节点最小空闲连接数
      * </p>
      * <pre>
      *     默认值：32
@@ -45,7 +46,7 @@ public class MultipleServerProperties {
     private Integer slaveConnectionMinimumIdleSize = 32;
     /**
      * <p>
-     *     从节点连接池大小
+     * 从节点连接池大小
      * </p>
      * <pre>
      *

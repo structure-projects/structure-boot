@@ -1,15 +1,21 @@
 # structure-restful-web
+
 对应用场景为前后台分离、互联网、以及微服务中。接口restful风格进行封装
 
-## 功能介绍 
+## 功能介绍
+
 1. 封装 spring-boot-starter-web启动器
 2. 封装公共返回结果简易版和两级code码的公共异常处理
 3. 对参数校验进行了封装
 4. swagger 的开启和配置
 5. 开启fastJson序列化
+
 ## 如何使用
+
 ### pom引用 ###
+
 引用最新文档版本的依赖
+
 ```xml
 <dependency>
     <groupId>cn.structured</groupId>
@@ -17,8 +23,11 @@
     <version>${last.version}</version>
 </dependency>
 ```
+
 ### 选择性开启不同的公共异常拦截也可以自定义
+
 1. 使用@EnableSimpleGlobalException开启简易版本公共异常
+
 ```java
 @SpringBootApplication
 @EnableSimpleGlobalException
@@ -28,7 +37,9 @@ public class WebRestFulApplication {
     }
 }
 ```
+
 2. 使用@EnableFatherGlobalException开启多级code码公共异常
+
 ```java
 @SpringBootApplication
 @EnableFatherGlobalException
@@ -38,17 +49,23 @@ public class WebRestFulApplication {
     }
 }
 ```
+
 ### 参数校验开启
+
 ```xml
 <dependency>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-validation</artifactId>
 </dependency>
 ```
+
 - 如果您开启了structure-restful-web-starter 的公共异常拦截则不需要处理参数校验的错误信息
 - 如果您使用自己的公共异常则需要自行处理参数校验的异常信息
+
 ### 返回结果封装
+
 #### 系统内置code码
+
 ```java
 /**
      * 验证成功
@@ -79,7 +96,9 @@ public class WebRestFulApplication {
      */
     ERR("异常", "ERR");
 ```
+
 #### 简易返回结果实体  ResResultVO
+
 ```java
 /**
      * 业务状态码
@@ -112,7 +131,9 @@ public class WebRestFulApplication {
     private Long timestamp;
 
 ```
+
 #### 二级code码返回结果实体  ResultVO
+
 ```java
     /**
      * 系统级别的CODE码
@@ -145,8 +166,11 @@ public class WebRestFulApplication {
     @ApiModelProperty(value = "系统响应的回参数据是一个泛型",example = "{}")
     private T data;
 ```
+
 ### 开启swagger
+
 #### 使用@EnableSwagger 注解开启swagger
+
 ```java
 @EnableSwagger
 @SpringBootApplication
@@ -156,14 +180,18 @@ public class WebRestFulApplication {
     }
 }
 ```
+
 #### swagger 的配置
+
 ```yaml
 swagger:
   title: 标题
   description: 描述
   version: v1.0.1
 ```
+
 ### 使用@EnableFastJsonHttpConverters开启FastJson序列化
+
 ```java
 @EnableFastJsonHttpConverters
 @SpringBootApplication
@@ -173,6 +201,8 @@ public class WebRestFulApplication {
     }
 }
 ```
+
 #### @EnableFastJsonHttpConverters 有两个属性
+
 1. longToString 将long转换为String字符串 js没有long类型会有经度丢失 默认是false
-2. nullShowValue  是否展示值为null的key 默认是false
+2. nullShowValue 是否展示值为null的key 默认是false

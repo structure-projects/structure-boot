@@ -1,16 +1,17 @@
 package cn.structure.example.tk.mapper.model;
 
-import java.util.Date;
-import javax.persistence.*;
-
 import cn.structure.starter.mybatis.annotation.CreateTime;
 import cn.structure.starter.mybatis.annotation.UpdateTime;
 import lombok.Data;
 
+import javax.persistence.Column;
+import javax.persistence.Id;
+import java.util.Date;
+
 @Data
 public class User {
     /**
-     *  主键ID （会员信息表的ID相同）
+     * 主键ID （会员信息表的ID相同）
      */
     @Id
     private Long id;

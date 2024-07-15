@@ -2,11 +2,12 @@ package cn.structure.common.constant;
 
 /**
  * <p>
- *     认证用到常量
+ * 认证用到常量
  * </p>
+ *
  * @author CHUCK
- * @since 2020-12-26
  * @version 1.0.1
+ * @since 2020-12-26
  */
 public class AuthConstant {
 

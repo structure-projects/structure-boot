@@ -6,7 +6,7 @@
     <parent>
         <groupId>cn.structured</groupId>
         <artifactId>structure-dependencies</artifactId>
-        <version>1.2.0.RELEASE</version>
+        <version>1.2.1.RELEASE</version>
     </parent>
 
     <version>1.2.1.RELEASE</version>
@@ -14,7 +14,7 @@
 
     <artifactId>structure-redis-starter</artifactId>
     <name>structure-redis-starter</name>
-    <description> 对spring-boot-starter-data-redis启动器进行封装正在意义上的零配置启动</description>
+    <description>对spring-boot-starter-data-redis启动器进行封装正在意义上的零配置启动</description>
     <url>https://projects.structured.cn/structure-boot</url>
     <inceptionYear>2021</inceptionYear>
     <organization>
@@ -54,16 +54,16 @@
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-autoconfigure</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-aop</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-configuration-processor</artifactId>
-            <optional>true</optional>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -76,8 +76,8 @@
             </exclusions>
         </dependency>
         <dependency>
-            <groupId>redis.clients</groupId>
-            <artifactId>jedis</artifactId>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-redis</artifactId>
         </dependency>
     </dependencies>
 </project>

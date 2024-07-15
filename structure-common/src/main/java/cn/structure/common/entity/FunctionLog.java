@@ -6,11 +6,12 @@ import lombok.ToString;
 
 /**
  * <p>
- *     方法日志
+ * 方法日志
  * </p>
+ *
  * @author chuck
- * @since 2020-12-26
  * @version 1.0.1
+ * @since 2020-12-26
  */
 @Getter
 @Setter

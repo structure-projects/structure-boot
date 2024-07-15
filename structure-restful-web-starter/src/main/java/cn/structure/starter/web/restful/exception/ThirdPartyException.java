@@ -4,11 +4,12 @@ import lombok.*;
 
 /**
  * <p>
- *     第三方公共异常类
+ * 第三方公共异常类
  * </p>
+ *
  * @author chuck
- * @since 2021-01-03
  * @version 1.0.1
+ * @since 2021-01-03
  */
 @NoArgsConstructor
 @AllArgsConstructor

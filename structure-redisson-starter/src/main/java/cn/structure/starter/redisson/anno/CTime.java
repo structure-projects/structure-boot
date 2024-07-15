@@ -5,16 +5,17 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * <p>
- *     缓存时间策略配置
+ * 缓存时间策略配置
  * </p>
+ *
  * @author chuck
- * @since 2020-12-23
  * @version 1.0.1
+ * @since 2020-12-23
  */
 @Target(ElementType.PARAMETER)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-public @interface CTime{
+public @interface CTime {
     /**
      * 是否有时效果
      */

@@ -9,11 +9,12 @@ import java.util.List;
 
 /**
  * <p>
- *     哨兵模式
+ * 哨兵模式
  * </p>
+ *
  * @author chuck
- * @since 2020-12-23
  * @version 1.0.1
+ * @since 2020-12-23
  */
 @Getter
 @Setter

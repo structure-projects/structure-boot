@@ -2,6 +2,7 @@ package cn.structure.common.constant;
 
 /**
  * 符号常量
+ *
  * @author chuck
  */
 public class SymbolConstant {

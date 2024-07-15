@@ -11,7 +11,7 @@ import java.util.Map;
 
 /**
  * <p>
- *     集群配置
+ * 集群配置
  * </p>
  */
 @Getter

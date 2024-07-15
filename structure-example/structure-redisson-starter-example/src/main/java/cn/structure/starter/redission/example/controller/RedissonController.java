@@ -2,16 +2,14 @@ package cn.structure.starter.redission.example.controller;
 
 import org.redisson.api.RBucket;
 import org.redisson.api.RedissonClient;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 
 /**
  * <p>
- *  redisson使用的控制器
+ * redisson使用的控制器
  * </p>
  *
  * @author chuck

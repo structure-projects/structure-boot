@@ -7,17 +7,18 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * <p>
- *     分布式锁实现
+ * 分布式锁实现
  * </p>
+ *
  * @author chuck
- * @since 2020-12-23
  * @version 1.0.1
+ * @since 2020-12-23
  */
 public class DistributedLockerImpl implements IDistributedLocker {
 
     private RedissonClient redissonClient;
 
-    public DistributedLockerImpl(RedissonClient redissonClient){
+    public DistributedLockerImpl(RedissonClient redissonClient) {
         this.redissonClient = redissonClient;
     }
 
@@ -36,7 +37,7 @@ public class DistributedLockerImpl implements IDistributedLocker {
     }
 
     @Override
-    public RLock lock(String lockKey, TimeUnit unit , int timeout) {
+    public RLock lock(String lockKey, TimeUnit unit, int timeout) {
         RLock lock = redissonClient.getLock(lockKey);
         lock.lock(timeout, unit);
         return lock;

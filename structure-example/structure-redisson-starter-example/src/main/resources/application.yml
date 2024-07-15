@@ -4,10 +4,10 @@ structure:
     #指定连接方式
     model: single
     #如果有密码配置密码
-    #password: 123456
+    password: 123456
     single:
       #默认情况下只需要配置地址
-      address: redis://127.0.0.1:6379
+      address: redis://172.16.0.249:6379
     cache:
       key-group-name: test
 

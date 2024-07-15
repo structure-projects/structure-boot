@@ -1,7 +1,6 @@
 package cn.structure.starter.web.restful.configuration;
 
 import io.swagger.annotations.Api;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
@@ -17,11 +16,12 @@ import javax.annotation.Resource;
 
 /**
  * <p>
- *     swagger 2 的配置类
+ * swagger 2 的配置类
  * </p>
+ *
  * @author chuck
- * @since 2021-01-03
  * @version 1.0.1
+ * @since 2021-01-03
  */
 @Configuration
 @EnableSwagger2

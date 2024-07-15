@@ -12,8 +12,9 @@ import org.springframework.context.annotation.Configuration;
 
 /**
  * <p>
- *     mybatis 配置
+ * mybatis 配置
  * </p>
+ *
  * @author chuck
  * @version 1.0.1
  * @since 2020/12/26 23:47

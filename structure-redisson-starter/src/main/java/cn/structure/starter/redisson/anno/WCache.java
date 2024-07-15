@@ -4,11 +4,12 @@ import java.lang.annotation.*;
 
 /**
  * <p>
- *     写缓存注解
+ * 写缓存注解
  * </p>
+ *
  * @author chuck
- * @since 2020-12-23
  * @version 1.0.1
+ * @since 2020-12-23
  */
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)

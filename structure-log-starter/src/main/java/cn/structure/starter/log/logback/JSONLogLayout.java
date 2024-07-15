@@ -10,11 +10,12 @@ import java.util.Map;
 
 /**
  * <p>
- *     json格式日志生成
+ * json格式日志生成
  * </p>
+ *
  * @author chuck
- * @since 2020/6/3 12:05
  * @version 1.0.1
+ * @since 2020/6/3 12:05
  */
 public class JSONLogLayout extends LayoutBase<ILoggingEvent> {
 
@@ -27,12 +28,12 @@ public class JSONLogLayout extends LayoutBase<ILoggingEvent> {
         Map map = event.getMDCPropertyMap();
         StringBuilder sb = new StringBuilder();
         sb.append("{");
-        if(map.get(MDCkey) != null){
+        if (map.get(MDCkey) != null) {
             sb.append("\"trace\":");
-            sb.append("\""+map.get(MDCkey)+"\", ");
+            sb.append("\"" + map.get(MDCkey) + "\", ");
         }
         sb.append("\"project\":");
-        sb.append("\""+projectName+"\", ");
+        sb.append("\"" + projectName + "\", ");
         sb.append("\"pro_time\":");
         sb.append("\"").append(new Timestamp(event.getTimeStamp())).append("\"");
         sb.append(", \"level\":");
@@ -43,7 +44,7 @@ public class JSONLogLayout extends LayoutBase<ILoggingEvent> {
         sb.append("\"").append(event.getLoggerName()).append("\"");
         sb.append(",\"message\": ");
         String message = event.getFormattedMessage();
-        if (event.getThrowableProxy()!=null){
+        if (event.getThrowableProxy() != null) {
             ExtendedThrowableProxyConverter throwableConverter = new ExtendedThrowableProxyConverter();
             throwableConverter.start();
             message = event.getFormattedMessage() + "\n" + throwableConverter.convert(event);

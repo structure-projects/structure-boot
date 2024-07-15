@@ -1,7 +1,7 @@
 package cn.structure.example.mybatisplus.service.impl;
 
-import cn.structure.example.mybatisplus.pojo.po.User;
 import cn.structure.example.mybatisplus.mapper.UserMapper;
+import cn.structure.example.mybatisplus.pojo.po.User;
 import cn.structure.example.mybatisplus.service.IUserService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
@@ -36,13 +36,13 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
 
     @Override
     public List<User> listUserPage(String username, int pageSize, int offset) {
-        return this.baseMapper.listUserPage(new User(){{
+        return this.baseMapper.listUserPage(new User() {{
             setUsername(username);
-        }},pageSize,offset);
+        }}, pageSize, offset);
     }
 
     @Override
     public List<User> listUserPage(User user, int pageSize, int offset) {
-        return this.baseMapper.listUserPage(user,pageSize,offset);
+        return this.baseMapper.listUserPage(user, pageSize, offset);
     }
 }

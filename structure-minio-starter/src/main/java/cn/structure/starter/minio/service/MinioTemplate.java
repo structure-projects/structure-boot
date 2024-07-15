@@ -15,12 +15,10 @@
  * Author:
  */
 
-package cn.structure.starter.minio.service.v1;
+package cn.structure.starter.minio.service;
 
 import cn.structure.starter.minio.vo.MinioItem;
-import io.minio.MinioClient;
-import io.minio.ObjectStat;
-import io.minio.Result;
+import io.minio.*;
 import io.minio.messages.Bucket;
 import io.minio.messages.Item;
 import lombok.AllArgsConstructor;
@@ -57,8 +55,8 @@ public class MinioTemplate {
      */
     @SneakyThrows
     public void createBucket(String bucketName) {
-        if (!minioClient.bucketExists(bucketName)) {
-            minioClient.makeBucket(bucketName);
+        if (!minioClient.bucketExists(BucketExistsArgs.builder().bucket(bucketName).build())) {
+            minioClient.makeBucket(MakeBucketArgs.builder().bucket(bucketName).build());
         }
     }
 
@@ -66,6 +64,7 @@ public class MinioTemplate {
      * 获取全部bucket
      * <p>
      * https://docs.minio.io/cn/java-client-api-reference.html#listBuckets
+     * </p>
      */
     @SneakyThrows
     public List<Bucket> getAllBuckets() {
@@ -85,7 +84,7 @@ public class MinioTemplate {
      */
     @SneakyThrows
     public void removeBucket(String bucketName) {
-        minioClient.removeBucket(bucketName);
+        minioClient.removeBucket(RemoveBucketArgs.builder().bucket(bucketName).build());
     }
 
     /**
@@ -99,8 +98,7 @@ public class MinioTemplate {
     @SneakyThrows
     public List<MinioItem> getAllObjectsByPrefix(String bucketName, String prefix, boolean recursive) {
         List<MinioItem> objectList = new ArrayList<>();
-        Iterable<Result<Item>> objectsIterator = minioClient.listObjects(bucketName, prefix, recursive);
-
+        Iterable<Result<Item>> objectsIterator = minioClient.listObjects(ListObjectsArgs.builder().bucket(bucketName).prefix(prefix).recursive(recursive).build());
         while (objectsIterator.iterator().hasNext()) {
             objectList.add(new MinioItem(objectsIterator.iterator().next().get()));
         }
@@ -114,11 +112,15 @@ public class MinioTemplate {
      * @param objectName 文件名称
      * @param expires    失效时间（以秒为单位），默认是7天，不得大于七天。
      * @return url
-     * @
      */
     @SneakyThrows
     public String getObjectURL(String bucketName, String objectName, Integer expires) {
-        return minioClient.presignedGetObject(bucketName, objectName, expires);
+        return minioClient.getPresignedObjectUrl(GetPresignedObjectUrlArgs
+                .builder()
+                .bucket(bucketName)
+                .object(objectName)
+                .expiry(expires)
+                .build());
     }
 
     /**
@@ -130,7 +132,10 @@ public class MinioTemplate {
      */
     @SneakyThrows
     public InputStream getObject(String bucketName, String objectName) {
-        return minioClient.getObject(bucketName, objectName);
+        return minioClient.getObject(GetObjectArgs.builder()
+                .bucket(bucketName)
+                .object(objectName)
+                .build());
     }
 
     /**
@@ -142,7 +147,11 @@ public class MinioTemplate {
      * @throws Exception https://docs.minio.io/cn/java-client-api-reference.html#putObject
      */
     public void putObject(String bucketName, String objectName, InputStream stream) throws Exception {
-        minioClient.putObject(bucketName, objectName, stream, (long) stream.available(), null, null, "application/octet-stream");
+        minioClient.putObject(PutObjectArgs.builder()
+                .object(objectName)
+                .bucket(bucketName)
+                .stream(stream, stream.available(), -1)
+                .build());
     }
 
     /**
@@ -156,7 +165,11 @@ public class MinioTemplate {
      * @throws Exception https://docs.minio.io/cn/java-client-api-reference.html#putObject
      */
     public void putObject(String bucketName, String objectName, InputStream stream, long size, String contextType) throws Exception {
-        minioClient.putObject(bucketName, objectName, stream, size, null, null, contextType);
+        minioClient.putObject(PutObjectArgs.builder()
+                .object(objectName)
+                .bucket(bucketName)
+                .stream(stream, stream.available(), -1)
+                .build());
     }
 
     /**
@@ -166,8 +179,8 @@ public class MinioTemplate {
      * @param objectName 文件名称
      * @throws Exception https://docs.minio.io/cn/java-client-api-reference.html#statObject
      */
-    public ObjectStat getObjectInfo(String bucketName, String objectName) throws Exception {
-        return minioClient.statObject(bucketName, objectName);
+    public StatObjectResponse getObjectInfo(String bucketName, String objectName) throws Exception {
+        return minioClient.statObject(StatObjectArgs.builder().bucket(bucketName).object(objectName).build());
     }
 
     /**
@@ -177,10 +190,9 @@ public class MinioTemplate {
      * @param bucketName bucket名称
      * @param objectName 文件名称
      * @throws Exception https://docs.minio.io/cn/java-client-api-reference.html#removeObject
-     * @author chuck
      * @since createTime 2021/7/17 14:06
      */
     public void removeObject(String bucketName, String objectName) throws Exception {
-        minioClient.removeObject(bucketName, objectName);
+        minioClient.removeObject(RemoveObjectArgs.builder().bucket(bucketName).object(objectName).build());
     }
 }

@@ -2,7 +2,10 @@ server:
   port: 19001
 structure:
   minio:
-    url:  http://10.16.105.146:9011
+    url: http://10.16.105.146:9010
     access-key: root
-    secret-key: password
+    secret-key: Abc123!@#
     endpoint-enable: true # 是否开启endpoint
+spring:
+  main:
+    allow-circular-references: true

@@ -18,7 +18,8 @@ import java.util.Date;
  */
 public class DateUtil {
 
-    private DateUtil(){}
+    private DateUtil() {
+    }
 
     /**
      * 默认根式
@@ -184,7 +185,7 @@ public class DateUtil {
     /**
      * 字符串时间转换成Date格式
      *
-     * @param date 日期
+     * @param date    日期
      * @param pattern 格式
      * @return java.text.SimpleDateFormat
      */
@@ -195,8 +196,9 @@ public class DateUtil {
 
     /**
      * 获取日期格式
+     *
      * @param pattern 格式
-     * @return  java.text.SimpleDateFormat
+     * @return java.text.SimpleDateFormat
      */
     private static SimpleDateFormat getSimpleDateFormat(String pattern) {
         return new SimpleDateFormat(pattern);

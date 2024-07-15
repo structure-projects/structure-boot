@@ -20,7 +20,6 @@
         <dependency>
             <groupId>cn.structured</groupId>
             <artifactId>structure-redis-starter</artifactId>
-            <version>1.0.1.RELEASE</version>
         </dependency>
 
     </dependencies>

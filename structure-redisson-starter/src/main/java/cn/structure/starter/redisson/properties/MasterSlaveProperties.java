@@ -9,16 +9,17 @@ import java.util.Set;
 
 /**
  * <p>
- *     主从模式
+ * 主从模式
  * </p>
+ *
  * @author chuck
- * @since 2020-12-23
  * @version 1.0.1
+ * @since 2020-12-23
  */
 @Getter
 @Setter
 @ToString
-public class MasterSlaveProperties extends MultipleServerProperties{
+public class MasterSlaveProperties extends MultipleServerProperties {
     /**
      * 从节点地址配置
      */

@@ -4,11 +4,12 @@ import lombok.Getter;
 
 /**
  * <p>
- *     返回结果code枚举
+ * 返回结果code枚举
  * </p>
+ *
  * @author chuck
  * @version 1.0.0
- * @since  2019-10-20
+ * @since 2019-10-20
  */
 @Getter
 public enum ResultCodeEnum {

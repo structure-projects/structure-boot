@@ -27,53 +27,53 @@ public class UserController {
     private IUserService iUserService;
 
     @GetMapping(value = "/getUserById")
-    public User getUserById(@RequestParam("id")Long id) {
+    public User getUserById(@RequestParam("id") Long id) {
         return iUserService.getUserById(id);
     }
 
     @GetMapping(value = "/getUserByUsername")
-    public User getUserByUsername(@RequestParam("username")String username) {
+    public User getUserByUsername(@RequestParam("username") String username) {
         return iUserService.getUserByUsername(username);
     }
 
     @GetMapping(value = "/list")
-    public List<User> listUserPage(@RequestParam("username")String username,
-                                   @RequestParam("pageSize")Integer pageSize,
-                                   @RequestParam("offset")Integer offset) {
-        return iUserService.listUserPage(username,pageSize,offset);
+    public List<User> listUserPage(@RequestParam("username") String username,
+                                   @RequestParam("pageSize") Integer pageSize,
+                                   @RequestParam("offset") Integer offset) {
+        return iUserService.listUserPage(username, pageSize, offset);
     }
 
     @PostMapping(value = "/add")
-    public Map<String,Object> insertUser(@RequestBody User user) {
+    public Map<String, Object> insertUser(@RequestBody User user) {
         user.setCreateTime(new Date());
         user.setUpdateTime(new Date());
         iUserService.insertUser(user);
-        return new HashMap<String,Object>(){{
-            put("code","SUCCESS");
-            put("message","成功！");
-            put("data",user.getId());
+        return new HashMap<String, Object>() {{
+            put("code", "SUCCESS");
+            put("message", "成功！");
+            put("data", user.getId());
         }};
     }
 
     @PutMapping(value = "/update/{id}")
-    public Map<String,Object> update(@PathVariable("id")Long id,@RequestBody User user) {
+    public Map<String, Object> update(@PathVariable("id") Long id, @RequestBody User user) {
         user.setId(id);
         user.setUpdateTime(new Date());
         int i = iUserService.updateUserById(user);
-        return new HashMap<String,Object>(){{
-            put("code","SUCCESS");
-            put("message","成功！");
-            put("data",i);
+        return new HashMap<String, Object>() {{
+            put("code", "SUCCESS");
+            put("message", "成功！");
+            put("data", i);
         }};
     }
 
     @DeleteMapping(value = "/delete/{id}")
-    public Map<String,Object> delete(@PathVariable("id")Long id) {
+    public Map<String, Object> delete(@PathVariable("id") Long id) {
         int i = iUserService.deleteById(id);
-        return new HashMap<String,Object>(){{
-            put("code","SUCCESS");
-            put("message","成功！");
-            put("data",i);
+        return new HashMap<String, Object>() {{
+            put("code", "SUCCESS");
+            put("message", "成功！");
+            put("data", i);
         }};
     }
 }

@@ -7,11 +7,12 @@ import java.lang.annotation.*;
 
 /**
  * <p>
- *     开启 Swagger2
+ * 开启 Swagger2
  * </p>
+ *
  * @author chuck
- * @since 2021-01-03
  * @version 1.0.1
+ * @since 2021-01-03
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)

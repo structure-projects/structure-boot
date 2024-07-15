@@ -6,11 +6,12 @@ import lombok.ToString;
 
 /**
  * <p>
- *     校验失败信息实体
+ * 校验失败信息实体
  * </p>
+ *
  * @author chuck
- * @since 2020-12-26
  * @version 1.0.1
+ * @since 2020-12-26
  */
 @Getter
 @Setter

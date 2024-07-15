@@ -30,11 +30,12 @@ import static cn.structure.starter.redisson.utils.StringUtil.prefixAddress;
 
 /**
  * <p>
- *     redisson配置
+ * redisson配置
  * </p>
+ *
  * @author chuck
- * @since 2020-12-23
  * @version 1.0.1
+ * @since 2020-12-23
  */
 @Slf4j
 @Configuration
@@ -53,23 +54,24 @@ public class RedissonConfiguration {
 
     @Bean
     @ConditionalOnMissingBean(RedisCacheAop.class)
-    public RedisCacheAop redisCacheAop(){
+    public RedisCacheAop redisCacheAop() {
         return new RedisCacheAop();
     }
 
     @Bean
     @ConditionalOnClass(RedissonClient.class)
-    public IDistributedLocker distributedLocker(RedissonClient redissonClient){
+    public IDistributedLocker distributedLocker(RedissonClient redissonClient) {
         return new DistributedLockerImpl(redissonClient);
     }
 
     /**
      * 注入config
-     * @return
+     *
+     * @return {@link Config}
      */
     @Bean
     @ConditionalOnMissingBean(Config.class)
-    public Config config(){
+    public Config config() {
         Config config = new Config();
         try {
             config.setCodec((Codec) Class.forName(redissonProperties.getCodec()).newInstance());
@@ -83,28 +85,30 @@ public class RedissonConfiguration {
         config.setUseScriptCache(redissonProperties.getUseScriptCache());
         config.setMinCleanUpDelay(redissonProperties.getMinCleanUpDelay());
         config.setMaxCleanUpDelay(redissonProperties.getMaxCleanUpDelay());
-        config.setTransportMode((redissonProperties.getTransportMode() == null)? TransportMode.NIO : redissonProperties.getTransportMode());
+        config.setTransportMode((redissonProperties.getTransportMode() == null) ? TransportMode.NIO : redissonProperties.getTransportMode());
         return config;
     }
 
     /**
      * 注入 RedissonReactiveClient 单体模式
-     * @param config
-     * @return
+     *
+     * @param config 配置
+     * @return {@link RedissonReactiveClient}
      */
     @Bean
     @ConditionalOnClass(Config.class)
     @ConditionalOnProperty(value = "structure.redisson.model", havingValue = "single")
     @ConditionalOnMissingBean(RedissonReactiveClient.class)
-    public RedissonReactiveClient redissonReactiveClientBySingle(Config config){
+    public RedissonReactiveClient redissonReactiveClientBySingle(Config config) {
         redissonSingleConfig(config);
         return Redisson.createReactive(config);
     }
 
     /**
      * 注入 RedissonClient 单体模式
-     * @param config
-     * @return
+     *
+     * @param config 配置
+     * @return {@link RedissonReactiveClient}
      */
     @Bean
     @ConditionalOnClass(Config.class)
@@ -117,100 +121,106 @@ public class RedissonConfiguration {
 
     /**
      * 注入 RedissonRxClient 单体模式
-     * @param config
-     * @return
+     *
+     * @param config 配置
+     * @return {@link RedissonReactiveClient}
      */
     @Bean
     @ConditionalOnClass(Config.class)
     @ConditionalOnProperty(value = "structure.redisson.model", havingValue = "single")
     @ConditionalOnMissingBean(RedissonRxClient.class)
-    public RedissonRxClient redissonRxClientBySingle(Config config){
+    public RedissonRxClient redissonRxClientBySingle(Config config) {
         redissonSingleConfig(config);
         return Redisson.createRx(config);
     }
 
     /**
      * 注入 RedissonReactiveClient 哨兵模式
-     * @param config
-     * @return
+     *
+     * @param config 配置
+     * @return {@link RedissonReactiveClient}
      */
     @Bean
     @ConditionalOnClass(Config.class)
-    @ConditionalOnProperty(value = "structure.redisson.model",havingValue = "sentinel")
+    @ConditionalOnProperty(value = "structure.redisson.model", havingValue = "sentinel")
     @ConditionalOnMissingBean(RedissonReactiveClient.class)
-    public RedissonReactiveClient redissonReactiveClientBySentinel(Config config){
+    public RedissonReactiveClient redissonReactiveClientBySentinel(Config config) {
         redissonSentinelConfig(config);
         return Redisson.createReactive(config);
     }
 
     /**
      * 注入 RedissonClient 哨兵模式
-     * @param config
-     * @return
+     *
+     * @param config 配置
+     * @return {@link RedissonReactiveClient}
      */
     @Bean
     @ConditionalOnClass(Config.class)
-    @ConditionalOnProperty(value = "structure.redisson.model",havingValue = "sentinel")
+    @ConditionalOnProperty(value = "structure.redisson.model", havingValue = "sentinel")
     @ConditionalOnMissingBean(RedissonClient.class)
-    public RedissonClient redissonClientBySentinel(Config config){
+    public RedissonClient redissonClientBySentinel(Config config) {
         redissonSentinelConfig(config);
         return Redisson.create(config);
     }
 
     /**
      * 注入 RedissonRxClient 哨兵模式
-     * @param config
-     * @return
+     *
+     * @param config 配置
+     * @return {@link RedissonReactiveClient}
      */
     @Bean
     @ConditionalOnClass(Config.class)
     @ConditionalOnProperty(value = "structure.redisson.model", havingValue = "sentinel")
     @ConditionalOnMissingBean(RedissonRxClient.class)
-    public RedissonRxClient redissonRxClientBySentinel(Config config){
+    public RedissonRxClient redissonRxClientBySentinel(Config config) {
         redissonSentinelConfig(config);
         return Redisson.createRx(config);
     }
 
 
-
     /**
      * 注入 RedissonReactiveClient 集群模式
-     * @param config
-     * @return
+     *
+     * @param config 配置
+     * @return {@link RedissonReactiveClient}
      */
     @Bean
     @ConditionalOnClass(Config.class)
-    @ConditionalOnProperty(value = "structure.redisson.model",havingValue = "cluster")
+    @ConditionalOnProperty(value = "structure.redisson.model", havingValue = "cluster")
     @ConditionalOnMissingBean(RedissonReactiveClient.class)
-    public RedissonReactiveClient redissonReactiveClientByCluster(Config config){
+    public RedissonReactiveClient redissonReactiveClientByCluster(Config config) {
         redissonClusterConfig(config);
         return Redisson.createReactive(config);
     }
 
     /**
      * 注入 RedissonClient 集群模式
-     * @param config
-     * @return
+     *
+     * @param config 配置
+     * @return {@link RedissonReactiveClient}
      */
     @Bean
     @ConditionalOnClass(Config.class)
-    @ConditionalOnProperty(value = "structure.redisson.model",havingValue = "cluster")
+    @ConditionalOnProperty(value = "structure.redisson.model", havingValue = "cluster")
     @ConditionalOnMissingBean(RedissonClient.class)
-    public RedissonClient redissonClientByCluster(Config config){
+    public RedissonClient redissonClientByCluster(Config config) {
         redissonClusterConfig(config);
         return Redisson.create(config);
     }
 
     /**
      * 注入 RedissonRxClient 集群模式
-     * @param config
-     * @return
+     *
+     * @param config 配置
+     * @return {@link RedissonReactiveClient}
      */
     @Bean
     @ConditionalOnClass(Config.class)
     @ConditionalOnProperty(value = "structure.redisson.model", havingValue = "cluster")
     @ConditionalOnMissingBean(RedissonRxClient.class)
-    public RedissonRxClient redissonRxClientByCluster(Config config){
+    public RedissonRxClient redissonRxClientByCluster(Config config) {
         redissonClusterConfig(config);
         return Redisson.createRx(config);
     }
@@ -218,65 +228,69 @@ public class RedissonConfiguration {
 
     /**
      * 注入 RedissonReactiveClient 托管模式
-     * @param config
-     * @return
+     *
+     * @param config 配置
+     * @return {@link RedissonReactiveClient}
      */
     @Bean
     @ConditionalOnClass(Config.class)
-    @ConditionalOnProperty(value = "structure.redisson.model",havingValue = "replicated")
+    @ConditionalOnProperty(value = "structure.redisson.model", havingValue = "replicated")
     @ConditionalOnMissingBean(RedissonReactiveClient.class)
-    public RedissonReactiveClient redissonReactiveClientByReplicated(Config config){
+    public RedissonReactiveClient redissonReactiveClientByReplicated(Config config) {
         redissonReplicatedConfig(config);
         return Redisson.createReactive(config);
     }
 
     /**
      * 注入 RedissonClient 托管模式
-     * @param config
-     * @return
+     *
+     * @param config 配置
+     * @return {@link RedissonReactiveClient}
      */
     @Bean
     @ConditionalOnClass(Config.class)
-    @ConditionalOnProperty(value = "structure.redisson.model",havingValue = "replicated")
+    @ConditionalOnProperty(value = "structure.redisson.model", havingValue = "replicated")
     @ConditionalOnMissingBean(RedissonClient.class)
-    public RedissonClient redissonClientByReplicated(Config config){
+    public RedissonClient redissonClientByReplicated(Config config) {
         redissonReplicatedConfig(config);
         return Redisson.create(config);
     }
 
     /**
      * 注入 RedissonRxClient 云托管模式
-     * @param config
-     * @return
+     *
+     * @param config 配置
+     * @return {@link RedissonReactiveClient}
      */
     @Bean
     @ConditionalOnClass(Config.class)
     @ConditionalOnProperty(value = "structure.redisson.model", havingValue = "replicated")
     @ConditionalOnMissingBean(RedissonRxClient.class)
-    public RedissonRxClient redissonRxClientByReplicated(Config config){
+    public RedissonRxClient redissonRxClientByReplicated(Config config) {
         redissonReplicatedConfig(config);
         return Redisson.createRx(config);
     }
 
     /**
      * 注入 RedissonRxClient 主从模式
-     * @param config
-     * @return
+     *
+     * @param config 配置
+     * @return {@link RedissonReactiveClient}
      */
     @Bean
     @ConditionalOnClass(Config.class)
-    @ConditionalOnProperty(value = "structure.redisson.model",havingValue = "master-slave")
+    @ConditionalOnProperty(value = "structure.redisson.model", havingValue = "master-slave")
     @ConditionalOnMissingBean(RedissonReactiveClient.class)
-    public RedissonReactiveClient redissonReactiveClientByMasterSlave(Config config){
+    public RedissonReactiveClient redissonReactiveClientByMasterSlave(Config config) {
         redissonMasterSlaveConfig(config);
         return Redisson.createReactive(config);
     }
 
     @Bean
     @ConditionalOnClass(Config.class)
-    @ConditionalOnProperty(value = "structure.redisson.model",havingValue = "master-slave")
+    @ConditionalOnProperty(value = "structure.redisson.model", havingValue = "master-slave")
     @ConditionalOnMissingBean(RedissonClient.class)
-    public RedissonClient redissonClientByMasterSlave(Config config){
+    public RedissonClient redissonClientByMasterSlave(Config config) {
         redissonMasterSlaveConfig(config);
         return Redisson.create(config);
     }
@@ -285,7 +299,7 @@ public class RedissonConfiguration {
     @ConditionalOnClass(Config.class)
     @ConditionalOnProperty(value = "structure.redisson.model", havingValue = "master-slave")
     @ConditionalOnMissingBean(RedissonRxClient.class)
-    public RedissonRxClient redissonRxClientByMasterSlave(Config config){
+    public RedissonRxClient redissonRxClientByMasterSlave(Config config) {
         redissonMasterSlaveConfig(config);
         return Redisson.createRx(config);
     }
@@ -293,7 +307,8 @@ public class RedissonConfiguration {
 
     /**
      * 加载redisson单体配置
-     * @param config
+     *
+     * @param config 配置
      */
     private void redissonSingleConfig(Config config) {
         SingleServerConfig singleServerConfig = config.useSingleServer();
@@ -336,21 +351,23 @@ public class RedissonConfiguration {
 
     /**
      * 加载redisson集群配置
-     * @param config
+     *
+     * @param config redisson配置
      */
-    private void redissonClusterConfig(Config config){
+    private void redissonClusterConfig(Config config) {
         ClusterProperties cluster = redissonProperties.getCluster();
         ClusterServersConfig clusterServersConfig = config.useClusterServers();
         clusterServersConfig.setNatMap(cluster.getNatMap());
         for (String nodeAddress : cluster.getNodeAddresses()) {
             clusterServersConfig.addNodeAddress(prefixAddress(nodeAddress));
         }
-        initBaseConfig(clusterServersConfig,cluster);
+        initBaseConfig(clusterServersConfig, cluster);
     }
 
     /**
      * 加载 redisson 托管配置
-     * @param config
+     *
+     * @param config redisson配置
      */
     private void redissonReplicatedConfig(Config config) {
         ReplicatedProperties replicated = redissonProperties.getReplicated();
@@ -360,14 +377,15 @@ public class RedissonConfiguration {
         for (String nodeAddress : replicated.getNodeAddresses()) {
             replicatedServersConfig.addNodeAddress(prefixAddress(nodeAddress));
         }
-        initBaseConfig(replicatedServersConfig,replicated);
+        initBaseConfig(replicatedServersConfig, replicated);
     }
 
     /**
      * 加载 redisson 哨兵配置
+     *
      * @param config
      */
-    private void redissonSentinelConfig (Config config){
+    private void redissonSentinelConfig(Config config) {
         SentinelProperties sentinel = redissonProperties.getSentinel();
         SentinelServersConfig sentinelServersConfig = config.useSentinelServers();
         sentinelServersConfig.setDatabase(redissonProperties.getDatabase());
@@ -376,12 +394,13 @@ public class RedissonConfiguration {
         for (String nodeAddress : sentinel.getSentinelAddresses()) {
             sentinelServersConfig.addSentinelAddress(prefixAddress(nodeAddress));
         }
-        initBaseConfig(sentinelServersConfig,sentinel);
+        initBaseConfig(sentinelServersConfig, sentinel);
     }
 
     /**
      * 加载主从模式配置
-     * @param config
+     *
+     * @param config redisson配置
      */
     private void redissonMasterSlaveConfig(Config config) {
         MasterSlaveProperties masterSlave = redissonProperties.getMasterSlave();
@@ -391,13 +410,14 @@ public class RedissonConfiguration {
         for (String nodeAddress : masterSlave.getSlaveAddresses()) {
             masterSlaveServersConfig.addSlaveAddress(prefixAddress(nodeAddress));
         }
-        initBaseConfig(masterSlaveServersConfig,masterSlave);
+        initBaseConfig(masterSlaveServersConfig, masterSlave);
     }
 
     /**
      * 初始化多节点公共配置
-     * @param baseMasterSlaveServersConfig
-     * @param multipleServerProperties
+     *
+     * @param baseMasterSlaveServersConfig 主从配置
+     * @param multipleServerProperties     多节点配置
      */
     private void initBaseConfig(BaseMasterSlaveServersConfig baseMasterSlaveServersConfig, MultipleServerProperties multipleServerProperties) {
         baseMasterSlaveServersConfig.setSlaveConnectionMinimumIdleSize(multipleServerProperties.getSlaveConnectionMinimumIdleSize());

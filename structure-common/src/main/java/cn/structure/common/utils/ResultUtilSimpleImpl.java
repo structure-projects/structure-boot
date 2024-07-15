@@ -6,7 +6,6 @@ import cn.structure.common.entity.VerificationFailedMsg;
 import cn.structure.common.enums.ResultCodeEnum;
 import cn.structure.common.exception.CommonException;
 
-import java.io.Serializable;
 import java.util.List;
 
 /**

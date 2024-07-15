@@ -22,7 +22,7 @@ import io.minio.messages.Owner;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
-import java.util.Date;
+import java.time.ZonedDateTime;
 
 /**
  * <p>
@@ -37,42 +37,42 @@ import java.util.Date;
 @AllArgsConstructor
 public class MinioItem {
 
-	/**
-	 * 对象名
-	 */
-	private String objectName;
-	/**
-	 * 上次修改时间
-	 */
-	private Date lastModified;
-	/**
-	 * 标签
-	 */
-	private String etag;
-	/**
-	 * 存储类别
-	 */
-	private Long size;
-	/**
-	 * 存储类
-	 */
-	private String storageClass;
-	/**
-	 * 所有者
-	 */
-	private Owner owner;
-	/**
-	 * 类型
-	 */
-	private String type;
+    /**
+     * 对象名
+     */
+    private String objectName;
+    /**
+     * 上次修改时间
+     */
+    private ZonedDateTime lastModified;
+    /**
+     * 标签
+     */
+    private String etag;
+    /**
+     * 存储类别
+     */
+    private Long size;
+    /**
+     * 存储类
+     */
+    private String storageClass;
+    /**
+     * 所有者
+     */
+    private Owner owner;
+    /**
+     * 类型
+     */
+    private String type;
 
-	public MinioItem(Item item) {
-		this.objectName = item.objectName();
-		this.lastModified = item.lastModified();
-		this.etag = item.etag();
-		this.size = (long) item.size();
-		this.storageClass = item.storageClass();
-		this.owner = item.owner();
-		this.type = item.isDir() ? "directory" : "file";
-	}
+    public MinioItem(Item item) {
+        this.objectName = item.objectName();
+        this.lastModified = item.lastModified();
+        this.etag = item.etag();
+        this.size = (long) item.size();
+        this.storageClass = item.storageClass();
+        this.owner = item.owner();
+        this.type = item.isDir() ? "directory" : "file";
+    }
 }

@@ -9,8 +9,9 @@ import org.springframework.util.StringUtils;
 
 /**
  * <p>
- *     string 工具类
+ * string 工具类
  * </p>
+ *
  * @author chuck
  * @since 2020-12-26
  */
@@ -18,14 +19,15 @@ public class StringUtil {
 
     /**
      * <p>
-     *     通过spel表达式获取理想的key值
+     * 通过spel表达式获取理想的key值
      * </p>
-     * @param key key 参数
+     *
+     * @param key            key 参数
      * @param parameterNames 参数列表名
-     * @param values 参数列表值
+     * @param values         参数列表值
      * @return java.lang.String
      */
-    public static String getValueBySpelKey(String key, String[] parameterNames, Object[] values){
+    public static String getValueBySpelKey(String key, String[] parameterNames, Object[] values) {
         //不存在表达式返回
         if (!key.contains("#")) {
             return key;
@@ -35,7 +37,7 @@ public class StringUtil {
         //要返回的key
         StringBuilder sb = new StringBuilder();
         //遍历拆分结果用解析器解析
-        for (int i = 0 ; i <= spelKeys.length - 1 ; i++) {
+        for (int i = 0; i <= spelKeys.length - 1; i++) {
             if (!spelKeys[i].startsWith("#")) {
                 sb.append(spelKeys[i]);
                 continue;
@@ -60,6 +62,7 @@ public class StringUtil {
 
     /**
      * <p>判断字符串是否为空</p>
+     *
      * @param string
      * @return boolean
      **/
@@ -78,8 +81,9 @@ public class StringUtil {
 
     /**
      * <p>
-     *     判断是否为空白字符
+     * 判断是否为空白字符
      * </p>
+     *
      * @param c
      * @return boolean
      **/
@@ -89,8 +93,9 @@ public class StringUtil {
 
     /**
      * <p>
-     *     unicode 转字符串
+     * unicode 转字符串
      * </p>
+     *
      * @param unicode
      * @return java.lang.String
      **/
@@ -114,8 +119,9 @@ public class StringUtil {
 
     /**
      * <p>
-     *     去掉英文单引号以及首尾空格
+     * 去掉英文单引号以及首尾空格
      * </p>
+     *
      * @param string
      * @return java.lang.String
      **/
@@ -125,8 +131,9 @@ public class StringUtil {
 
     /**
      * <p>
-     *     去掉英文单引号以及所有空格
+     * 去掉英文单引号以及所有空格
      * </p>
+     *
      * @param string
      * @return java.lang.String
      **/
@@ -136,12 +143,13 @@ public class StringUtil {
 
     /**
      * <p>
-     *      拼接redis带前缀的地址
+     * 拼接redis带前缀的地址
      * </p>
-     * @param address
-     * @return
+     *
+     * @param address redis 地址
+     * @return 新的地址
      */
-    public static  String prefixAddress(String address) {
+    public static String prefixAddress(String address) {
         if (!StringUtils.isEmpty(address) && !address.startsWith("redis")) {
             return "redis://" + address;
         }

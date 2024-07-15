@@ -10,11 +10,12 @@ import org.springframework.context.annotation.Import;
 
 /**
  * <p>
- *     自动配置
+ * 自动配置
  * </p>
+ *
  * @author chuck
- * @since 2020/6/3 12:05
  * @version 1.0.1
+ * @since 2020/6/3 12:05
  */
 @Configuration
 @ConditionalOnClass(value = {WebAopConfigProperties.class})
@@ -23,7 +24,7 @@ public class AutoConfiguration {
 
     @Bean
     @ConditionalOnMissingBean(WebLogAspect.class)
-    public WebLogAspect webLogAspect(){
+    public WebLogAspect webLogAspect() {
         return new WebLogAspect();
     }
 

@@ -8,11 +8,12 @@ import java.lang.annotation.*;
 
 /**
  * <p>
- *     开启webAop的log需要配置路径
+ * 开启webAop的log需要配置路径
  * </p>
+ *
  * @author chuck
- * @since 2020/6/3 12:05
  * @version 1.0.1
+ * @since 2020/6/3 12:05
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)

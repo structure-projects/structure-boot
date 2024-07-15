@@ -46,7 +46,7 @@ public class User {
     private Boolean enabled;
 
     /**
-     *是否锁定 0:  锁定 1:未锁定
+     * 是否锁定 0:  锁定 1:未锁定
      */
     private Boolean unlocked;
 

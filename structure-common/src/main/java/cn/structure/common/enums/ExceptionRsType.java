@@ -4,8 +4,9 @@ import lombok.Getter;
 
 /**
  * <p>
- *     鉴权异常返回枚举
+ * 鉴权异常返回枚举
  * </p>
+ *
  * @author chuck
  */
 @Getter

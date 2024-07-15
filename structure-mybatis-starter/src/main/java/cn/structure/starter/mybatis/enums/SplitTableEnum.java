@@ -2,8 +2,9 @@ package cn.structure.starter.mybatis.enums;
 
 /**
  * <p>
- *     分表的类型
+ * 分表的类型
  * </p>
+ *
  * @author chuck
  * @version 1.0.1
  * @since 2020/12/26 23:06

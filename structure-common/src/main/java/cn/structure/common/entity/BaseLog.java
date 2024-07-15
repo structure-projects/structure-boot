@@ -8,11 +8,12 @@ import lombok.ToString;
 
 /**
  * <p>
- *     日志实体基类
+ * 日志实体基类
  * </p>
+ *
  * @author chuck
- * @since 2020-12-26
  * @version 1.0.1
+ * @since 2020-12-26
  */
 @Getter
 @Setter
@@ -51,6 +52,7 @@ public class BaseLog {
 
     /**
      * 将日志转换为JSON的字符串
+     *
      * @return java.lang.String
      */
     public String toJSONString() {

@@ -15,11 +15,12 @@ import java.util.Date;
 
 /**
  * <p>
- *     日志记录切面
+ * 日志记录切面
  * </p>
+ *
  * @author chuck
- * @since 2021-01-01
  * @version 1.0.1
+ * @since 2021-01-01
  */
 @Aspect
 @Component
@@ -33,11 +34,11 @@ public class ParamLogsAspect {
 
     /**
      * <p>
-     *     日志入参记录
+     * 日志入参记录
      * </p>
      **/
     @Around("aroundPointcut()")
-    public Object recodInParam(ProceedingJoinPoint pjp)  throws Throwable {
+    public Object recodInParam(ProceedingJoinPoint pjp) throws Throwable {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
         String targetClass = pjp.getTarget().getClass().toString();
         String targetMethod = pjp.getSignature().getName();
@@ -57,7 +58,7 @@ public class ParamLogsAspect {
             Throwable cause = throwable.getCause();
             String message = cause.getMessage();
             log.error(message);
-            throw  throwable;
+            throw throwable;
         }
         Date endDateTime = new Date();
         functionLog.setEndTime(sdf.format(endDateTime));

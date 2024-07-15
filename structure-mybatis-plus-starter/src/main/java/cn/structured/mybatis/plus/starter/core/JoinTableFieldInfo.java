@@ -39,5 +39,5 @@ public class JoinTableFieldInfo {
     /**
      * sql条件组
      */
-    private Map<Class<?>,String> sqlConditionGroup;
+    private Map<Class<?>, String> sqlConditionGroup;
 }

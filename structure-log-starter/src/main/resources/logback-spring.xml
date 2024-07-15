@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--该日志将日志级别不同的log信息保存到不同的文件中-->
 <configuration>
-    <include resource="org/springframework/boot/logging/logback/defaults.xml" />
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
 
     <timestamp key="bySecond" datePattern="yyyy-MM-dd HH:mm:ss,SSS"/>
 
     <!-- 控制台的日志输出样式 MK-->
     <property name="CONSOLE_LOG_PATTERN"
-              value="%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr([%level] [%X{traceId}/%X{spanId}] [%thread]) %clr(---){faint} [%cyan(%logger).%method:%L] %clr(LOG:) %highlight(%m%n)}" />
+              value="%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr([%level] [%X{traceId}/%X{spanId}] [%thread]) %clr(---){faint} [%cyan(%logger).%method:%L] %clr(LOG:) %highlight(%m%n)}"/>
 
     <springProperty scope="context" name="springAppName"
-                    source="spring.application.name"  defaultValue="service-center" />
+                    source="spring.application.name" defaultValue="service-center"/>
 
     <!-- 日志在工程中的输出位置 -->
-    <property name="LOG_FILE" value="${BUILD_FOLDER:-build}/${springAppName}" />
+    <property name="LOG_FILE" value="${BUILD_FOLDER:-build}/${springAppName}"/>
 
     <!-- 控制台输出 -->
     <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
@@ -29,22 +29,28 @@
 
     <!-- 文件输出 -->
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        　　　　<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-        　　　　　　<fileNamePattern>logs/${springAppName}.%d{yyyy-MM-dd}.log</fileNamePattern>
-        　　　　　　<maxHistory>30</maxHistory>
-        　　　　</rollingPolicy>
-        　　　　<encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
-                    <layout class="cn.structure.starter.log.logback.JSONLogLayout" >
-                        <MDCkey>traceId</MDCkey>
-                        <projectName>${springAppName}</projectName>
-                    </layout>
-                </encoder>
-        　　</appender>
+        　　　　
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            　　　　　　
+            <fileNamePattern>logs/${springAppName}.%d{yyyy-MM-dd}.log</fileNamePattern>
+            　　　　　　
+            <maxHistory>30</maxHistory>
+            　　　　
+        </rollingPolicy>
+        　　　　
+        <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+            <layout class="cn.structure.starter.log.logback.JSONLogLayout">
+                <MDCkey>traceId</MDCkey>
+                <projectName>${springAppName}</projectName>
+            </layout>
+        </encoder>
+        　　
+    </appender>
 
     <!-- 日志输出级别 -->
     <root level="INFO">
-        <appender-ref ref="FILE" />
-        <appender-ref ref="console" />
+        <appender-ref ref="FILE"/>
+        <appender-ref ref="console"/>
         <!--<appender-ref ref="logstash" />-->
     </root>
 </configuration>

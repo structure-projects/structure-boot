@@ -15,7 +15,6 @@ import lombok.Getter;
 public enum LogicKeywordEnum {
     //逻辑关键字
     AND("AND"),
-    OR("OR")
-    ;
+    OR("OR");
     private String keyword;
 }

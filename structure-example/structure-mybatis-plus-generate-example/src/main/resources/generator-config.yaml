@@ -41,7 +41,7 @@ strategyConfig:
   restControllerStyle: true
   tablePrefix:
   include:
-  - user_info
+    - user_info
 tableFill:
   is_deleted: INSERT
   create_time: INSERT

@@ -29,7 +29,7 @@ public class RedissonLockController {
 
     @RequestMapping("/testLock2")
     @Lock(keys = "#testVO.id")
-    public void testLockObject(@RequestBody TestVO testVO ) throws InterruptedException {
+    public void testLockObject(@RequestBody TestVO testVO) throws InterruptedException {
         System.out.println("key = " + testVO.getId());
         Thread.sleep(10000L);
     }

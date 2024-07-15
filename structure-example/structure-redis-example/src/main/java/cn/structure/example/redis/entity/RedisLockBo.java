@@ -1,11 +1,11 @@
 package cn.structure.example.redis.entity;
 
 
-
 /**
  * <p>
- *     redis锁的测试实体
+ * redis锁的测试实体
  * </p>
+ *
  * @author chuck
  */
 public class RedisLockBo {

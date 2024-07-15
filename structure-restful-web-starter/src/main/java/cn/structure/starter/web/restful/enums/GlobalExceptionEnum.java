@@ -13,12 +13,11 @@ package cn.structure.starter.web.restful.enums;
 public enum GlobalExceptionEnum {
 
     SIMPLE("simple"),
-    FATHER("father")
-    ;
+    FATHER("father");
 
     private String value;
 
-    GlobalExceptionEnum(String value){
+    GlobalExceptionEnum(String value) {
         this.value = value;
     }
 

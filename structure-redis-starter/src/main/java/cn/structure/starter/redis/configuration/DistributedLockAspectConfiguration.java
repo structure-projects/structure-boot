@@ -1,5 +1,6 @@
 package cn.structure.starter.redis.configuration;
 
+import cn.structure.starter.redis.annotation.RedisLock;
 import cn.structure.starter.redis.lock.IDistributedLock;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -15,15 +16,15 @@ import org.springframework.expression.Expression;
 import org.springframework.expression.ExpressionParser;
 import org.springframework.expression.spel.standard.SpelExpressionParser;
 import org.springframework.expression.spel.support.StandardEvaluationContext;
-import cn.structure.starter.redis.annotation.RedisLock;
 
 import javax.annotation.Resource;
 import java.lang.reflect.Method;
 
 /**
  * <p>
- *     RedisLock代理实现类
+ * RedisLock代理实现类
  * </p>
+ *
  * @author chuck
  * @version 1.0.1
  */
@@ -43,14 +44,15 @@ public class DistributedLockAspectConfiguration {
 
     /**
      * <p>
-     *     解析spel表达式获取redisLock 的key
+     * 解析spel表达式获取redisLock 的key
      * </p>
-     * @param key spel 表达式key入参
+     *
+     * @param key            spel 表达式key入参
      * @param parameterNames 代理方法中的参数名称列表
-     * @param values 代理方法中的参数值
+     * @param values         代理方法中的参数值
      * @return 返回redisLock key
      */
-    public static String getValueBySpelKey(String key, String[] parameterNames, Object[] values){
+    public static String getValueBySpelKey(String key, String[] parameterNames, Object[] values) {
         //不存在表达式返回
         if (!key.contains("#")) {
             return key;
@@ -60,7 +62,7 @@ public class DistributedLockAspectConfiguration {
         //要返回的key
         StringBuilder sb = new StringBuilder();
         //遍历拆分结果用解析器解析
-        for (int i = 0 ; i <= spelKeys.length - 1 ; i++) {
+        for (int i = 0; i <= spelKeys.length - 1; i++) {
             if (!spelKeys[i].startsWith("#")) {
                 sb.append(spelKeys[i]);
                 continue;
@@ -76,7 +78,7 @@ public class DistributedLockAspectConfiguration {
             Expression expression = parser.parseExpression(tempKey);
             Object value = expression.getValue(context);
             if (value != null) {
-                sb.append(value.toString());
+                sb.append(value);
             }
         }
         //返回
@@ -85,11 +87,11 @@ public class DistributedLockAspectConfiguration {
 
     /**
      * <p>
-     *     增强代理 - redisLock的代理核心代理业务
+     * 增强代理 - redisLock的代理核心代理业务
      * </p>
+     *
      * @param pjp 增强代理参数
-     * @return  Object
-     * @throws Throwable
+     * @return Object
      */
     @Around("lockPoint()")
     public Object around(ProceedingJoinPoint pjp) throws Throwable {
@@ -99,22 +101,22 @@ public class DistributedLockAspectConfiguration {
         String[] parameterNames = new LocalVariableTableParameterNameDiscoverer().getParameterNames(((MethodSignature) pjp.getSignature()).getMethod());
         //获取参数值
         Object[] args = pjp.getArgs();
-        String key = getValueBySpelKey(redisLock.value(),parameterNames,args);
+        String key = getValueBySpelKey(redisLock.value(), parameterNames, args);
         int retryTimes = redisLock.action().equals(RedisLock.LockFailAction.CONTINUE) ? redisLock.retryTimes() : 0;
         boolean lock = distributedLock.lock(key, redisLock.keepMills(), retryTimes, redisLock.sleepMills());
         if (!lock) {
-            logger.debug("get lock failed : " + key);
+            logger.debug("get lock failed : {}", key);
             return null;
         }
         //得到锁,执行方法，释放锁
-        logger.debug("get lock success : " + key);
+        logger.debug("get lock success : {}", key);
         try {
             return pjp.proceed();
         } catch (Exception e) {
             logger.error("execute locked method proceed an exception", e);
         } finally {
             boolean releaseResult = distributedLock.releaseLock(key);
-            logger.debug("release lock : " + key + (releaseResult ? " success" : " failed"));
+            logger.debug("release lock : {}{}", key, releaseResult ? " success" : " failed");
         }
         return null;
     }

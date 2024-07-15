@@ -32,8 +32,9 @@ public interface IBaseService<T> extends IService<T> {
 
     /**
      * 查询列表
+     *
      * @param queryWrapper 查询条件
-     * @return
+     * @return 返回结果列表
      */
     List<T> list(QueryJoinPageListWrapper<T> queryWrapper);
 
@@ -42,7 +43,7 @@ public interface IBaseService<T> extends IService<T> {
      *
      * @param reqPage 分页参数
      * @param isJoin  是否表关联
-     * @return
+     * @return {@link IPage} 分页列表
      */
     IPage<T> page(ReqPage reqPage, boolean isJoin);
 

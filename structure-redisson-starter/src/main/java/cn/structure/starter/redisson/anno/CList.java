@@ -5,13 +5,14 @@ import java.lang.annotation.*;
 
 /**
  * <p>
- *   对redisList存储结构封装list缓存注解
- *   <pre>
+ * 对redisList存储结构封装list缓存注解
+ * <pre>
  *   可以搭配{@link CMap} redisson 的map结构和对象结构混合使用
  *   </pre>
+ *
  * @author chuck
- * @since 2020-12-23
  * @version 1.0.1
+ * @since 2020-12-23
  */
 @Target(ElementType.PARAMETER)
 @Retention(RetentionPolicy.RUNTIME)
@@ -21,6 +22,7 @@ public @interface CList {
      * 是否为list集合
      */
     boolean isList() default false;
+
     /**
      * 更新集合的key
      */
@@ -46,10 +48,10 @@ public @interface CList {
      */
     CTime time() default @CTime();
 
-    enum  ListType {
+    enum ListType {
         /**
-         *     KEY 是指存储的集合对象只存储了数据中的key部分
-         *     不太建议只存储KEY -- 双向没有时效限制时可以使用key 或者说时效比较长在定时更新范围内
+         * KEY 是指存储的集合对象只存储了数据中的key部分
+         * 不太建议只存储KEY -- 双向没有时效限制时可以使用key 或者说时效比较长在定时更新范围内
          */
         KEY(),
         /**

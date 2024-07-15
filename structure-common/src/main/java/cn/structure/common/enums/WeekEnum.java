@@ -5,11 +5,12 @@ import lombok.Getter;
 
 /**
  * <p>
- *     星期枚举
+ * 星期枚举
  * </p>
+ *
  * @author CHUCK
- * @since 2020-12-26
  * @version 1.0.1
+ * @since 2020-12-26
  */
 @Getter
 @AllArgsConstructor

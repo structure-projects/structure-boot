@@ -17,11 +17,12 @@ import java.util.Date;
 
 /**
  * <p>
- *     webLogController的配置
+ * webLogController的配置
  * </p>
+ *
  * @author chuck
- * @since 2020/6/3 12:05
  * @version 1.0.1
+ * @since 2020/6/3 12:05
  */
 public class WebLogAspect {
 
@@ -49,7 +50,6 @@ public class WebLogAspect {
 
     /**
      * 后处理  returning的值和doAfterReturning的参数名一致
-     *
      */
     public void doAfterReturning(Object ret) {
         controllerLog.setTimeDiff(c);
@@ -59,7 +59,7 @@ public class WebLogAspect {
         log.info(JSON.toJSONString(controllerLog));
     }
 
-    public Object doAround(ProceedingJoinPoint pjp) throws Throwable  {
+    public Object doAround(ProceedingJoinPoint pjp) throws Throwable {
         long startTime = System.currentTimeMillis();
         // ob 为方法的返回值
         Object ob = pjp.proceed();

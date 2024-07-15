@@ -5,10 +5,12 @@ package cn.structure.common.utils;
  */
 public class StringUtil {
 
-    private StringUtil(){ }
+    private StringUtil() {
+    }
 
     /**
      * 判断字符串是否为空
+     *
      * @param str 字符串
      * @return boolean
      **/
@@ -27,6 +29,7 @@ public class StringUtil {
 
     /**
      * 判断是否为空白字符
+     *
      * @param c 字符
      * @return boolean
      **/
@@ -36,7 +39,8 @@ public class StringUtil {
 
     /**
      * unicode 转字符串
-     * @param  unicode unicode
+     *
+     * @param unicode unicode
      * @return java.lang.String
      **/
     public static String unicode2String(String unicode) {
@@ -59,6 +63,7 @@ public class StringUtil {
 
     /**
      * 去掉英文单引号以及首尾空格
+     *
      * @param str 字符串
      * @return java.lang.String
      **/
@@ -68,6 +73,7 @@ public class StringUtil {
 
     /**
      * 去掉英文单引号以及所有空格
+     *
      * @param str 字符串
      * @return java.lang.String
      **/
@@ -77,7 +83,8 @@ public class StringUtil {
 
     /**
      * 手机号中间4位替换为掩码
-     * @param  phone 手机号
+     *
+     * @param phone 手机号
      * @return java.lang.String
      **/
     public static String maskReplaceStar(String phone) {

@@ -2,8 +2,9 @@ package cn.structure.starter.mybatis.enums;
 
 /**
  * <p>
- *     生成ID的方式
+ * 生成ID的方式
  * </p>
+ *
  * @author chuck
  * @version 1.0.1
  * @since 2020/12/26 23:47

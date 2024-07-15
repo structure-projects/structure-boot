@@ -8,8 +8,9 @@ import java.lang.annotation.*;
 
 /**
  * <p>
- *     分表注解
+ * 分表注解
  * </p>
+ *
  * @author chuck
  * @version 1.0.1
  * @since 2020/12/26 23:06
@@ -52,5 +53,5 @@ public @interface SplitTable {
     /**
      * 时间分表参数
      */
-    String timeSplitFormat() default  "YYYY-MM";
+    String timeSplitFormat() default "YYYY-MM";
 }

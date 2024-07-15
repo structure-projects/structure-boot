@@ -13,7 +13,7 @@ import org.springframework.context.annotation.ImportResource;
  * @since 2021/1/3 15:41
  */
 @ImportResource(locations = {"classpath:structure-boot-aop.xml"})
-@ConditionalOnProperty(value = "structure.log.aop.enable",matchIfMissing = true)
+@ConditionalOnProperty(value = "structure.log.aop.enable", matchIfMissing = true)
 public class WebAopConfig {
 
 }

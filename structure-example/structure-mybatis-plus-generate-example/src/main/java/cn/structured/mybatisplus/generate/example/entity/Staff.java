@@ -3,7 +3,6 @@ package cn.structured.mybatisplus.generate.example.entity;
 import cn.structured.mybatis.plus.starter.annotations.FieldJoin;
 import cn.structured.mybatis.plus.starter.annotations.Join;
 import cn.structured.mybatis.plus.starter.annotations.JoinCondition;
-import cn.structured.mybatis.plus.starter.annotations.LogicDelete;
 import cn.structured.mybatis.plus.starter.enums.JoinResultEnum;
 import cn.structured.mybatis.plus.starter.enums.JoinTypeEnum;
 import cn.structured.mybatisplus.generate.example.group.PostGroup;

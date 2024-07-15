@@ -4,11 +4,12 @@ import lombok.Getter;
 
 /**
  * <p>
- *     log类型枚举
+ * log类型枚举
  * </p>
+ *
  * @author chuck
- * @since 2020-12-26
  * @version 1.0.1
+ * @since 2020-12-26
  */
 @Getter
 public enum LogEnums {

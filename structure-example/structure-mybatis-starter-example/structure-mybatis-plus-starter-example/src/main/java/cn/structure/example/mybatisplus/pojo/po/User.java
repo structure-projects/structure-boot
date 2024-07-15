@@ -1,12 +1,12 @@
 package cn.structure.example.mybatisplus.pojo.po;
 
 import com.baomidou.mybatisplus.annotation.*;
-
-import java.time.LocalDateTime;
-import java.io.Serializable;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+
+import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * <p>
@@ -24,7 +24,7 @@ public class User implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
-     *  主键ID
+     * 主键ID
      */
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
@@ -63,16 +63,16 @@ public class User implements Serializable {
      * 是否删除 0：未删除 1：删除
      */
     @TableLogic
-    @TableField(value = "is_deleted",select = false)
+    @TableField(value = "is_deleted", select = false)
     private Boolean deleted;
 
     /**
      * 创建时间
      */
-    @TableField(value = "create_time",fill = FieldFill.INSERT)
+    @TableField(value = "create_time", fill = FieldFill.INSERT)
     private LocalDateTime createTime;
 
-    @TableField(value = "update_time",fill = FieldFill.INSERT_UPDATE)
+    @TableField(value = "update_time", fill = FieldFill.INSERT_UPDATE)
     private LocalDateTime updateTime;
 
 

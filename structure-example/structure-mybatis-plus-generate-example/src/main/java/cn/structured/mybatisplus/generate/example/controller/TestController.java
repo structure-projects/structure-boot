@@ -1,13 +1,13 @@
 package cn.structured.mybatisplus.generate.example.controller;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 import cn.structured.mybatisplus.generate.example.dao.OrgPostMapper;
 import cn.structured.mybatisplus.generate.example.entity.OrgPost;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * <p>
@@ -26,7 +26,7 @@ public class TestController {
     private OrgPostMapper orgPostMapper;
 
     @RequestMapping("/save")
-    public void insertList(){
+    public void insertList() {
 
         List<OrgPost> orgPostList = new ArrayList<>();
 
@@ -48,7 +48,7 @@ public class TestController {
     }
 
     @RequestMapping("/rm")
-    public void rm(){
+    public void rm() {
         orgPostMapper.deleteById(1);
     }
 

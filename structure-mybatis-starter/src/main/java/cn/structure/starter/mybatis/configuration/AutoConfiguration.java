@@ -16,14 +16,15 @@ import java.util.Properties;
 
 /**
  * <p>
- *      自动装载配置类
+ * 自动装载配置类
  * </p>
+ *
  * @author chuck
  * @version 1.0.1
  * @since 2020/12/26 23:47
  */
 @Configuration
-@ImportAutoConfiguration(value = {MybatisProperties.class,EnableSplitDateSource.class})
+@ImportAutoConfiguration(value = {MybatisProperties.class, EnableSplitDateSource.class})
 public class AutoConfiguration {
 
     @Resource
@@ -32,23 +33,23 @@ public class AutoConfiguration {
     @Bean
     @ConditionalOnProperty(value = "structure.mybatis.plugin.over-write", havingValue = "true")
     @ConditionalOnMissingBean(OverWritePluginParameter.class)
-    public OverWritePluginParameter overWritePluginParameter(){
+    public OverWritePluginParameter overWritePluginParameter() {
         return new OverWritePluginParameter();
     }
 
     @Bean
     @ConditionalOnMissingBean(Snowflake.class)
-    public Snowflake snowflake(){
+    public Snowflake snowflake() {
         Integer dataCenter = mybatisProperties.getDataCenter();
         Integer machine = mybatisProperties.getMachine();
-        dataCenter = (null == dataCenter)? 0 : dataCenter;
-        machine = (null == machine)? 0 : machine;
-        return IdUtil.createSnowflake(machine,dataCenter);
+        dataCenter = (null == dataCenter) ? 0 : dataCenter;
+        machine = (null == machine) ? 0 : machine;
+        return IdUtil.createSnowflake(machine, dataCenter);
     }
 
     @Bean
     @ConditionalOnMissingBean(Interceptor.class)
-    public Interceptor getPageInterceptor(){
+    public Interceptor getPageInterceptor() {
         PageInterceptor pageInterceptor = new PageInterceptor();
         Properties p = new Properties();
         p.setProperty("helperDialect", mybatisProperties.getPage().getHelperDialect());

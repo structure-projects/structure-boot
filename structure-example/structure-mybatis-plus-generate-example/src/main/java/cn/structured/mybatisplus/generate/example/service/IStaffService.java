@@ -26,6 +26,7 @@ public interface IStaffService extends IBaseService<Staff> {
 
     /**
      * 通过用户ID查询详情
+     *
      * @param id
      * @return
      */

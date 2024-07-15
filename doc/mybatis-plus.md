@@ -1,13 +1,18 @@
 # structure-mybatis-plus
+
 structure-mybatis-plus 对mybatis进行部分功能的扩展
 
 ## 功能介绍
+
 1. 集成mybatis-plus
 2. 批量插入
 3. 联表查询
-4. 代码生成 
+4. 代码生成
+
 ## 如何使用
+
 ### 引用POM ###
+
 ```xml
     <dependency>
         <groupId>cn.structured</groupId>
@@ -15,7 +20,9 @@ structure-mybatis-plus 对mybatis进行部分功能的扩展
         <version>${last.version}</version>
     </dependency>
 ```
+
 ### yaml 配置 ### 
+
 ```yaml
 server:
   port: 18003
@@ -26,8 +33,11 @@ spring:
     url: jdbc:mysql://yourServerAddress:3306/mybatis?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
     driver-class-name: com.mysql.cj.jdbc.Driver
 ```
+
 ### 批量插入展示 ###
+
 Mapper 需要继承 cn.structured.mybatis.plus.starter.base.IBaseMapper
+
 ```java
 package cn.structured.mybatisplus.generate.example.dao;
 
@@ -46,7 +56,9 @@ public interface OrgPostMapper extends IBaseMapper<OrgPost> {
 
 }
 ```
+
 调用法即可调用批量插入
+
 ```java
   public void insertList(){
 
@@ -69,8 +81,11 @@ public interface OrgPostMapper extends IBaseMapper<OrgPost> {
         orgPostMapper.insertList(orgPostList);
     }
 ```
+
 ### 关表查询 ### 
+
 联表查询主要维护数据实体关系即可
+
 ```java
     /**
      * 创建人
@@ -110,7 +125,9 @@ public interface OrgPostMapper extends IBaseMapper<OrgPost> {
 ```
 
 ### 代码生成 ### 
+
 #### POM 配置 ####
+
 ```xml
         <buil>
             <plugin>
@@ -128,7 +145,9 @@ public interface OrgPostMapper extends IBaseMapper<OrgPost> {
             </plugin>
         </buil>
 ```
+
 #### 代码生成配置 #### 
+
 ```yaml
 globalConfig:
   author: chuck

@@ -16,6 +16,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class MinioApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(MinioApplication.class,args);
+        SpringApplication.run(MinioApplication.class, args);
     }
 }

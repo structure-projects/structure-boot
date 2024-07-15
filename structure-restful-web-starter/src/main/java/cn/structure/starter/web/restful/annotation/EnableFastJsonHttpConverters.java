@@ -7,17 +7,17 @@ import java.lang.annotation.*;
 
 /**
  * <p>
- *     开启fastJson出参转换
+ * 开启fastJson出参转换
  * </p>
+ *
  * @author chuck
- * @since 2021-01-03
  * @version 1.0.1
+ * @since 2021-01-03
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 @Documented
 @Import(FastJsonHttpMessageConverters.class)
-@Deprecated
 public @interface EnableFastJsonHttpConverters {
 
     /**

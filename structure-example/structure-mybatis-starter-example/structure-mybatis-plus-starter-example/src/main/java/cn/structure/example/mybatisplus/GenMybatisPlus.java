@@ -1,7 +1,10 @@
 package cn.structure.example.mybatisplus;
 
 import com.baomidou.mybatisplus.generator.AutoGenerator;
-import com.baomidou.mybatisplus.generator.config.*;
+import com.baomidou.mybatisplus.generator.config.DataSourceConfig;
+import com.baomidou.mybatisplus.generator.config.GlobalConfig;
+import com.baomidou.mybatisplus.generator.config.PackageConfig;
+import com.baomidou.mybatisplus.generator.config.StrategyConfig;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 
 /**
@@ -13,13 +16,13 @@ public class GenMybatisPlus {
     /**
      * 父包
      */
-    static String parent ="cn.structure.example.mybatisplus";
+    static String parent = "cn.structure.example.mybatisplus";
 
     static String module = "/structure-mybatis-starter-example/structure-mybatis-plus-starter-example";
     /**
      * 要生成的表名
      */
-    static String [] tableList = {"user"};
+    static String[] tableList = {"user"};
     /**
      * 数据库信息不用改
      */
@@ -34,6 +37,7 @@ public class GenMybatisPlus {
         genCode();
 
     }
+
     private static void genCode() {
         //代码生成器
         AutoGenerator autoGenerator = new AutoGenerator();

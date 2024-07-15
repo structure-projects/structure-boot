@@ -18,6 +18,7 @@ public interface UserMapper extends BaseMapper<User> {
 
     /**
      * 插入用户 XML 仅仅展示用
+     *
      * @param user
      * @return
      */
@@ -25,6 +26,7 @@ public interface UserMapper extends BaseMapper<User> {
 
     /**
      * 修改用户 XML 仅仅展示用
+     *
      * @param user
      * @return
      */
@@ -32,6 +34,7 @@ public interface UserMapper extends BaseMapper<User> {
 
     /**
      * 通过用户名获取用户
+     *
      * @param username
      * @return
      */
@@ -39,11 +42,12 @@ public interface UserMapper extends BaseMapper<User> {
 
     /**
      * 通过用户实体获取用户分页列表
+     *
      * @param user
      * @param pageSize
      * @param offset
      * @return
      */
-    List<User> listUserPage(@Param("user")User user,@Param("pageSize") int pageSize, @Param("offset")int offset);
+    List<User> listUserPage(@Param("user") User user, @Param("pageSize") int pageSize, @Param("offset") int offset);
 
 }

@@ -12,7 +12,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ImportSelector;
 import org.springframework.core.type.AnnotationMetadata;
 import org.springframework.http.MediaType;
-import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.stereotype.Component;
 import org.springframework.util.MultiValueMap;
 
@@ -22,12 +21,12 @@ import java.util.List;
 
 /**
  * <p>
- *     Json转换配置
+ * Json转换配置
  * </p>
- * @author chuck
- * @since 2021-01-03
- * @version 1.0.1
  *
+ * @author chuck
+ * @version 1.0.1
+ * @since 2021-01-03
  */
 @Getter
 @Setter
@@ -66,8 +65,7 @@ public class FastJsonHttpMessageConverters implements ImportSelector {
         //7、在convert中添加配置信息
         fastConverter.setFastJsonConfig(fastJsonConfig);
         //8、将convert添加到converters中
-        HttpMessageConverter<?> converter = fastConverter;
-        return new HttpMessageConverters(converter);
+        return new HttpMessageConverters(fastConverter);
     }
 
     @Override

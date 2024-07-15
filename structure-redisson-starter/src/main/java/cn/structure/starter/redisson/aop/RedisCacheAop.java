@@ -9,7 +9,6 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.redisson.api.*;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.core.LocalVariableTableParameterNameDiscoverer;
 
 import javax.annotation.Resource;
@@ -20,11 +19,12 @@ import static cn.structure.starter.redisson.utils.StringUtil.getValueBySpelKey;
 
 /**
  * <p>
- *     Redis缓存Aop实现
+ * Redis缓存Aop实现
  * </p>
+ *
  * @author chuck
- * @since 2020-12-23
  * @version 1.0.1
+ * @since 2020-12-23
  */
 @Slf4j
 @Aspect
@@ -38,7 +38,7 @@ public class RedisCacheAop {
 
     /**
      * <p>
-     *     写入缓存
+     * 写入缓存
      * </p>
      **/
     @Around("@annotation(wCache)")
@@ -52,21 +52,21 @@ public class RedisCacheAop {
         //className
         String className = proceedingJoinPoint.getTarget().getClass().toString();
         //1.0 获取Redis中的key
-        String key = getKey(getValueBySpelKey(wCache.key(),parameterNames,args));
+        String key = getKey(getValueBySpelKey(wCache.key(), parameterNames, args));
         //判断key是否无效
-        if (key == null ||  key.isEmpty() || key.length() <= 0 ) {
-            log.error("写入缓存->{},->{}, 存在无效的KEY",className,methodName);
+        if (key == null || key.isEmpty() || key.length() <= 0) {
+            log.error("写入缓存->{},->{}, 存在无效的KEY", className, methodName);
             return null;
         }
-        log.info("写入缓存->{},->{}, key = {}",className,methodName,key);
+        log.info("写入缓存->{},->{}, key = {}", className, methodName, key);
         //从方法中拿到返回结果
         Object proceed = proceedingJoinPoint.proceed();
         if (wCache.isObjCache()) {
             RBucket<Object> bucket = redissonClient.getBucket(key);
             //判断是否有时效
             if (null != wCache.time() && wCache.time().isTime()) {
-                bucket.set(proceed,wCache.time().time(),wCache.time().timeType());
-            }else {
+                bucket.set(proceed, wCache.time().time(), wCache.time().timeType());
+            } else {
                 //放入redis中
                 bucket.set(proceed);
             }
@@ -75,15 +75,15 @@ public class RedisCacheAop {
         if (null != wCache.list() && wCache.list().isList()) {
             //集合的key
             String listKeyName = getValueBySpelKey(getKey(wCache.list().listKeyName()), parameterNames, args);
-            log.info("写入缓存集合的KEY = {}, type = {}",listKeyName,wCache.list().value());
+            log.info("写入缓存集合的KEY = {}, type = {}", listKeyName, wCache.list().value());
             Object data = proceed;
             //更新集合key
             if (wCache.list().value() == CList.ListType.KEY) {
                 data = key;
-            }else if (wCache.list().value() == CList.ListType.MAP) {
-                data =  getValueBySpelKey(wCache.map().mapKey(), parameterNames, args);
+            } else if (wCache.list().value() == CList.ListType.MAP) {
+                data = getValueBySpelKey(wCache.map().mapKey(), parameterNames, args);
             }
-            updateCacheList(listKeyName,data,wCache.list().size(),wCache.list().time());
+            updateCacheList(listKeyName, data, wCache.list().size(), wCache.list().time());
         }
         //判断存储map
         if (null != wCache.map() && wCache.map().isMap()) {
@@ -91,37 +91,39 @@ public class RedisCacheAop {
             String mapKey = getKey(getValueBySpelKey(wCache.map().mapKey(), parameterNames, args));
             String subMapKey = getValueBySpelKey(wCache.key(), parameterNames, args);
             //更新map緩存
-            updateMapCache(mapKey,subMapKey,proceed,wCache.map().time());
+            updateMapCache(mapKey, subMapKey, proceed, wCache.map().time());
         }
         log.info("wCache - > END");
         return proceed;
     }
+
     /**
      * <p>
-     *     更新map缓存
+     * 更新map缓存
      * </p>
+     *
      * @author chuck
      **/
-    private void updateMapCache(String mapKey, String key,Object data, CTime time){
-        log.info("updateMapCache - > mapKey = {},key = {},data = {}",mapKey,key,data);
+    private void updateMapCache(String mapKey, String key, Object data, CTime time) {
+        log.info("updateMapCache - > mapKey = {},key = {},data = {}", mapKey, key, data);
         RMap<String, Object> map = redissonClient.getMap(mapKey);
         if (time.isTime()) {
-            map.expire(time.time(),time.timeType());
+            map.expire(time.time(), time.timeType());
         }
-        map.put(key,data);
+        map.put(key, data);
     }
 
     /**
      * <p>
-     *     更新缓存列表
+     * 更新缓存列表
      * </p>
      **/
     private void updateCacheList(String listKey, Object data, int size, CTime time) {
-        log.info("updateCacheList - > listKey = {},data = {}",listKey,data);
+        log.info("updateCacheList - > listKey = {},data = {}", listKey, data);
         //从redis中获取
         RList<Object> keyList = redissonClient.getList(listKey);
         if (time.isTime()) {
-            keyList.expire(time.time(),time.timeType());
+            keyList.expire(time.time(), time.timeType());
         }
         if (!keyList.contains(data)) {
             keyList.add(data);
@@ -134,7 +136,7 @@ public class RedisCacheAop {
 
     /**
      * <p>
-     *     读列表缓存
+     * 读列表缓存
      * </p>
      **/
     @Around("@annotation(rListCache)")
@@ -144,12 +146,12 @@ public class RedisCacheAop {
         //获取参数值
         Object[] args = proceedingJoinPoint.getArgs();
         //key
-        String key = getKey(getValueBySpelKey(rListCache.key(),parameterNames,args));
+        String key = getKey(getValueBySpelKey(rListCache.key(), parameterNames, args));
         //page
-        int page = Integer.parseInt(getValueBySpelKey(rListCache.page(),parameterNames,args));
+        int page = Integer.parseInt(getValueBySpelKey(rListCache.page(), parameterNames, args));
         //size
-        int size = Integer.parseInt(getValueBySpelKey(rListCache.size(),parameterNames,args));
-        log.info("readListCache -> key = {},page = {},size = {}",key,page,size);
+        int size = Integer.parseInt(getValueBySpelKey(rListCache.size(), parameterNames, args));
+        log.info("readListCache -> key = {},page = {},size = {}", key, page, size);
         //获取redis
         if (rListCache.value() == CList.ListType.KEY) {
             RList<String> list = redissonClient.getList(key);
@@ -158,19 +160,19 @@ public class RedisCacheAop {
                 int start = page * size - size;
                 List<String> keys = list.readSortAlpha(rListCache.sort(), start, size);
                 RBuckets buckets = redissonClient.getBuckets();
-                String [] bKeys = new String [keys.size()];
-                for (int i = 0 ;i < bKeys.length ; i++) {
+                String[] bKeys = new String[keys.size()];
+                for (int i = 0; i < bKeys.length; i++) {
                     bKeys[i] = keys.get(i);
                 }
                 Map<String, Object> objectMap = buckets.get(bKeys);
                 List<Object> objectList = new ArrayList<>();
-                for (String mapKey:objectMap.keySet()) {
+                for (String mapKey : objectMap.keySet()) {
                     objectList.add(objectMap.get(mapKey));
                 }
                 log.info("readListCache -> KEY END");
                 return objectList;
             }
-        }else if (rListCache.value() == CList.ListType.DATA) {
+        } else if (rListCache.value() == CList.ListType.DATA) {
             RList<Object> list = redissonClient.getList(key);
             if (null != list && list.size() > (page * size)) {
                 int start = page * size - size;
@@ -178,15 +180,15 @@ public class RedisCacheAop {
                 log.info("readListCache -> DATA END");
                 return objectList;
             }
-        }else if (rListCache.value() == CList.ListType.MAP) {
+        } else if (rListCache.value() == CList.ListType.MAP) {
             RList<String> list = redissonClient.getList(key);
             if (null != list && list.size() > (page * size)) {
                 int start = page * size - size;
                 List<String> keys = list.readSortAlpha(rListCache.sort(), start, size);
-                String mapKey = getValueBySpelKey(rListCache.mapKey(),parameterNames,args);
+                String mapKey = getValueBySpelKey(rListCache.mapKey(), parameterNames, args);
                 RMap<Object, Object> map = redissonClient.getMap(mapKey);
                 List<Object> objectList = new ArrayList<>();
-                for (String objKey :keys) {
+                for (String objKey : keys) {
                     objectList.add(map.get(objKey));
                 }
                 log.info("readListCache -> MAP END");
@@ -206,8 +208,8 @@ public class RedisCacheAop {
         //获取参数值
         Object[] args = proceedingJoinPoint.getArgs();
         //key
-        String key = getKey(getValueBySpelKey(rCache.key(),parameterNames,args));
-        log.info("readCache -> key ={}",key);
+        String key = getKey(getValueBySpelKey(rCache.key(), parameterNames, args));
+        log.info("readCache -> key ={}", key);
         RBucket<Object> bucket = redissonClient.getBucket(key);
         //从redis获取对象
         Object obj = bucket.get();
@@ -217,7 +219,7 @@ public class RedisCacheAop {
             obj = proceedingJoinPoint.proceed();
             log.info("readCache - > db");
             //并且存储到redis中 默认时长为 1 天
-            bucket.set(obj,rCache.time(), rCache.timeType());
+            bucket.set(obj, rCache.time(), rCache.timeType());
         }
         log.info("readCache - > END");
         return obj;
@@ -230,23 +232,23 @@ public class RedisCacheAop {
         //获取参数值
         Object[] args = proceedingJoinPoint.getArgs();
         //mapKey
-        String mapKey = getKey(getValueBySpelKey(rMapCache.mapKey(),parameterNames,args));
+        String mapKey = getKey(getValueBySpelKey(rMapCache.mapKey(), parameterNames, args));
         //map
-        String key = getValueBySpelKey(rMapCache.key(),parameterNames,args);
-        log.info("readMapCache -> mapKey ={}, key = {}",mapKey,key);
+        String key = getValueBySpelKey(rMapCache.key(), parameterNames, args);
+        log.info("readMapCache -> mapKey ={}, key = {}", mapKey, key);
         RMap<Object, Object> map = redissonClient.getMap(mapKey);
         Object object = map.get(key);
         if (null == object) {
             if (rMapCache.isTime()) {
-                map.expire(rMapCache.time(),rMapCache.timeType());
+                map.expire(rMapCache.time(), rMapCache.timeType());
             }
             Object proceed = proceedingJoinPoint.proceed();
-            map.put(key,proceed);
+            map.put(key, proceed);
             if (rMapCache.list().isList()) {
                 //获取listKey
-                String listKey = getKey(getValueBySpelKey(rMapCache.list().listKeyName(),parameterNames,args));
+                String listKey = getKey(getValueBySpelKey(rMapCache.list().listKeyName(), parameterNames, args));
                 //更新list
-                updateCacheList(listKey,key,rMapCache.list().size(),rMapCache.list().time());
+                updateCacheList(listKey, key, rMapCache.list().size(), rMapCache.list().time());
             }
             log.info("readMapCache -> db - > END");
             return proceed;
@@ -262,23 +264,23 @@ public class RedisCacheAop {
         //获取参数值
         Object[] args = proceedingJoinPoint.getArgs();
         //mapKey
-        String mapKey = getKey(getValueBySpelKey(rMapAllCache.mapKey(),parameterNames,args));
-        log.info("readMapAllCache -> mapKey ={}, key = {}",mapKey);
+        String mapKey = getKey(getValueBySpelKey(rMapAllCache.mapKey(), parameterNames, args));
+        log.info("readMapAllCache -> mapKey ={}, key = {}", mapKey);
         RMap<String, Object> map = redissonClient.getMap(mapKey);
         if (map.size() <= 0) {
             log.info("readMapAllCache - > db");
             if (rMapAllCache.time().isTime()) {
-                map.expire(rMapAllCache.time().time(),rMapAllCache.time().timeType());
+                map.expire(rMapAllCache.time().time(), rMapAllCache.time().timeType());
             }
             Object proceed = proceedingJoinPoint.proceed();
-            Map<String,Object> addMap = new HashMap<>();
+            Map<String, Object> addMap = new HashMap<>();
             if (proceed instanceof List) {
                 List list = (List) proceed;
                 for (Object obj : list) {
                     Field declaredField = obj.getClass().getDeclaredField(rMapAllCache.keyName());
                     declaredField.setAccessible(true);
                     Object key = declaredField.get(obj);
-                    addMap.put(key.toString(),obj);
+                    addMap.put(key.toString(), obj);
                 }
             }
             map.putAll(addMap);
@@ -286,19 +288,19 @@ public class RedisCacheAop {
         }
         List<Object> mapList = new ArrayList<>();
         //不是读部分的时候执行
-        if (!rMapAllCache.keys().equals("")){
+        if (!rMapAllCache.keys().equals("")) {
             Set<String> keys = new HashSet<>();
             for (int i = 0; i < parameterNames.length; i++) {
-                if (parameterNames[i].equals(rMapAllCache.keys())){
-                    keys.addAll((Collection)args[i]);
+                if (parameterNames[i].equals(rMapAllCache.keys())) {
+                    keys.addAll((Collection) args[i]);
                 }
             }
             Map<String, Object> mapAll = map.getAll(keys);
-            for (String key:mapAll.keySet()) {
+            for (String key : mapAll.keySet()) {
                 mapList.add(mapAll.get(key));
             }
-        }else {
-            for (String key: map.keySet()) {
+        } else {
+            for (String key : map.keySet()) {
                 mapList.add(map.get(key));
             }
         }
@@ -308,15 +310,15 @@ public class RedisCacheAop {
 
     /**
      * <p>
-     *     获取队列的KEY
+     * 获取队列的KEY
      * </p>
      **/
-    public String getKey(String key){
+    public String getKey(String key) {
         StringBuffer stringBuffer = new StringBuffer();
         CacheProperties cache = redissonProperties.getCache();
         if (null != cache) {
             String groupName = cache.getKeyGroupName();
-            if (groupName != null && groupName.length() > 0 ) {
+            if (groupName != null && groupName.length() > 0) {
                 stringBuffer.append(groupName);
                 stringBuffer.append(":");
             }

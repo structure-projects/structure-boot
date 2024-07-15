@@ -7,9 +7,19 @@
     <parent>
         <groupId>cn.structured</groupId>
         <artifactId>structure-dependencies</artifactId>
-        <version>1.2.0.RELEASE</version>
+        <version>1.2.1.RELEASE</version>
         <relativePath>../structure-dependencies/pom.xml</relativePath>
     </parent>
+    <version>1.2.1.RELEASE</version>
+    <artifactId>structure-boot-parent</artifactId>
+    <packaging>pom</packaging>
+
+    <name>structure-boot-parent</name>
+    <description>structure-boot-parent</description>
+
+    <properties>
+        <structure.version>1.2.1.RELEASE</structure.version>
+    </properties>
 
     <modules>
         <!-- web组件-->
@@ -23,22 +33,12 @@
         <module>../structure-log-starter</module>
         <!--minio -->
         <module>../structure-minio-starter</module>
+        <!--redis-->
         <module>../structure-redis-starter</module>
+        <!--redisson-->
         <module>../structure-redisson-starter</module>
-        <module>../structure-ribbon-starter</module>
     </modules>
 
-    <properties>
-        <structure.version>1.2.1.RELEASE</structure.version>
-        <mysql.version>8.0.13</mysql.version>
-    </properties>
-
-    <artifactId>structure-boot-parent</artifactId>
-    <version>${structure.version}</version>
-    <packaging>pom</packaging>
-
-    <name>structure-boot-parent</name>
-    <description>structure-boot-parent</description>
 
     <url>https://projects.structured.cn/structure-boot</url>
     <inceptionYear>2021</inceptionYear>
@@ -86,7 +86,7 @@
             </dependency>
             <dependency>
                 <groupId>cn.structured</groupId>
-                <artifactId>structure-redission-starter</artifactId>
+                <artifactId>structure-redisson-starter</artifactId>
                 <version>${structure.version}</version>
             </dependency>
             <dependency>
@@ -106,37 +106,7 @@
             </dependency>
             <dependency>
                 <groupId>cn.structured</groupId>
-                <artifactId>structure-jwt-security-starter</artifactId>
-                <version>${structure.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>cn.structured</groupId>
-                <artifactId>structure-oauth-starter</artifactId>
-                <version>${structure.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>cn.structured</groupId>
                 <artifactId>structure-log-starter</artifactId>
-                <version>${structure.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>cn.structured</groupId>
-                <artifactId>structure-netty-client-starter</artifactId>
-                <version>${structure.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>cn.structured</groupId>
-                <artifactId>structure-netty-server-starter</artifactId>
-                <version>${structure.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>cn.structured</groupId>
-                <artifactId>structure-transaction-starter</artifactId>
-                <version>${structure.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>cn.structured</groupId>
-                <artifactId>structure-oauth-resource-starter</artifactId>
                 <version>${structure.version}</version>
             </dependency>
             <dependency>
@@ -147,6 +117,11 @@
             <dependency>
                 <groupId>cn.structured</groupId>
                 <artifactId>structure-mybatis-plus-generate</artifactId>
+                <version>${structure.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.structured</groupId>
+                <artifactId>structure-minio-starter</artifactId>
                 <version>${structure.version}</version>
             </dependency>
         </dependencies>

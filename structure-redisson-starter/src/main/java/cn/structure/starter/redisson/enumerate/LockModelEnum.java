@@ -1,8 +1,8 @@
 package cn.structure.starter.redisson.enumerate;
 
 /**
- * <P>
- *  锁模式枚举
+ * <p>
+ * 锁模式枚举
  * </P>
  */
 public enum LockModelEnum {

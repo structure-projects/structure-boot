@@ -5,18 +5,19 @@ import lombok.Getter;
 
 /**
  * <p>
- *     数字枚举类
+ * 数字枚举类
  * </p>
+ *
  * @author CHUCK
- * @since 2020-12-26
  * @version 1.0.1
+ * @since 2020-12-26
  */
 @Getter
 @AllArgsConstructor
 public enum NumberEnum {
 
     /**
-     *  数字枚举
+     * 数字枚举
      */
     ZERO(0),
     ONE(1),

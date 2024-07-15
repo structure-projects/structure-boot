@@ -6,11 +6,12 @@ import lombok.*;
 
 /**
  * <p>
- *     出参：ID 实体 - VO
+ * 出参：ID 实体 - VO
  * </p>
+ *
  * @author chuck
- * @since 2020-12-26
  * @version 1.0.1
+ * @since 2020-12-26
  */
 @ApiModel(description = "出参：ID 实体 - VO")
 @Getter
@@ -20,6 +21,6 @@ import lombok.*;
 @AllArgsConstructor
 public class ResObjectIdVO {
 
-    @ApiModelProperty(value = "ID",example = "1")
+    @ApiModelProperty(value = "ID", example = "1")
     private Object id;
 }

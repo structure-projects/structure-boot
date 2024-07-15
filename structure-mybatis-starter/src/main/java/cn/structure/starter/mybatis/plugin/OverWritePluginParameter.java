@@ -25,8 +25,9 @@ import java.util.Properties;
 
 /**
  * <p>
- *     sql查询属性重写
+ * sql查询属性重写
  * </p>
+ *
  * @author chuck
  * @version 1.0.1
  * @since 2020/12/26 23:47
@@ -88,9 +89,9 @@ public class OverWritePluginParameter implements Interceptor {
                             field.set(parameter, IdUtil.simpleUUID());
                             break;
                         case SNOWFLAKE:
-                            if ("java.lang.Long".equals(field.getGenericType().getTypeName())){
+                            if ("java.lang.Long".equals(field.getGenericType().getTypeName())) {
                                 field.set(parameter, snowflake.nextId());
-                            }else {
+                            } else {
                                 field.set(parameter, String.valueOf(snowflake.nextId()));
                             }
                             break;

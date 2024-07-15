@@ -6,11 +6,12 @@ import java.lang.annotation.*;
 
 /**
  * <p>
- *     锁注解
+ * 锁注解
  * </p>
+ *
  * @author chuck
- * @since 2020-12-23
  * @version 1.0.1
+ * @since 2020-12-23
  */
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
@@ -22,17 +23,17 @@ public @interface Lock {
     LockModelEnum lockModel() default LockModelEnum.AUTO;
 
     /**
-     *  如果keys有多个,如果不设置,则使用 联锁
+     * 如果keys有多个,如果不设置,则使用 联锁
      */
     String[] keys() default {};
 
     /**
-     *  锁超时时间,默认30000毫秒(可在配置文件全局设置)
+     * 锁超时时间,默认30000毫秒(可在配置文件全局设置)
      */
     long lockWatchdogTimeout() default 30000;
 
     /**
-     *  等待加锁超时时间,默认10000毫秒 -1 则表示一直等待(可在配置文件全局设置)
+     * 等待加锁超时时间,默认10000毫秒 -1 则表示一直等待(可在配置文件全局设置)
      */
     long attemptTimeout() default 10000;
 }
