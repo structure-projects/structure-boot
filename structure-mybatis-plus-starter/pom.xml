@@ -5,13 +5,14 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>cn.structured</groupId>
-        <artifactId>structure-dependencies</artifactId>
-        <version>1.2.1.RELEASE</version>
+        <artifactId>structure-boot-parent</artifactId>
+        <version>${revision}</version>
+        <relativePath>../structure-boot-parent/pom.xml</relativePath>
     </parent>
 
     <artifactId>structure-mybatis-plus-starter</artifactId>
     <description>structure-mybatis-plus-starter</description>
-    <version>1.2.1.RELEASE</version>
+    <version>${revision}</version>
 
     <url>https://projects.structured.cn/structure-boot</url>
     <inceptionYear>2021</inceptionYear>

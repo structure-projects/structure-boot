@@ -7,11 +7,12 @@
     <parent>
         <groupId>cn.structured</groupId>
         <artifactId>structure-dependencies</artifactId>
-        <version>1.2.1.RELEASE</version>
+        <version>${revision}</version>
+        <relativePath>../structure-dependencies/pom.xml</relativePath>
     </parent>
 
     <packaging>jar</packaging>
-    <version>1.2.1.RELEASE</version>
+    <version>${revision}</version>
 
     <artifactId>structure-common</artifactId>
     <name>structure-common</name>

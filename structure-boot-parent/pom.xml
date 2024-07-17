@@ -7,10 +7,10 @@
     <parent>
         <groupId>cn.structured</groupId>
         <artifactId>structure-dependencies</artifactId>
-        <version>1.2.1.RELEASE</version>
+        <version>${revision}</version>
         <relativePath>../structure-dependencies/pom.xml</relativePath>
     </parent>
-    <version>1.2.1.RELEASE</version>
+    <version>${revision}</version>
     <artifactId>structure-boot-parent</artifactId>
     <packaging>pom</packaging>
 
@@ -18,7 +18,7 @@
     <description>structure-boot-parent</description>
 
     <properties>
-        <structure.version>1.2.1.RELEASE</structure.version>
+        <revision>1.2.1.RELEASE</revision>
     </properties>
 
     <modules>
@@ -37,6 +37,7 @@
         <module>../structure-redis-starter</module>
         <!--redisson-->
         <module>../structure-redisson-starter</module>
+        <module>../structure-rpc-starter</module>
     </modules>
 
 
@@ -82,47 +83,52 @@
             <dependency>
                 <groupId>cn.structured</groupId>
                 <artifactId>structure-redis-starter</artifactId>
-                <version>${structure.version}</version>
+                <version>${revision}</version>
             </dependency>
             <dependency>
                 <groupId>cn.structured</groupId>
                 <artifactId>structure-redisson-starter</artifactId>
-                <version>${structure.version}</version>
+                <version>${revision}</version>
             </dependency>
             <dependency>
                 <groupId>cn.structured</groupId>
                 <artifactId>structure-restful-web-starter</artifactId>
-                <version>${structure.version}</version>
+                <version>${revision}</version>
             </dependency>
             <dependency>
                 <groupId>cn.structured</groupId>
                 <artifactId>structure-common</artifactId>
-                <version>${structure.version}</version>
+                <version>${revision}</version>
             </dependency>
             <dependency>
                 <groupId>cn.structured</groupId>
                 <artifactId>structure-mybatis-starter</artifactId>
-                <version>${structure.version}</version>
+                <version>${revision}</version>
             </dependency>
             <dependency>
                 <groupId>cn.structured</groupId>
                 <artifactId>structure-log-starter</artifactId>
-                <version>${structure.version}</version>
+                <version>${revision}</version>
             </dependency>
             <dependency>
                 <groupId>cn.structured</groupId>
                 <artifactId>structure-mybatis-plus-starter</artifactId>
-                <version>${structure.version}</version>
+                <version>${revision}</version>
             </dependency>
             <dependency>
                 <groupId>cn.structured</groupId>
                 <artifactId>structure-mybatis-plus-generate</artifactId>
-                <version>${structure.version}</version>
+                <version>${revision}</version>
             </dependency>
             <dependency>
                 <groupId>cn.structured</groupId>
                 <artifactId>structure-minio-starter</artifactId>
-                <version>${structure.version}</version>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.structured</groupId>
+                <artifactId>structure-rpc-starter</artifactId>
+                <version>${revision}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -133,7 +139,7 @@
                 <plugin>
                     <groupId>cn.structured</groupId>
                     <artifactId>structure-mybatis-plus-generate</artifactId>
-                    <version>${structure.version}</version>
+                    <version>${revision}</version>
                     <configuration>
                         <configurationFile>${basedir}/src/main/resources/generator-config.yaml</configurationFile>
                     </configuration>

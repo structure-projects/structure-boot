@@ -6,7 +6,7 @@
 
     <groupId>cn.structured</groupId>
     <artifactId>structure-dependencies</artifactId>
-    <version>1.2.1.RELEASE</version>
+    <version>${revision}</version>
 
     <name>structure-dependencies</name>
     <description>主要整合依赖的版本，防止在快速构建项目时出现依赖冲突的问题</description>
@@ -48,6 +48,7 @@
     </scm>
 
     <properties>
+        <revision>1.2.1.RELEASE</revision>
         <!-- 注意版本升级时需要考虑相关依赖版本，谨慎升级 -->
         <structure.version>${project.version}</structure.version>
         <!-- jdk -->
@@ -71,7 +72,7 @@
         <maven-javadoc-plugin.version>2.9.1</maven-javadoc-plugin.version>
         <maven-gpg-plugin.version>1.5</maven-gpg-plugin.version>
         <cobertura-maven-plugin.version>2.7</cobertura-maven-plugin.version>
-
+        <maven-flatten-maven-plugin.version>1.2.7</maven-flatten-maven-plugin.version>
         <!--spring version -->
         <spring.version>5.3.29</spring.version>
         <spring-security.version>5.7.10</spring-security.version>
@@ -440,6 +441,37 @@
             </plugins>
         </pluginManagement>
         <plugins>
+            <!--  flatten-maven-plugin插件,用于打包时替换掉字模块中pom文件的引用父工程的变量, 比如revision变量 -->
+            <!--  如果不添加此插件, 虽然打包时不会报错,
+            但是别的系统引用时会出现类似Cloud not find artifac org.example:test:pom:${revision} in nexus-aliyun(http://maben.aliyun.com/nexus/content/groups/public)的错误,
+             主要原因是子模块中引用的父工程的变量未被替换导致的} -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>flatten-maven-plugin</artifactId>
+                <version>${maven-flatten-maven-plugin.version}</version>
+                <configuration>
+                    <!-- 避免IDE将 .flattened-pom.xml自动识别为功能模块 -->
+                    <flattenedPomFilename>pom-xml-flattened</flattenedPomFilename>
+                    <updatePomFile>true</updatePomFile>
+                    <flattenMode>resolveCiFriendliesOnly</flattenMode>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>flatten</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>flatten</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>flatten-clean</id>
+                        <phase>clean</phase>
+                        <goals>
+                            <goal>clean</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>

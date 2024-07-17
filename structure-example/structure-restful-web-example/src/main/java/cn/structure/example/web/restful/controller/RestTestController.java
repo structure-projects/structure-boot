@@ -6,6 +6,7 @@ import cn.structure.common.utils.IResultUtil;
 import cn.structure.common.utils.ResultUtilSimpleImpl;
 import cn.structure.example.web.restful.pojo.vo.ReqTestVO;
 import cn.structure.example.web.restful.pojo.vo.ResTestVO;
+import io.swagger.annotations.Api;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,6 +24,7 @@ import javax.validation.constraints.NotBlank;
  * @version 1.0.1
  * @since 2021/1/3 21:35
  */
+@Api(tags = "测试")
 @Validated
 @RestController
 @RequestMapping(value = "/test")

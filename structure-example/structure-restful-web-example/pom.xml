@@ -39,6 +39,11 @@
             <groupId>cn.structured</groupId>
             <artifactId>structure-restful-web-starter</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>com.github.xiaoymin</groupId>
+            <artifactId>swagger-bootstrap-ui</artifactId>
+        </dependency>
     </dependencies>
     <dependencyManagement>
         <dependencies>

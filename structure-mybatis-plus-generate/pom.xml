@@ -6,10 +6,11 @@
 
     <parent>
         <groupId>cn.structured</groupId>
-        <artifactId>structure-dependencies</artifactId>
-        <version>1.2.1.RELEASE</version>
+        <artifactId>structure-boot-parent</artifactId>
+        <version>${revision}</version>
+        <relativePath>../structure-boot-parent/pom.xml</relativePath>
     </parent>
-    <version>1.2.1.RELEASE</version>
+    <version>${revision}</version>
     <packaging>maven-plugin</packaging>
     <artifactId>structure-mybatis-plus-generate</artifactId>
     <description>structure-mybatis-plus-generate</description>

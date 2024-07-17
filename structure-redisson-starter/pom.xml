@@ -7,12 +7,12 @@
 
     <parent>
         <groupId>cn.structured</groupId>
-        <artifactId>structure-dependencies</artifactId>
-        <version>1.2.1.RELEASE</version>
+        <artifactId>structure-boot-parent</artifactId>
+        <version>${revision}</version>
+        <relativePath>../structure-boot-parent/pom.xml</relativePath>
     </parent>
-
     <packaging>jar</packaging>
-    <version>1.2.1.RELEASE</version>
+    <version>${revision}</version>
     <artifactId>structure-redisson-starter</artifactId>
     <name>structure-redisson-starter</name>
     <description>封装 redisson 将封装成启动器,并且对分布式锁和缓存进行封装</description>

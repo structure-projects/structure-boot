@@ -4,12 +4,13 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <groupId>cn.structured</groupId>
-        <artifactId>structure-dependencies</artifactId>
-        <version>1.2.1.RELEASE</version>
+        <artifactId>structure-boot-parent</artifactId>
+        <version>${revision}</version>
+        <relativePath>../structure-boot-parent/pom.xml</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <version>1.2.1.RELEASE</version>
+    <version>${revision}</version>
     <packaging>jar</packaging>
 
     <artifactId>structure-log-starter</artifactId>
