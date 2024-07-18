@@ -73,7 +73,7 @@ public class AutoRpcConfiguration implements ApplicationListener<ApplicationStar
                     }
                     ConfigurableApplicationContext applicationContext = event.getApplicationContext();
                     IRpcHandler handler = (IRpcHandler) applicationContext.getBean(clazz, IRpcHandler.class);
-                    handler.init(host,port);
+                    handler.init(host, port);
                 }
             }
         }

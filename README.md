@@ -32,8 +32,8 @@ structure-boot
 
     <properties>
         <spring.boot.version>2.1.4.RELEASE</spring.boot.version>
-          <!--<structure.version>1.1.0.RELEASE</structure.version>-->
-          <structure.version>1.1.0.SNAPSHOT</structure.version>
+        <!--<structure.version>1.1.0.RELEASE</structure.version>-->
+        <structure.version>1.1.0.SNAPSHOT</structure.version>
     </properties>
 
     <dependencies>
