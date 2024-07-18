@@ -1,0 +1,10 @@
+server:
+  port: 7777
+spring:
+  profiles:
+    active: dev
+  application:
+    name: yunjida-auth
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher

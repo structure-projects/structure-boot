@@ -1,5 +1,7 @@
 package cn.structured.rpc.handler;
 
+import cn.structure.common.utils.HttpClientUtil;
+import org.apache.http.HttpHost;
 import org.apache.http.HttpRequest;
 import org.apache.http.HttpResponse;
 
@@ -19,6 +21,12 @@ public interface IRpcHandler {
     default void preposition(HttpRequest httpRequest) {
     }
 
+    /**
+     * 初始化
+     * @param host 主机
+     * @param port 端口
+     */
+    void init(String host,Integer port);
     /**
      * 处理器
      *

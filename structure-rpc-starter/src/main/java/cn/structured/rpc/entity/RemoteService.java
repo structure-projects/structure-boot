@@ -29,6 +29,11 @@ public class RemoteService {
     private String host;
 
     /**
+     * 端口
+     */
+    private Integer port;
+
+    /**
      * 请求头
      */
     private MultiValueMap<String, String> headers;

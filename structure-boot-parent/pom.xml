@@ -18,7 +18,7 @@
     <description>structure-boot-parent</description>
 
     <properties>
-        <revision>1.2.1.RELEASE</revision>
+        <revision>1.2.2</revision>
     </properties>
 
     <modules>

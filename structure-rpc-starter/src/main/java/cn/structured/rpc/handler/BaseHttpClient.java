@@ -17,13 +17,14 @@ import java.io.IOException;
  */
 public class BaseHttpClient implements IRpcHandler {
 
-    private final HttpHost httpHost;
-    private final HttpClient httpClient;
+    private HttpHost httpHost;
+    private HttpClient httpClient;
 
-    public BaseHttpClient(String host) {
-        this.httpHost = new HttpHost(host);
+
+    @Override
+    public void init(String host, Integer port) {
+        this.httpHost = new HttpHost(host, port);
         this.httpClient = HttpClientUtil.getHttpClient();
-
     }
 
     @Override

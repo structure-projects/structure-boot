@@ -14,7 +14,7 @@
     <name>structure-mybatis-plus-generate-example</name>
     <description>Demo project for Spring Boot</description>
     <properties>
-        <structure.version>1.2.1.RELEASE</structure.version>
+        <structure.version>1.2.2</structure.version>
     </properties>
 
     <dependencies>

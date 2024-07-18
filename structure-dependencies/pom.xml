@@ -48,7 +48,7 @@
     </scm>
 
     <properties>
-        <revision>1.2.1.RELEASE</revision>
+        <revision>1.2.2</revision>
         <!-- 注意版本升级时需要考虑相关依赖版本，谨慎升级 -->
         <structure.version>${project.version}</structure.version>
         <!-- jdk -->
@@ -190,13 +190,6 @@
                 <groupId>org.springframework.security</groupId>
                 <artifactId>spring-security-jwt</artifactId>
                 <version>${spring-security-jwt.version}</version>
-            </dependency>
-
-            <!-- structured 公共组件 -->
-            <dependency>
-                <groupId>cn.structured</groupId>
-                <artifactId>structure-common</artifactId>
-                <version>${structure.version}</version>
             </dependency>
 
             <!-- data 实例化相关插件  -->

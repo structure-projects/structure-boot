@@ -1,5 +1,7 @@
 package cn.structured.rpc.annotation;
 
+import org.springframework.stereotype.Component;
+
 import java.lang.annotation.*;
 
 /**
@@ -10,6 +12,7 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 @Documented
+@Component
 public @interface RpcClient {
 
 
@@ -24,5 +27,11 @@ public @interface RpcClient {
      * @return host
      */
     String host() default "";
+
+    /**
+     * 端口
+     * @return port
+     */
+    int port() default 80;
 
 }
