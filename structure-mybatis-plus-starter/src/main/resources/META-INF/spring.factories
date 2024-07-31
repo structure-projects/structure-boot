@@ -1,4 +1,4 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
   cn.structured.mybatis.plus.starter.configuration.AutoConfiguration,\
-  cn.structured.mybatis.plus.starter.configuration.JoinMyBatisPlusApplicationListener
-
+  cn.structured.mybatis.plus.starter.configuration.JoinMyBatisPlusApplicationListener,\
+  cn.structured.mybatis.plus.starter.configuration.AutoSnowflakeConfiguration

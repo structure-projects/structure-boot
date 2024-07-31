@@ -1,5 +1,6 @@
 package cn.structure.common.entity;
 
+import cn.structure.common.exception.CommonException;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -54,4 +55,5 @@ public class ResResultVO<T> implements IResult {
      */
     @ApiModelProperty(value = "系统响应的时间戳", example = "112345644446")
     private Long timestamp;
+
 }

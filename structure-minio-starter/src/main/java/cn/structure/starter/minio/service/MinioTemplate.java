@@ -44,7 +44,6 @@ import java.util.Optional;
 @NoArgsConstructor
 public class MinioTemplate {
 
-
     @Autowired
     private MinioClient minioClient;
 

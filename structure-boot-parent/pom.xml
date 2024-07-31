@@ -76,7 +76,6 @@
         <developerConnection>scm:git:ssh://git@github.com:structure-projects/structure-boot.git</developerConnection>
     </scm>
 
-
     <dependencyManagement>
         <dependencies>
             <!-- structured 下的依赖 -->
