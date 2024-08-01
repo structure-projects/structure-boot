@@ -48,7 +48,7 @@
     </scm>
 
     <properties>
-        <revision>1.2.2</revision>
+        <revision>1.2.3</revision>
         <!-- 注意版本升级时需要考虑相关依赖版本，谨慎升级 -->
         <structure.version>${project.version}</structure.version>
         <!-- jdk -->
@@ -114,7 +114,7 @@
 
         <!-- hutool util -->
         <hutool.version>5.1.0</hutool.version>
-        <fastjson.version>1.2.44</fastjson.version>
+        <fastjson.version>1.2.83</fastjson.version>
         <commons-lang3.version>3.8.1</commons-lang3.version>
 
         <guava.version>29.0-jre</guava.version>

@@ -3,7 +3,7 @@
 #!/bin/bash
 version=$1
 if [ -z "$version" ]; then
-    version=1.2.2
+    version=1.2.3
 fi
 cd ../
 cd structure-dependencies
