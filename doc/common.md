@@ -1,13 +1,13 @@
 # structure-common
 
-structure公共组件库
+structure 公共组件库
 
-## 引用依赖 ##
+## 引用依赖
 
 ```xml
     <dependency>
         <groupId>cn.structured</groupId>
         <artifactId>structure-common</artifactId>
-        <version>${last.version}</version>
+        <version>1.2.3</version>
     </dependency>
 ```

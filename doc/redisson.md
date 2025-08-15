@@ -1,29 +1,29 @@
 # structure-redission
 
-一个对redission的封装,redission要比redis功能更强大
+一个对 redission 的封装,redission 要比 redis 功能更强大
 
-## redisson 的使用 ##
+## redisson 的使用
 
-### POM依赖###
+### POM 依赖###
 
 ```xml
         <dependency>
             <groupId>cn.structured</groupId>
             <artifactId>structure-redisson-starter</artifactId>
-            <version>${last.version}</version>
+            <version>1.2.3</version>
         </dependency>
 ```
 
-### redisson的使用 ###
+### redisson 的使用
 
-#### 使用redissonClient ####
+#### 使用 redissonClient
 
 ```java
      @Resource
      private RedissonClient redissonClient;
 ```
 
-#### 使用RedissonClient 存储对象 ####
+#### 使用 RedissonClient 存储对象
 
 ```java
     RBucket<String> test = redissonClient.getBucket("test");
@@ -31,11 +31,11 @@
     System.out.println("test = " + test.get());
 ```
 
-#### 使用RedissonClient Map List 对象结构请到redisson官网查看 ####
+#### 使用 RedissonClient Map List 对象结构请到 redisson 官网查看
 
-[redisson Github地址](https://github.com/redisson/redisson)
+[redisson Github 地址](https://github.com/redisson/redisson)
 
-### redisson锁的使用 ###
+### redisson 锁的使用
 
 ```java
     @RequestMapping("/testLock")
@@ -53,7 +53,7 @@
     }
 ```
 
-### 缓存结构说明 ###
+### 缓存结构说明
 
 #### 1. @WCache 写缓存注解
 
@@ -65,7 +65,7 @@
 			time = @CTime(isTime = true,time = 4,timeType = TimeUnit.HOURS))
 ```
 
-@WCache 支持map缓存策略 list缓存策略，时间缓存策略，是否为对象缓存
+@WCache 支持 map 缓存策略 list 缓存策略，时间缓存策略，是否为对象缓存
 
 #### 2. @RCache 读缓存注解
 
@@ -75,29 +75,29 @@
     @RCache(key = "GIFT-TYPE:_#giftType",time = 1)
 ```
 
-#### 3. @RListCache集合缓存注解
+#### 3. @RListCache 集合缓存注解
 
-集合缓存注解是对redisList存储结构封装list缓存注解 可以搭配 map结构和对象结构混合使用
+集合缓存注解是对 redisList 存储结构封装 list 缓存注解 可以搭配 map 结构和对象结构混合使用
 
-#### 4. @RCacheMa pMap缓存注解
+#### 4. @RCacheMa pMap 缓存注解
 
-Map缓存注解 是对redis-Map存储结构封装map缓存注解 可以搭配 list结构和对象结构混合使用
+Map 缓存注解 是对 redis-Map 存储结构封装 map 缓存注解 可以搭配 list 结构和对象结构混合使用
 
 ```java
     @RCacheMap(mapKey = "ACCOUNT-GIFT:_#accountId",key = "#giftId",isTime = true,time = 4,timeType = TimeUnit.HOURS)
 ```
 
-读取存储在map中的单条数据
+读取存储在 map 中的单条数据
 
-#### 5. @RMapAllCache 读全部map缓存注解
+#### 5. @RMapAllCache 读全部 map 缓存注解
 
 ```java
     @RMapAllCache(mapKey = "ACCOUNT-GIFT:_#accountId",keyName = "giftId",time = @CTime(isTime = true,time = 4,timeType = TimeUnit.HOURS))
 ```
 
-读取map中全部的数据
+读取 map 中全部的数据
 
-### redisson缓存的使用 ###
+### redisson 缓存的使用
 
 ```java
     /**
@@ -171,4 +171,3 @@ Map缓存注解 是对redis-Map存储结构封装map缓存注解 可以搭配 li
     }
 
 ```
-

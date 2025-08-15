@@ -1,8 +1,8 @@
 # structure-mybatis
 
-structure-mybatis 对mybatis进行部分功能的扩展
+structure-mybatis 对 mybatis 进行部分功能的扩展
 
-## structure-mybatis-starter ##
+## structure-mybatis-starter
 
 1. 提供自动注入实体默认值
 
@@ -16,24 +16,24 @@ structure-mybatis 对mybatis进行部分功能的扩展
     <dependency>
         <groupId>cn.structured</groupId>
         <artifactId>structure-mybatis-starter</artifactId>
-        <version>${last.version}</version>
+        <version>1.2.3</version>
     </dependency>
 ```
 
-### @Id自动生成ID的使用 ###
+### @Id 自动生成 ID 的使用
 
-#### 配置 yml ####
+#### 配置 yml
 
 ```yaml
 structure:
   mybatis:
     plugin:
-      generate-id-type: snowflake # none  无则是数据库生成 ,uuid 生成UUID , snowflake 生成雪花耍法的ID 
+      generate-id-type: snowflake # none  无则是数据库生成 ,uuid 生成UUID , snowflake 生成雪花耍法的ID
       data-center: 0 #数据中心码 为雪花算法专有 0 - 31
       machine: 0 # 机器码 为雪花算法专有  0 - 31
 ```
 
-#### 数据库实体的配置 ####
+#### 数据库实体的配置
 
 ```java
     /**
@@ -62,8 +62,8 @@ structure:
     private Date updateTime;
 ```
 
-### 注意事项 ###
+### 注意事项
 
 1. 禁止使用匿名内部类做插入和修改操作
-2. 需要生成时属性必须为null
+2. 需要生成时属性必须为 null
 3. 注意生成的类型
