@@ -1,27 +1,27 @@
 # structure-mybatis-plus
 
-structure-mybatis-plus 对mybatis进行部分功能的扩展
+structure-mybatis-plus 对 mybatis 进行部分功能的扩展
 
 ## 功能介绍
 
-1. 集成mybatis-plus
+1. 集成 mybatis-plus
 2. 批量插入
 3. 联表查询
 4. 代码生成
 
 ## 如何使用
 
-### 引用POM ###
+### 引用 POM
 
 ```xml
     <dependency>
         <groupId>cn.structured</groupId>
         <artifactId>structure-mybatis-plus-starter</artifactId>
-        <version>${last.version}</version>
+        <version>1.2.3</version>
     </dependency>
 ```
 
-### yaml 配置 ### 
+### yaml 配置
 
 ```yaml
 server:
@@ -34,7 +34,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
 ```
 
-### 批量插入展示 ###
+### 批量插入展示
 
 Mapper 需要继承 cn.structured.mybatis.plus.starter.base.IBaseMapper
 
@@ -82,7 +82,7 @@ public interface OrgPostMapper extends IBaseMapper<OrgPost> {
     }
 ```
 
-### 关表查询 ### 
+### 关表查询
 
 联表查询主要维护数据实体关系即可
 
@@ -124,9 +124,9 @@ public interface OrgPostMapper extends IBaseMapper<OrgPost> {
     private Staff updateBy;
 ```
 
-### 代码生成 ### 
+### 代码生成
 
-#### POM 配置 ####
+#### POM 配置
 
 ```xml
         <buil>
@@ -146,7 +146,7 @@ public interface OrgPostMapper extends IBaseMapper<OrgPost> {
         </buil>
 ```
 
-#### 代码生成配置 #### 
+#### 代码生成配置
 
 ```yaml
 globalConfig:
@@ -192,10 +192,9 @@ strategyConfig:
   restControllerStyle: true
   tablePrefix:
   include:
-  - user_info
+    - user_info
 tableFill:
   is_deleted: INSERT
   create_time: INSERT
   update_time: INSERT_UPDATE
-
 ```

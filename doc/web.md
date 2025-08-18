@@ -1,18 +1,18 @@
 # structure-restful-web
 
-对应用场景为前后台分离、互联网、以及微服务中。接口restful风格进行封装
+对应用场景为前后台分离、互联网、以及微服务中。接口 restful 风格进行封装
 
 ## 功能介绍
 
-1. 封装 spring-boot-starter-web启动器
-2. 封装公共返回结果简易版和两级code码的公共异常处理
+1. 封装 spring-boot-starter-web 启动器
+2. 封装公共返回结果简易版和两级 code 码的公共异常处理
 3. 对参数校验进行了封装
 4. swagger 的开启和配置
-5. 开启fastJson序列化
+5. 开启 fastJson 序列化
 
 ## 如何使用
 
-### pom引用 ###
+### pom 引用
 
 引用最新文档版本的依赖
 
@@ -20,13 +20,13 @@
 <dependency>
     <groupId>cn.structured</groupId>
     <artifactId>structure-restful-web-starter</artifactId>
-    <version>${last.version}</version>
+    <version>1.2.3</version>
 </dependency>
 ```
 
 ### 选择性开启不同的公共异常拦截也可以自定义
 
-1. 使用@EnableSimpleGlobalException开启简易版本公共异常
+1. 使用@EnableSimpleGlobalException 开启简易版本公共异常
 
 ```java
 @SpringBootApplication
@@ -38,7 +38,7 @@ public class WebRestFulApplication {
 }
 ```
 
-2. 使用@EnableFatherGlobalException开启多级code码公共异常
+2. 使用@EnableFatherGlobalException 开启多级 code 码公共异常
 
 ```java
 @SpringBootApplication
@@ -59,12 +59,12 @@ public class WebRestFulApplication {
 </dependency>
 ```
 
-- 如果您开启了structure-restful-web-starter 的公共异常拦截则不需要处理参数校验的错误信息
+- 如果您开启了 structure-restful-web-starter 的公共异常拦截则不需要处理参数校验的错误信息
 - 如果您使用自己的公共异常则需要自行处理参数校验的异常信息
 
 ### 返回结果封装
 
-#### 系统内置code码
+#### 系统内置 code 码
 
 ```java
 /**
@@ -97,7 +97,7 @@ public class WebRestFulApplication {
     ERR("异常", "ERR");
 ```
 
-#### 简易返回结果实体  ResResultVO
+#### 简易返回结果实体 ResResultVO
 
 ```java
 /**
@@ -132,7 +132,7 @@ public class WebRestFulApplication {
 
 ```
 
-#### 二级code码返回结果实体  ResultVO
+#### 二级 code 码返回结果实体 ResultVO
 
 ```java
     /**
@@ -167,9 +167,9 @@ public class WebRestFulApplication {
     private T data;
 ```
 
-### 开启swagger
+### 开启 swagger
 
-#### 使用@EnableSwagger 注解开启swagger
+#### 使用@EnableSwagger 注解开启 swagger
 
 ```java
 @EnableSwagger
@@ -190,7 +190,7 @@ swagger:
   version: v1.0.1
 ```
 
-### 使用@EnableFastJsonHttpConverters开启FastJson序列化
+### 使用@EnableFastJsonHttpConverters 开启 FastJson 序列化
 
 ```java
 @EnableFastJsonHttpConverters
@@ -204,5 +204,5 @@ public class WebRestFulApplication {
 
 #### @EnableFastJsonHttpConverters 有两个属性
 
-1. longToString 将long转换为String字符串 js没有long类型会有经度丢失 默认是false
-2. nullShowValue 是否展示值为null的key 默认是false
+1. longToString 将 long 转换为 String 字符串 js 没有 long 类型会有经度丢失 默认是 false
+2. nullShowValue 是否展示值为 null 的 key 默认是 false

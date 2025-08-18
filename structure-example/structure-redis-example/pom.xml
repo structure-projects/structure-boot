@@ -16,7 +16,7 @@
     <description>redis 启动器测试例子</description>
 
     <properties>
-        <structure.version>1.2.2</structure.version>
+        <structure.version>1.2.3</structure.version>
     </properties>
 
     <dependencies>
@@ -48,7 +48,7 @@
         <profile>
             <id>develop</id>
             <properties>
-                <structure.version>1.0.1.SNAPSHOT</structure.version>
+                <structure.version>1.2.3</structure.version>
             </properties>
         </profile>
     </profiles>

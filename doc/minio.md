@@ -1,14 +1,14 @@
 # structure-minio
 
-对minio的封装 文件存储
+对 minio 的封装 文件存储
 
 ## 功能介绍
 
-对minio的封装 文件存储
+对 minio 的封装 文件存储
 
 ## 如何使用
 
-### pom引用 ###
+### pom 引用
 
 引用最新文档版本的依赖
 
@@ -16,11 +16,11 @@
 <dependency>
     <groupId>cn.structured</groupId>
     <artifactId>structure-minio-starter</artifactId>
-    <version>${last.version}</version>
+    <version>1.2.3</version>
 </dependency>
 ```
 
-### 如何配置 ###
+### 如何配置
 
 ```yaml
 structure:
@@ -31,9 +31,9 @@ structure:
     endpoint-enable: true # 是否开启endpoint
 ```
 
-#### MinioEndpoint ###
+#### MinioEndpoint
 
-endpoint-enable: true 为开启状态，开启后会享有对minio的基本操作开启后则不需要在实现以下代码如需自定义操作请忽略该功能
+endpoint-enable: true 为开启状态，开启后会享有对 minio 的基本操作开启后则不需要在实现以下代码如需自定义操作请忽略该功能
 
 ```java
 @RestController

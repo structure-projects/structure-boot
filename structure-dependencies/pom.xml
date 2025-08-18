@@ -65,7 +65,6 @@
         <maven-site-plugin.version>3.7.1</maven-site-plugin.version>
         <maven.jar.plugin.version>3.0.2</maven.jar.plugin.version>
         <maven-compiler-plugin>3.8.1</maven-compiler-plugin>
-        <!--<maven.compiler.plugin.version>2.3.2</maven.compiler.plugin.version>-->
         <maven-compiler-plugin.version>2.5</maven-compiler-plugin.version>
         <maven-surefire-plugin.version>2.5</maven-surefire-plugin.version>
         <maven-source-plugin.version>2.2.1</maven-source-plugin.version>
@@ -78,7 +77,7 @@
         <spring-security.version>5.7.10</spring-security.version>
         <spring-security-jwt.version>1.1.0.RELEASE</spring-security-jwt.version>
         <!--spring boot version -->
-        <spring-boot.version>2.7.14</spring-boot.version>
+        <spring-boot.version>2.7.18</spring-boot.version>
         <spring-kubernetes.version>1.1.6.RELEASE</spring-kubernetes.version>
 
         <!-- 内部插件版本区域 -->

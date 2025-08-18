@@ -14,7 +14,7 @@
     <packaging>jar</packaging>
 
     <properties>
-        <structure.version>1.2.2</structure.version>
+        <structure.version>1.2.3</structure.version>
     </properties>
 
     <dependencies>
