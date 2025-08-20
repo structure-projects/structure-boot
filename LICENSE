@@ -186,7 +186,7 @@
       same "printed page" as the copyright notice for easier
       identification within third-party archives.
 
-   Copyright [yyyy] [name of copyright owner]
+   Copyright [2025] [structure-projects of copyright owner]
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
@@ -199,3 +199,11 @@
    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
    See the License for the specific language governing permissions and
    limitations under the License.
+
+Supplementary Open Source License
+
+Strcture boot is free for individuals and enterprises and can be used in closed source. If open source is required, the open source license cannot be changed and your copyright information needs to be superimposed on the open source license.
+
+Commercial use is permitted. For commercial technical support, please contact structure-projects@163.com.
+
+The copyright of the framework belongs to structurs.cn,github structre-projects Technical Research and Development Group.
