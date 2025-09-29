@@ -94,7 +94,7 @@ git clone https://github.com/your-username/structure-boot.git
 
 # 添加上游仓库
 cd structure-boot
-git remote add upstream https://github.com/original-username/structure-boot.git
+git remote add upstream https://github.com/structure-projects/structure-boot.git
 ```
 
 ### 3. 创建分支
@@ -344,9 +344,9 @@ mvn spring-boot:run
 
 感谢以下贡献者的支持：
 
-- [贡献者 1](https://github.com/contributor1)
-- [贡献者 2](https://github.com/contributor2)
-- [贡献者 3](https://github.com/contributor3)
+- [贡献者 1](https://github.com/chuckLcq)
+- [贡献者 2](https://github.com/zhioak)
+- [贡献者 3](https://github.com/lchqJava)
 
 ## 📄 开源协议
 
