@@ -20,6 +20,7 @@ import cn.hutool.core.net.NetUtil;
 import cn.hutool.core.util.IdUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -41,6 +42,7 @@ public class AutoSnowflakeConfiguration {
     private SnowflakeProperties snowflakeProperties;
 
     @Bean
+    @ConditionalOnMissingBean(Snowflake.class)
     public Snowflake snowflake() {
         long workerId = 0L;
         long datacenterId = 0L;
