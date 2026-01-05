@@ -15,10 +15,10 @@
  */
 package cn.structured.mybatis.plus.starter.base;
 
+import cn.structure.common.vo.ReqPage;
 import cn.structured.mybatis.plus.starter.core.JoinHelper;
 import cn.structured.mybatis.plus.starter.core.JoinTableInfo;
 import cn.structured.mybatis.plus.starter.core.QueryJoinPageListWrapper;
-import cn.structured.mybatis.plus.starter.vo.ReqPage;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;

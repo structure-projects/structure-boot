@@ -15,8 +15,8 @@
  */
 package cn.structured.mybatis.plus.starter.base;
 
+import cn.structure.common.vo.ReqPage;
 import cn.structured.mybatis.plus.starter.core.QueryJoinPageListWrapper;
-import cn.structured.mybatis.plus.starter.vo.ReqPage;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 
