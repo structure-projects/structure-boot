@@ -78,6 +78,7 @@
         <spring-security-jwt.version>1.1.0.RELEASE</spring-security-jwt.version>
         <!--spring boot version -->
         <spring-boot.version>2.7.18</spring-boot.version>
+        <spring-framework.version>5.3.32</spring-framework.version>
         <spring-kubernetes.version>1.1.6.RELEASE</spring-kubernetes.version>
 
         <!-- 内部插件版本区域 -->
@@ -90,7 +91,7 @@
         <oceanc.version>0.4.0</oceanc.version>
 
         <!--mybatis -->
-        <mybatis.version>3.5.5</mybatis.version>
+        <mybatis.version>3.5.13</mybatis.version>
         <mybatis-generator-mysql.version>5.1.46</mybatis-generator-mysql.version>
         <mybatis-generator-maven.version>1.3.4</mybatis-generator-maven.version>
 
@@ -100,7 +101,7 @@
         <!-- mybatis plus -->
         <mybatis-plus.version>3.4.0</mybatis-plus.version>
         <mybatis-spring-boot-starter.version>2.1.3</mybatis-spring-boot-starter.version>
-        <mysql.version>8.0.28</mysql.version>
+        <mysql.version>8.0.33</mysql.version>
 
         <!-- 模板版本 -->
         <velocity-engine-core.version>2.2</velocity-engine-core.version>
@@ -112,11 +113,11 @@
         <persistence-api.version>2.2</persistence-api.version>
 
         <!-- hutool util -->
-        <hutool.version>5.1.0</hutool.version>
+        <hutool.version>5.8.22</hutool.version>
         <fastjson.version>1.2.83</fastjson.version>
         <commons-lang3.version>3.8.1</commons-lang3.version>
 
-        <guava.version>29.0-jre</guava.version>
+        <guava.version>32.1.3-jre</guava.version>
         <modelmapper.version>2.2.1</modelmapper.version>
         <geodesy.version>1.1.3</geodesy.version>
         <minio.version>8.3.3</minio.version>
@@ -125,7 +126,7 @@
         <swagger-bootstrap-ui.version>1.9.6</swagger-bootstrap-ui.version>
 
         <!--buf-->
-        <protobuf.version>3.5.1</protobuf.version>
+        <protobuf.version>3.25.1</protobuf.version>
         <protostuff.version>1.0.8</protostuff.version>
 
         <!--数据库迁移工具-->
