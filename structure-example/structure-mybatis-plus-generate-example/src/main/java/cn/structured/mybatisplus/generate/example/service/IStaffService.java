@@ -16,7 +16,7 @@
 package cn.structured.mybatisplus.generate.example.service;
 
 import cn.structured.mybatis.plus.starter.base.IBaseService;
-import cn.structured.mybatis.plus.starter.vo.ReqPage;
+import cn.structure.common.vo.ReqPage;
 import cn.structured.mybatisplus.generate.example.entity.Staff;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 
@@ -36,7 +36,6 @@ public interface IStaffService extends IBaseService<Staff> {
      * @param reqPageStaffVO
      * @return
      */
-    @Override
     IPage<Staff> page(ReqPage reqPageStaffVO);
 
     /**

@@ -13,32 +13,38 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package cn.structured.mybatis.plus.starter.vo;
+package cn.structure.common.vo;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-import java.time.LocalDateTime;
+import java.util.List;
+
 
 /**
  * <p>
- * 入参分页
+ * 出参分页
  * </p>
  *
  * @author chuck
  * @version 1.0.1
- * @since 2021/7/30 14:00
+ * @since 2021/6/26 13:45
  */
 @Data
-public class ReqPage {
+@ApiModel(description = "出参分页")
+public class ResPage<T> {
 
-    private Integer currentPage;
+    @ApiModelProperty(value = "当前页")
+    private Long current;
+    @ApiModelProperty(value = "总页数")
+    private Long pages;
+    @ApiModelProperty(value = "数据")
+    private List<T> records;
+    @ApiModelProperty(value = "每页数量")
+    private Long size;
+    @ApiModelProperty(value = "总记录数")
+    private Long total;
 
-    private Integer pageSize;
-
-    private String keyword;
-
-    private LocalDateTime beginTime;
-
-    private LocalDateTime endTime;
 
 }
