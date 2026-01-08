@@ -10,6 +10,7 @@
         <relativePath>../structure-boot-parent/pom.xml</relativePath>
     </parent>
 
+    <name>structure-mybatis-plus-starter</name>
     <artifactId>structure-mybatis-plus-starter</artifactId>
     <description>structure-mybatis-plus-starter</description>
     <version>${revision}</version>

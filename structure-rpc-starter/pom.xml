@@ -11,6 +11,7 @@
     </parent>
 
     <version>${revision}</version>
+    <name>structure-rpc-starter</name>
     <packaging>jar</packaging>
     <artifactId>structure-rpc-starter</artifactId>
     <description>这个是一个远程服务调用的实现</description>
