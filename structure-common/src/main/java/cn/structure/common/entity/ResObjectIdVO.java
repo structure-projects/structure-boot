@@ -15,8 +15,7 @@
  */
 package cn.structure.common.entity;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 
 /**
@@ -28,7 +27,7 @@ import lombok.*;
  * @version 1.0.1
  * @since 2020-12-26
  */
-@ApiModel(description = "出参：ID 实体 - VO")
+@Schema(description = "出参：ID 实体 - VO")
 @Getter
 @Setter
 @ToString
@@ -36,6 +35,6 @@ import lombok.*;
 @AllArgsConstructor
 public class ResObjectIdVO {
 
-    @ApiModelProperty(value = "ID", example = "1")
+    @Schema(description = "ID", example = "1")
     private Object id;
 }

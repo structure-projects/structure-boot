@@ -61,7 +61,6 @@ public class MpCodeGeneratorMojo extends AbstractMojo {
         }
 
         MpCodeGeneratorConfig config = yaml2Config(inputStream);
-
         Map<String, FieldFill> tableFill = config.getTableFill();
         if (null != tableFill && tableFill.size() > 0) {
             List<TableFill> tableFillList = new ArrayList<TableFill>();

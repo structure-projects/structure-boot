@@ -18,7 +18,7 @@
     <description>structure-boot-parent</description>
 
     <properties>
-        <revision>1.2.4</revision>
+        <revision>1.3.0</revision>
     </properties>
 
     <modules>
@@ -28,7 +28,6 @@
         <module>../structure-mybatis-starter</module>
         <!-- mybatis-plus -->
         <module>../structure-mybatis-plus-starter</module>
-        <module>../structure-mybatis-plus-generate</module>
         <!-- LOG -->
         <module>../structure-log-starter</module>
         <!--minio -->
@@ -114,11 +113,7 @@
                 <artifactId>structure-mybatis-plus-starter</artifactId>
                 <version>${revision}</version>
             </dependency>
-            <dependency>
-                <groupId>cn.structured</groupId>
-                <artifactId>structure-mybatis-plus-generate</artifactId>
-                <version>${revision}</version>
-            </dependency>
+
             <dependency>
                 <groupId>cn.structured</groupId>
                 <artifactId>structure-minio-starter</artifactId>

@@ -18,6 +18,7 @@ package cn.structure.starter.mybatis.plugin;
 import cn.structure.starter.mybatis.annotation.SplitTable;
 import cn.structure.starter.mybatis.configuration.MybatisProperties;
 import cn.structure.starter.mybatis.enums.SplitTableEnum;
+import jakarta.annotation.Resource;
 import org.apache.ibatis.executor.statement.StatementHandler;
 import org.apache.ibatis.mapping.MappedStatement;
 import org.apache.ibatis.mapping.ParameterMap;
@@ -34,7 +35,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.Resource;
 import java.lang.reflect.Method;
 import java.sql.Connection;
 import java.text.SimpleDateFormat;

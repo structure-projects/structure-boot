@@ -21,6 +21,7 @@ import cn.structure.starter.redisson.properties.*;
 import cn.structure.starter.redisson.utils.DistributedLockerImpl;
 import cn.structure.starter.redisson.utils.IDistributedLocker;
 import cn.structure.starter.redisson.utils.StringUtil;
+import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.redisson.Redisson;
 import org.redisson.api.RedissonClient;
@@ -36,7 +37,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import javax.annotation.Resource;
+import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 
@@ -96,7 +97,7 @@ public class RedissonConfiguration {
         config.setReferenceEnabled(redissonProperties.getReferenceEnabled());
         config.setLockWatchdogTimeout(redissonProperties.getLockWatchdogTimeout());
         config.setKeepPubSubOrder(redissonProperties.getKeepPubSubOrder());
-        config.setDecodeInExecutor(redissonProperties.getDecodeInExecutor());
+//        config.setDecodeInExecutor(redissonProperties.getDecodeInExecutor());
         config.setUseScriptCache(redissonProperties.getUseScriptCache());
         config.setMinCleanUpDelay(redissonProperties.getMinCleanUpDelay());
         config.setMaxCleanUpDelay(redissonProperties.getMaxCleanUpDelay());
@@ -335,7 +336,7 @@ public class RedissonConfiguration {
         singleServerConfig.setDnsMonitoringInterval(param.getDnsMonitoringInterval());
         singleServerConfig.setSubscriptionConnectionMinimumIdleSize(param.getSubscriptionConnectionMinimumIdleSize());
         singleServerConfig.setSubscriptionConnectionPoolSize(param.getSubscriptionConnectionPoolSize());
-        singleServerConfig.setPingTimeout(redissonProperties.getPingTimeout());
+        singleServerConfig.setTimeout(redissonProperties.getPingTimeout());
         singleServerConfig.setClientName(redissonProperties.getClientName());
         singleServerConfig.setConnectTimeout(redissonProperties.getConnectTimeout());
         singleServerConfig.setIdleConnectionTimeout(redissonProperties.getIdleConnectionTimeout());
@@ -347,13 +348,15 @@ public class RedissonConfiguration {
         singleServerConfig.setSslEnableEndpointIdentification(redissonProperties.getSslEnableEndpointIdentification());
         try {
             if (!StringUtil.isBlank(redissonProperties.getSslKeystore())) {
-                singleServerConfig.setSslKeystore(new URI(redissonProperties.getSslKeystore()));
+                singleServerConfig.setSslKeystore(new URI(redissonProperties.getSslKeystore()).toURL());
             }
             if (!StringUtil.isBlank(redissonProperties.getSslTruststore())) {
-                singleServerConfig.setSslTruststore(new URI(redissonProperties.getSslTruststore()));
+                singleServerConfig.setSslTruststore(new URI(redissonProperties.getSslTruststore()).toURL());
             }
         } catch (URISyntaxException e) {
             e.printStackTrace();
+        } catch (MalformedURLException e) {
+            throw new RuntimeException(e);
         }
         singleServerConfig.setSslKeystorePassword(redissonProperties.getSslKeystorePassword());
         singleServerConfig.setSslProvider(redissonProperties.getSslProvider());
@@ -451,7 +454,7 @@ public class RedissonConfiguration {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-        baseMasterSlaveServersConfig.setPingTimeout(redissonProperties.getPingTimeout());
+        baseMasterSlaveServersConfig.setTimeout(redissonProperties.getPingTimeout());
         baseMasterSlaveServersConfig.setClientName(redissonProperties.getClientName());
         baseMasterSlaveServersConfig.setConnectTimeout(redissonProperties.getConnectTimeout());
         baseMasterSlaveServersConfig.setIdleConnectionTimeout(redissonProperties.getIdleConnectionTimeout());
@@ -465,13 +468,15 @@ public class RedissonConfiguration {
         baseMasterSlaveServersConfig.setSslEnableEndpointIdentification(redissonProperties.getSslEnableEndpointIdentification());
         try {
             if (!StringUtil.isBlank(redissonProperties.getSslKeystore())) {
-                baseMasterSlaveServersConfig.setSslKeystore(new URI(redissonProperties.getSslKeystore()));
+                baseMasterSlaveServersConfig.setSslKeystore(new URI(redissonProperties.getSslKeystore()).toURL());
             }
             if (!StringUtil.isBlank(redissonProperties.getSslTruststore())) {
-                baseMasterSlaveServersConfig.setSslTruststore(new URI(redissonProperties.getSslTruststore()));
+                baseMasterSlaveServersConfig.setSslTruststore(new URI(redissonProperties.getSslTruststore()).toURL());
             }
         } catch (URISyntaxException e) {
             e.printStackTrace();
+        } catch (MalformedURLException e) {
+            throw new RuntimeException(e);
         }
         baseMasterSlaveServersConfig.setSslKeystorePassword(redissonProperties.getSslKeystorePassword());
         baseMasterSlaveServersConfig.setSslProvider(redissonProperties.getSslProvider());

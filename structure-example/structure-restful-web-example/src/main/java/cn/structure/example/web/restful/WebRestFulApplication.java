@@ -29,7 +29,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @version 1.0.1
  * @since 2021/1/3 21:25
  */
-@EnableSwagger
 @EnableFastJsonHttpConverters
 @SpringBootApplication
 public class WebRestFulApplication {

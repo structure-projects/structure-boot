@@ -15,8 +15,7 @@
  */
 package cn.structure.common.vo;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -31,22 +30,22 @@ import java.time.LocalDateTime;
  * @since 2021/7/30 14:00
  */
 @Data
-@ApiModel(description = "入参分页")
+@Schema(description = "入参分页")
 public class ReqPage {
 
-    @ApiModelProperty(value = "当前页")
+    @Schema(description = "当前页")
     private Integer currentPage;
 
-    @ApiModelProperty(value = "每页数量")
+    @Schema(description = "每页数量")
     private Integer pageSize;
 
-    @ApiModelProperty(value = "关键字")
+    @Schema(description = "关键字")
     private String keyword;
 
-    @ApiModelProperty(value = "开始时间")
+    @Schema(description = "开始时间")
     private LocalDateTime beginTime;
 
-    @ApiModelProperty(value = "结束时间")
+    @Schema(description = "结束时间")
     private LocalDateTime endTime;
 
 }

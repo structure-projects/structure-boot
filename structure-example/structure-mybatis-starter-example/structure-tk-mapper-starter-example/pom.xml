@@ -14,7 +14,17 @@
     <dependencies>
         <dependency>
             <groupId>tk.mybatis</groupId>
+            <artifactId>mapper-base</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>tk.mybatis</groupId>
             <artifactId>mapper-spring-boot-starter</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>tk.mybatis</groupId>
+                    <artifactId>mapper-base</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -27,7 +37,7 @@
             <dependency>
                 <groupId>cn.structured</groupId>
                 <artifactId>structure-dependencies</artifactId>
-                <version>1.2.1.RELEASE</version>
+                <version>${structure.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -58,8 +68,7 @@
                         <groupId>mysql</groupId>
                         <artifactId>mysql-connector-java</artifactId>
                         <scope>runtime</scope>
-                        <!--<version>8.0.13</version>-->
-                        <version>5.1.46</version>
+                        <version>${mysql.version}</version>
                     </dependency>
                     <dependency>
                         <groupId>com.github.oceanc</groupId>
@@ -69,7 +78,7 @@
                     <dependency>
                         <groupId>tk.mybatis</groupId>
                         <artifactId>mapper-spring-boot-starter</artifactId>
-                        <version>1.2.4</version>
+                        <version>2.1.5</version>
                     </dependency>
                 </dependencies>
             </plugin>

@@ -19,6 +19,7 @@ import cn.structure.common.entity.IResult;
 import cn.structure.common.entity.VerificationFailedMsg;
 import cn.structure.common.enums.ResultCodeEnum;
 import cn.structure.common.utils.IResultUtil;
+import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,7 +31,6 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 

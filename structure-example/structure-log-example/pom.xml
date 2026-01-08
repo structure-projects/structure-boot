@@ -3,19 +3,13 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-parent</artifactId>
-        <version>2.7.14</version>
+        <groupId>cn.structured</groupId>
+        <artifactId>structure-example</artifactId>
+        <version>${revision}</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <groupId>cn.structured</groupId>
     <artifactId>structure-log-example</artifactId>
-    <version>1.0.1</version>
     <packaging>jar</packaging>
-
-    <properties>
-        <structure.version>1.2.3</structure.version>
-    </properties>
 
     <dependencies>
         <dependency>
@@ -31,6 +25,15 @@
         <dependency>
             <groupId>cn.structured</groupId>
             <artifactId>structure-log-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-starter-webmvc-api</artifactId>
         </dependency>
     </dependencies>
 

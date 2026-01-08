@@ -3,32 +3,34 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
     <parent>
-        <groupId>cn.structured</groupId>
-        <artifactId>structure-example</artifactId>
-        <version>${revision}</version>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-parent</artifactId>
+        <version>3.4.5</version>
     </parent>
-    <artifactId>structure-mybatis-starter-example</artifactId>
-    <version>1.0.1.RELEASE</version>
+    <groupId>cn.structured</groupId>
+    <artifactId>structure-example</artifactId>
+    <version>${revision}</version>
     <packaging>pom</packaging>
+
+    <properties>
+        <revision>1.0.1</revision>
+        <structure.version>1.3.0</structure.version>
+    </properties>
     <modules>
-        <module>structure-mybatis-plus-starter-example</module>
-        <module>structure-tk-mapper-starter-example</module>
-        <module>structure-mybatis-example</module>
+        <module>structure-boot-example</module>
+        <module>structure-log-example</module>
+        <module>structure-minio-example</module>
+        <module>structure-mybatis-starter-example</module>
+        <module>structure-redis-example</module>
+        <module>structure-redisson-starter-example</module>
+        <module>structure-restful-web-example</module>
+        <module>structure-rpc-example</module>
     </modules>
 
-
     <dependencies>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>cn.structured</groupId>
-            <artifactId>structure-mybatis-starter</artifactId>
-        </dependency>
     </dependencies>
-
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -40,4 +42,6 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
+
+
 </project>

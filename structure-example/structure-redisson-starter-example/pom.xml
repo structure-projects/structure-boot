@@ -4,18 +4,14 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-parent</artifactId>
-        <version>2.7.14</version>
+        <groupId>cn.structured</groupId>
+        <artifactId>structure-example</artifactId>
+        <version>${revision}</version>
     </parent>
-    <groupId>cn.structured</groupId>
     <artifactId>structure-redisson-starter-example</artifactId>
-    <version>1.1.1</version>
 
     <description>redission 启动器测试例子</description>
-    <properties>
-        <structure.version>1.2.3</structure.version>
-    </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>

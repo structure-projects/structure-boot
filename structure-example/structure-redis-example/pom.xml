@@ -5,19 +5,15 @@
 
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-parent</artifactId>
-        <version>2.7.14</version>
+        <groupId>cn.structured</groupId>
+        <artifactId>structure-example</artifactId>
+        <version>${revision}</version>
     </parent>
-    <groupId>cn.structured</groupId>
     <artifactId>structure-redis-example</artifactId>
-    <version>1.1.1</version>
 
     <description>redis 启动器测试例子</description>
 
-    <properties>
-        <structure.version>1.2.3</structure.version>
-    </properties>
+
 
     <dependencies>
         <dependency>
