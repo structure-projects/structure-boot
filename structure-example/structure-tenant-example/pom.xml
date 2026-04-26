@@ -7,12 +7,12 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.7.14</version>
+        <version>2.7.18</version>
         <relativePath/><!-- lookup parent from repository -->
     </parent>
 
     <groupId>cn.structured</groupId>
-    <artifactId>structure-rpc-example</artifactId>
+    <artifactId>structure-tenant-example</artifactId>
     <version>${revision}</version>
 
     <properties>
@@ -34,6 +34,7 @@
         <dependency>
             <groupId>cn.structured</groupId>
             <artifactId>structure-tenant-starter</artifactId>
+            <version>1.2.4</version>
         </dependency>
     </dependencies>
     <dependencyManagement>
