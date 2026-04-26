@@ -38,6 +38,8 @@
         <!--redisson-->
         <module>../structure-redisson-starter</module>
         <module>../structure-rpc-starter</module>
+        <!--tenant-->
+        <module>../structure-tenant-starter</module>
     </modules>
 
 
@@ -127,6 +129,16 @@
             <dependency>
                 <groupId>cn.structured</groupId>
                 <artifactId>structure-rpc-starter</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.structured</groupId>
+                <artifactId>structure-tenant-starter</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.structured</groupId>
+                <artifactId>structure-tenant-example</artifactId>
                 <version>${revision}</version>
             </dependency>
         </dependencies>
