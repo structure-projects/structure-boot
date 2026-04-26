@@ -5,13 +5,32 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>cn.structured</groupId>
-        <artifactId>structure-example</artifactId>
-        <version>1.0.1</version>
-        <relativePath>../pom.xml</relativePath>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-parent</artifactId>
+        <version>2.7.18</version>
     </parent>
 
-    <artifactId>structure-boot-example</artifactId>
+    <groupId>cn.structured</groupId>
+    <artifactId>structure-example</artifactId>
+    <version>1.0.1</version>
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>structure-redis-example</module>
+        <module>structure-boot-example</module>
+        <module>structure-log-example</module>
+        <module>structure-minio-example</module>
+        <module>structure-restful-web-example</module>
+        <module>structure-mybatis-starter-example</module>
+        <module>structure-tenant-example</module>
+        <module>structure-rpc-example</module>
+        <module>structure-redisson-starter-example</module>
+        <module>structure-mybatis-plus-generate-example</module>
+    </modules>
+
+    <properties>
+        <structure.version>1.2.5</structure.version>
+    </properties>
 
     <dependencies>
         <dependency>

@@ -48,7 +48,7 @@
     </scm>
 
     <properties>
-        <revision>1.2.4</revision>
+        <revision>1.2.5</revision>
         <!-- 注意版本升级时需要考虑相关依赖版本，谨慎升级 -->
         <structure.version>${project.version}</structure.version>
         <!-- jdk -->

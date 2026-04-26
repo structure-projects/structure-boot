@@ -5,20 +5,13 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.7.14</version>
-        <relativePath/><!-- lookup parent from repository -->
+        <groupId>cn.structured</groupId>
+        <artifactId>structure-example</artifactId>
+        <version>1.0.1</version>
+        <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <groupId>cn.structured</groupId>
     <artifactId>structure-rpc-example</artifactId>
-    <version>${revision}</version>
-
-    <properties>
-        <revision>1.0.1</revision>
-        <structure.version>1.2.3</structure.version>
-    </properties>
 
 
     <dependencies>
