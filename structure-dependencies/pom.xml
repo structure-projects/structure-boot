@@ -48,7 +48,8 @@
     </scm>
 
     <properties>
-        <revision>1.2.6</revision>
+        <!-- 这个版本好只在开发时候有效，发布时时忽略的，建议使用预发布版本好定义 -->
+        <revision>1.2.8</revision>
         <!-- 注意版本升级时需要考虑相关依赖版本，谨慎升级 -->
         <structure.version>${project.version}</structure.version>
         <!-- jdk -->
