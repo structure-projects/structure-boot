@@ -133,11 +133,6 @@
                 <artifactId>structure-tenant-starter</artifactId>
                 <version>${revision}</version>
             </dependency>
-            <dependency>
-                <groupId>cn.structured</groupId>
-                <artifactId>structure-tenant-example</artifactId>
-                <version>${revision}</version>
-            </dependency>
         </dependencies>
     </dependencyManagement>
 

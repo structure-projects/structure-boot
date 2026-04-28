@@ -49,7 +49,7 @@
 
     <properties>
         <!-- 这个版本好只在开发时候有效，发布时时忽略的，建议使用预发布版本好定义 -->
-        <revision>1.2.8</revision>
+        <revision>1.2.9-SNAPSHOT</revision>
         <!-- 注意版本升级时需要考虑相关依赖版本，谨慎升级 -->
         <structure.version>${project.version}</structure.version>
         <!-- jdk -->
@@ -586,15 +586,35 @@
     </profiles>
 
 
+<!--    <distributionManagement>-->
+<!--        <snapshotRepository>-->
+<!--            <id>oss</id>-->
+<!--            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>-->
+<!--        </snapshotRepository>-->
+<!--        <repository>-->
+<!--            <id>oss</id>-->
+<!--            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>-->
+<!--        </repository>-->
+<!--    </distributionManagement>-->
+    <!-- 2. 配置仓库分发地址 -->
     <distributionManagement>
         <snapshotRepository>
             <id>oss</id>
-            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+            <url>https://central.sonatype.com/repository/maven-snapshots/</url>
         </snapshotRepository>
-        <repository>
-            <id>oss</id>
-            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-        </repository>
+        <!-- 注意：快照部署不需要配置<repository>（那是给正式版用的） -->
     </distributionManagement>
 
+    <repositories>
+    <repository>
+        <id>ossrh-snapshots</id>
+        <url>https://central.sonatype.com/repository/maven-snapshots/</url>
+        <releases>
+            <enabled>false</enabled>
+        </releases>
+        <snapshots>
+            <enabled>true</enabled>
+        </snapshots>
+    </repository>
+</repositories>
 </project>
