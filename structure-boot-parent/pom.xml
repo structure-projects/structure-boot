@@ -17,9 +17,6 @@
     <name>structure-boot-parent</name>
     <description>structure-boot-parent</description>
 
-    <properties>
-        <revision>1.2.5</revision>
-    </properties>
 
     <modules>
         <!-- web组件-->
