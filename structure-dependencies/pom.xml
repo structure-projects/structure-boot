@@ -48,7 +48,7 @@
     </scm>
 
     <properties>
-        <revision>1.2.5</revision>
+        <revision>1.2.6</revision>
         <!-- 注意版本升级时需要考虑相关依赖版本，谨慎升级 -->
         <structure.version>${project.version}</structure.version>
         <!-- jdk -->
@@ -571,6 +571,13 @@
                                 </goals>
                             </execution>
                         </executions>
+                        <configuration>
+                            <gpgArguments>
+                                <arg>--pinentry-mode</arg>
+                                <arg>loopback</arg>
+                            </gpgArguments>
+                            <passphrase>${GPG_PASSPHRASE}</passphrase>  <!-- 直接使用环境变量 -->
+                        </configuration>
                     </plugin>
                 </plugins>
             </build>
