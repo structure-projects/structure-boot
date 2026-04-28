@@ -527,6 +527,8 @@
                             <publishingServerId>oss</publishingServerId>
                             <autoPublish>true</autoPublish>
                             <waitUntil>published</waitUntil>
+                            <waitMaxTime>600</waitMaxTime>
+                            <waitPollingInterval>10</waitPollingInterval>
                         </configuration>
                     </plugin>
 
@@ -584,18 +586,6 @@
             </build>
         </profile>
     </profiles>
-
-
-<!--    <distributionManagement>-->
-<!--        <snapshotRepository>-->
-<!--            <id>oss</id>-->
-<!--            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>-->
-<!--        </snapshotRepository>-->
-<!--        <repository>-->
-<!--            <id>oss</id>-->
-<!--            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>-->
-<!--        </repository>-->
-<!--    </distributionManagement>-->
     <!-- 2. 配置仓库分发地址 -->
     <distributionManagement>
         <snapshotRepository>
