@@ -29,7 +29,7 @@
     </modules>
 
     <properties>
-        <structure.version>1.2.5</structure.version>
+        <structure.version>1.2.9-SNAPSHOT</structure.version>
     </properties>
 
     <dependencies>
