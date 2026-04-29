@@ -17,9 +17,9 @@ package cn.structure.example.mybatisplus.controller;
 
 import cn.structure.example.mybatisplus.pojo.po.User;
 import cn.structure.example.mybatisplus.service.IUserService;
+import jakarta.annotation.Resource;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

@@ -12,26 +12,30 @@
     <artifactId>structure-mybatis-plus-starter-example</artifactId>
 
     <dependencies>
+
         <!-- mybatis plus starter -->
         <dependency>
             <groupId>com.baomidou</groupId>
-            <artifactId>mybatis-plus-boot-starter</artifactId>
+            <artifactId>mybatis-plus-spring-boot3-starter</artifactId>
+            <version>3.5.5</version>
         </dependency>
 
         <!-- mybatis plus 生成工具-->
-        <dependency>
-            <groupId>com.baomidou</groupId>
-            <artifactId>mybatis-plus-generator</artifactId>
-        </dependency>
+        <!--        <dependency>-->
+        <!--            <groupId>com.baomidou</groupId>-->
+        <!--            <artifactId>mybatis-plus-generator</artifactId>-->
+        <!--        </dependency>-->
         <!-- mybatis plus 生成模板-->
-        <dependency>
-            <groupId>org.apache.velocity</groupId>
-            <artifactId>velocity-engine-core</artifactId>
-            <version>2.3</version>
-        </dependency>
+        <!--        <dependency>-->
+        <!--            <groupId>org.apache.velocity</groupId>-->
+        <!--            <artifactId>velocity-engine-core</artifactId>-->
+        <!--            <version>2.3</version>-->
+        <!--        </dependency>-->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
         </dependency>
+
+
     </dependencies>
 </project>

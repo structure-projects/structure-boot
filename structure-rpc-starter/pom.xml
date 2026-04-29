@@ -40,5 +40,6 @@
             <groupId>cn.structured</groupId>
             <artifactId>structure-common</artifactId>
         </dependency>
+
     </dependencies>
 </project>

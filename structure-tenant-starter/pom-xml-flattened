@@ -5,12 +5,12 @@
   <parent>
     <groupId>cn.structured</groupId>
     <artifactId>structure-boot-parent</artifactId>
-    <version>1.2.5</version>
+    <version>1.3.1-SNAPSHOT</version>
     <relativePath>../structure-boot-parent/pom.xml</relativePath>
   </parent>
   <groupId>cn.structured</groupId>
   <artifactId>structure-tenant-starter</artifactId>
-  <version>1.2.5</version>
+  <version>1.3.1-SNAPSHOT</version>
   <name>structure-tenant-starter</name>
   <description>多租户上下文管理启动器，支持HTTP、XXL-Job、消息队列等多种协议</description>
   <url>https://projects.structured.cn/structure-boot</url>

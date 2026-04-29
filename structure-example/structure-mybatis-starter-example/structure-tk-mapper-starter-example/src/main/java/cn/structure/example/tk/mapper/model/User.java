@@ -19,8 +19,8 @@ import cn.structure.starter.mybatis.annotation.CreateTime;
 import cn.structure.starter.mybatis.annotation.UpdateTime;
 import lombok.Data;
 
-import javax.persistence.Column;
-import javax.persistence.Id;
+import jakarta.persistence.Column;
+import jakarta.persistence.Id;
 import java.util.Date;
 
 @Data

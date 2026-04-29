@@ -17,6 +17,7 @@ package cn.structure.example.mybatisplus.mapper;
 
 import cn.structure.example.mybatisplus.pojo.po.User;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -29,6 +30,7 @@ import java.util.List;
  * @author chuck
  * @since 2020-12-27
  */
+@Mapper
 public interface UserMapper extends BaseMapper<User> {
 
     /**
