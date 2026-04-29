@@ -52,7 +52,7 @@ import java.util.Optional;
 @ConditionalOnClass(value = {RpcProperties.class})
 public class AutoRpcConfiguration implements ApplicationListener<ApplicationStartedEvent>, ResourceLoaderAware {
 
-    @javax.annotation.Resource
+    @jakarta.annotation.Resource
     private RpcProperties rpcProperties;
 
     private MetadataReaderFactory metadataReaderFactory;

@@ -49,15 +49,18 @@
 
     <properties>
         <!-- 这个版本好只在开发时候有效，发布时时忽略的，建议使用预发布版本好定义 -->
-        <revision>1.2.9-SNAPSHOT</revision>
+        <revision>1.3.1-SNAPSHOT</revision>
         <!-- 注意版本升级时需要考虑相关依赖版本，谨慎升级 -->
         <structure.version>${project.version}</structure.version>
         <!-- jdk -->
-        <encoding>UTF-8</encoding>
-        <java.version>1.8</java.version>
         <charset>UTF-8</charset>
-        <java.version>1.8</java.version>
+        <encoding>UTF-8</encoding>
+        <java.version>21</java.version>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.build.sourceEncoding>${charset}</project.build.sourceEncoding>
+
         <!--nexus-->
         <nexus-staging-maven-plugin.version>1.6.13</nexus-staging-maven-plugin.version>
         <!--maven-->
@@ -74,13 +77,11 @@
         <cobertura-maven-plugin.version>2.7</cobertura-maven-plugin.version>
         <maven-flatten-maven-plugin.version>1.2.7</maven-flatten-maven-plugin.version>
         <!--spring version -->
-        <spring.version>5.3.29</spring.version>
-        <spring-security.version>5.7.10</spring-security.version>
-        <spring-security-jwt.version>1.1.0.RELEASE</spring-security-jwt.version>
+        <spring.version>6.1.5</spring.version>
+        <spring-security.version>6.2.4</spring-security.version>
         <!--spring boot version -->
-        <spring-boot.version>2.7.18</spring-boot.version>
-        <spring-framework.version>5.3.32</spring-framework.version>
-        <spring-kubernetes.version>1.1.6.RELEASE</spring-kubernetes.version>
+        <spring-boot.version>3.2.4</spring-boot.version>
+        <spring-framework.version>6.1.5</spring-framework.version>
 
         <!-- 内部插件版本区域 -->
         <!-- mybatis 和mybatis plus 区域-->
@@ -92,7 +93,7 @@
         <oceanc.version>0.4.0</oceanc.version>
 
         <!--mybatis -->
-        <mybatis.version>3.5.13</mybatis.version>
+        <mybatis.version>3.5.19</mybatis.version>
         <mybatis-generator-mysql.version>5.1.46</mybatis-generator-mysql.version>
         <mybatis-generator-maven.version>1.3.4</mybatis-generator-maven.version>
 
@@ -100,9 +101,9 @@
         <dynamic-datasource-spring-boot-starter.version>3.1.0</dynamic-datasource-spring-boot-starter.version>
 
         <!-- mybatis plus -->
-        <mybatis-plus.version>3.4.0</mybatis-plus.version>
-        <mybatis-spring-boot-starter.version>2.1.3</mybatis-spring-boot-starter.version>
-        <mysql.version>8.0.33</mysql.version>
+        <mybatis-plus.version>3.5.5</mybatis-plus.version>
+        <mybatis-spring-boot-starter.version>3.0.3</mybatis-spring-boot-starter.version>
+        <mysql.version>8.2.0</mysql.version>
 
         <!-- 模板版本 -->
         <velocity-engine-core.version>2.2</velocity-engine-core.version>
@@ -110,22 +111,23 @@
         <beetl.version>3.1.6.RELEASE</beetl.version>
 
         <!-- api -->
-        <org-redisson.version>3.10.7</org-redisson.version>
-        <persistence-api.version>2.2</persistence-api.version>
+        <org-redisson.version>3.25.0</org-redisson.version>
+        <persistence-api.version>3.0.0</persistence-api.version>
 
         <!-- hutool util -->
-        <hutool.version>5.8.22</hutool.version>
-        <fastjson.version>1.2.83</fastjson.version>
-        <commons-lang3.version>3.8.1</commons-lang3.version>
+        <hutool.version>5.8.25</hutool.version>
+        <fastjson.version>2.0.43</fastjson.version>
+        <commons-lang3.version>3.14.0</commons-lang3.version>
 
-        <guava.version>32.1.3-jre</guava.version>
-        <modelmapper.version>2.2.1</modelmapper.version>
+        <guava.version>33.2.1-jre</guava.version>
+        <modelmapper.version>3.2.0</modelmapper.version>
         <geodesy.version>1.1.3</geodesy.version>
-        <minio.version>8.3.3</minio.version>
+        <minio.version>8.5.7</minio.version>
         <!--swagger -->
+        <springdoc.version>2.3.0</springdoc.version>
         <swagger2.version>2.9.2</swagger2.version>
         <swagger-bootstrap-ui.version>1.9.6</swagger-bootstrap-ui.version>
-
+        <commons-compress.version>1.24.0</commons-compress.version>
         <!--buf-->
         <protobuf.version>3.25.1</protobuf.version>
         <protostuff.version>1.0.8</protostuff.version>
@@ -133,6 +135,10 @@
         <!--数据库迁移工具-->
         <flywaydb.version>5.2.4</flywaydb.version>
         <central-publishing-maven-plugin.version>0.9.0</central-publishing-maven-plugin.version>
+        <!--lombok-->
+        <lombok.version>1.18.30</lombok.version>
+        <!--httpclient-->
+        <httpclient.version>4.5.14</httpclient.version>
     </properties>
     <dependencyManagement>
         <dependencies>
@@ -184,15 +190,15 @@
                 <artifactId>spring-security-web</artifactId>
                 <version>${spring-security.version}</version>
             </dependency>
-            <!-- jwt -->
-            <dependency>
-                <groupId>org.springframework.security</groupId>
-                <artifactId>spring-security-jwt</artifactId>
-                <version>${spring-security-jwt.version}</version>
-            </dependency>
+            
 
             <!-- data 实例化相关插件  -->
             <!-- mybatis plus -->
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-spring-boot3-starter</artifactId>
+                <version>${mybatis-plus.version}</version>
+            </dependency>
             <dependency>
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-boot-starter</artifactId>
@@ -225,6 +231,11 @@
                 <artifactId>mysql-connector-java</artifactId>
                 <version>${mysql.version}</version>
             </dependency>
+            <dependency>
+                <groupId>com.mysql</groupId>
+                <artifactId>mysql-connector-j</artifactId>
+                <version>${mysql.version}</version>
+            </dependency>
             <!-- spring boot mybatis starter -->
             <dependency>
                 <groupId>org.mybatis.spring.boot</groupId>
@@ -249,8 +260,8 @@
                 <version>${tk-mapper.version}</version>
                 <exclusions>
                     <exclusion>
-                        <groupId>javax.persistence</groupId>
-                        <artifactId>persistence-api</artifactId>
+                        <groupId>jakarta.persistence</groupId>
+                        <artifactId>jakarta.persistence-api</artifactId>
                     </exclusion>
                 </exclusions>
             </dependency>
@@ -280,6 +291,24 @@
                 <version>${beetl.version}</version>
             </dependency>
 
+            <!--springdoc-openapi for Spring Boot 3-->
+            <dependency>
+                <groupId>org.springdoc</groupId>
+                <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+                <version>${springdoc.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springdoc</groupId>
+                <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+                <version>${springdoc.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springdoc</groupId>
+                <artifactId>springdoc-openapi-starter-webmvc-api</artifactId>
+                <version>${springdoc.version}</version>
+            </dependency>
+
             <!--swagger-->
             <dependency>
                 <groupId>io.springfox</groupId>
@@ -292,22 +321,32 @@
                 <version>${swagger2.version}</version>
             </dependency>
 
+            <!--swagger-bootstrap-ui-->
             <dependency>
                 <groupId>com.github.xiaoymin</groupId>
                 <artifactId>swagger-bootstrap-ui</artifactId>
                 <version>${swagger-bootstrap-ui.version}</version>
             </dependency>
-
             <!-- API -->
             <dependency>
-                <groupId>javax.servlet</groupId>
-                <artifactId>servlet-api</artifactId>
-                <version>${servlet-api.version}</version>
+                <groupId>jakarta.servlet</groupId>
+                <artifactId>jakarta.servlet-api</artifactId>
+                <version>6.0.0</version>
             </dependency>
             <dependency>
-                <groupId>javax.persistence</groupId>
-                <artifactId>javax.persistence-api</artifactId>
+                <groupId>jakarta.persistence</groupId>
+                <artifactId>jakarta.persistence-api</artifactId>
                 <version>${persistence-api.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.httpcomponents</groupId>
+                <artifactId>httpclient</artifactId>
+                <version>${httpclient.version}</version>
             </dependency>
 
             <!-- redis redisson-->
@@ -353,6 +392,12 @@
                 <artifactId>commons-lang3</artifactId>
                 <version>${commons-lang3.version}</version>
             </dependency>
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-compress</artifactId>
+                <version>${commons-compress.version}</version>
+            </dependency>
+
             <!-- utils google.guava -->
             <dependency>
                 <groupId>com.google.guava</groupId>

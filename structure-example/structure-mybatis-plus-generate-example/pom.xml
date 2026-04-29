@@ -26,6 +26,10 @@
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.mysql</groupId>
+            <artifactId>mysql-connector-j</artifactId>
+        </dependency>
     </dependencies>
 
     <dependencyManagement>
@@ -49,7 +53,7 @@
             <plugin>
                 <groupId>cn.structured</groupId>
                 <artifactId>structure-mybatis-plus-generate</artifactId>
-                <version>1.2.1.RELEASE</version>
+                <version>1.2.3</version>
                 <configuration>
                     <configurationFile>${basedir}/src/main/resources/generator-config.yaml</configurationFile>
                 </configuration>

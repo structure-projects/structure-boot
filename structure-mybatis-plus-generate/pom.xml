@@ -51,19 +51,38 @@
         <developerConnection>scm:git:ssh://git@github.com:structure-projects/structure-boot.git</developerConnection>
     </scm>
 
+    <properties>
+        <mybatis.plus.generator.version>3.4.1</mybatis.plus.generator.version>
+        <mybatis.plus.version>3.4.1</mybatis.plus.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- 管理plexus-utils版本以修复安全漏洞 -->
+            <dependency>
+                <groupId>org.codehaus.plexus</groupId>
+                <artifactId>plexus-utils</artifactId>
+                <version>3.5.0</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <dependencies>
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
+            <version>${mybatis.plus.generator.version}</version>
         </dependency>
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-extension</artifactId>
+            <version>${mybatis.plus.version}</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-generator</artifactId>
+            <version>${mybatis.plus.generator.version}</version>
         </dependency>
 
         <dependency>

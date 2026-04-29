@@ -15,8 +15,7 @@
  */
 package cn.structure.common.vo;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.util.List;
@@ -32,18 +31,18 @@ import java.util.List;
  * @since 2021/6/26 13:45
  */
 @Data
-@ApiModel(description = "出参分页")
+@Schema(description = "出参分页")
 public class ResPage<T> {
 
-    @ApiModelProperty(value = "当前页")
+    @Schema(description = "当前页")
     private Long current;
-    @ApiModelProperty(value = "总页数")
+    @Schema(description = "总页数")
     private Long pages;
-    @ApiModelProperty(value = "数据")
+    @Schema(description = "数据")
     private List<T> records;
-    @ApiModelProperty(value = "每页数量")
+    @Schema(description = "每页数量")
     private Long size;
-    @ApiModelProperty(value = "总记录数")
+    @Schema(description = "总记录数")
     private Long total;
 
 

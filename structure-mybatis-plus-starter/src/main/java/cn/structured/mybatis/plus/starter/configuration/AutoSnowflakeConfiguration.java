@@ -18,7 +18,7 @@ package cn.structured.mybatis.plus.starter.configuration;
 import cn.hutool.core.lang.Snowflake;
 import cn.hutool.core.net.NetUtil;
 import cn.hutool.core.util.IdUtil;
-import lombok.AllArgsConstructor;
+import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -35,12 +35,11 @@ import org.springframework.context.annotation.Configuration;
  */
 @Slf4j
 @Configuration
-@AllArgsConstructor
 @ImportAutoConfiguration(value = {SnowflakeProperties.class})
 public class AutoSnowflakeConfiguration {
 
-
-    private final SnowflakeProperties snowflakeProperties;
+    @Resource
+    private SnowflakeProperties snowflakeProperties;
 
     @Bean
     @ConditionalOnMissingBean(Snowflake.class)

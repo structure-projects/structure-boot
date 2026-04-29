@@ -18,15 +18,15 @@ package cn.structure.starter.redisson.aop;
 import cn.structure.starter.redisson.anno.*;
 import cn.structure.starter.redisson.properties.CacheProperties;
 import cn.structure.starter.redisson.properties.RedissonProperties;
+import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.redisson.api.*;
-import org.springframework.core.LocalVariableTableParameterNameDiscoverer;
+import org.springframework.core.StandardReflectionParameterNameDiscoverer;
 
-import javax.annotation.Resource;
 import java.lang.reflect.Field;
 import java.util.*;
 
@@ -59,7 +59,7 @@ public class RedisCacheAop {
     @Around("@annotation(wCache)")
     public Object writeCache(ProceedingJoinPoint proceedingJoinPoint, WCache wCache) throws Throwable {
         //获取参数名
-        String[] parameterNames = new LocalVariableTableParameterNameDiscoverer().getParameterNames(((MethodSignature) proceedingJoinPoint.getSignature()).getMethod());
+        String[] parameterNames = new StandardReflectionParameterNameDiscoverer().getParameterNames(((MethodSignature) proceedingJoinPoint.getSignature()).getMethod());
         //获取参数值
         Object[] args = proceedingJoinPoint.getArgs();
         //方法名
@@ -157,7 +157,7 @@ public class RedisCacheAop {
     @Around("@annotation(rListCache)")
     public Object readListCache(ProceedingJoinPoint proceedingJoinPoint, RListCache rListCache) throws Throwable {
         //获取参数名
-        String[] parameterNames = new LocalVariableTableParameterNameDiscoverer().getParameterNames(((MethodSignature) proceedingJoinPoint.getSignature()).getMethod());
+        String[] parameterNames = new StandardReflectionParameterNameDiscoverer().getParameterNames(((MethodSignature) proceedingJoinPoint.getSignature()).getMethod());
         //获取参数值
         Object[] args = proceedingJoinPoint.getArgs();
         //key
@@ -219,7 +219,7 @@ public class RedisCacheAop {
     @Around("@annotation(rCache)")
     public Object readCache(ProceedingJoinPoint proceedingJoinPoint, RCache rCache) throws Throwable {
         //获取参数名
-        String[] parameterNames = new LocalVariableTableParameterNameDiscoverer().getParameterNames(((MethodSignature) proceedingJoinPoint.getSignature()).getMethod());
+        String[] parameterNames = new StandardReflectionParameterNameDiscoverer().getParameterNames(((MethodSignature) proceedingJoinPoint.getSignature()).getMethod());
         //获取参数值
         Object[] args = proceedingJoinPoint.getArgs();
         //key
@@ -243,7 +243,7 @@ public class RedisCacheAop {
     @Around("@annotation(rMapCache)")
     public Object readMapCache(ProceedingJoinPoint proceedingJoinPoint, RCacheMap rMapCache) throws Throwable {
         //获取参数名
-        String[] parameterNames = new LocalVariableTableParameterNameDiscoverer().getParameterNames(((MethodSignature) proceedingJoinPoint.getSignature()).getMethod());
+        String[] parameterNames = new StandardReflectionParameterNameDiscoverer().getParameterNames(((MethodSignature) proceedingJoinPoint.getSignature()).getMethod());
         //获取参数值
         Object[] args = proceedingJoinPoint.getArgs();
         //mapKey
@@ -275,7 +275,7 @@ public class RedisCacheAop {
     @Around("@annotation(rMapAllCache)")
     public Object readMapAllCache(ProceedingJoinPoint proceedingJoinPoint, RMapAllCache rMapAllCache) throws Throwable {
         //获取参数名
-        String[] parameterNames = new LocalVariableTableParameterNameDiscoverer().getParameterNames(((MethodSignature) proceedingJoinPoint.getSignature()).getMethod());
+        String[] parameterNames = new StandardReflectionParameterNameDiscoverer().getParameterNames(((MethodSignature) proceedingJoinPoint.getSignature()).getMethod());
         //获取参数值
         Object[] args = proceedingJoinPoint.getArgs();
         //mapKey

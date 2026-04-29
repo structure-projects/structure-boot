@@ -15,8 +15,7 @@
  */
 package cn.structure.example.log.pojo.vo;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 /**
@@ -29,10 +28,10 @@ import lombok.Data;
  * @since 2021/1/3 14:17
  */
 @Data
-@ApiModel(description = "出参：测试 - VO")
+@Schema(description = "出参：测试 - VO")
 public class ResTestVO {
-    @ApiModelProperty(value = "ID")
+    @Schema(description = "ID")
     private String id;
-    @ApiModelProperty(value = "名字")
+    @Schema(description = "名字")
     private String name;
 }

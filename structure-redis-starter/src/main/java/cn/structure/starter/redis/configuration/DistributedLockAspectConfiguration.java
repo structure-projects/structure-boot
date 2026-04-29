@@ -17,6 +17,7 @@ package cn.structure.starter.redis.configuration;
 
 import cn.structure.starter.redis.annotation.RedisLock;
 import cn.structure.starter.redis.lock.IDistributedLock;
+import jakarta.annotation.Resource;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -25,14 +26,13 @@ import org.aspectj.lang.reflect.MethodSignature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.LocalVariableTableParameterNameDiscoverer;
+import org.springframework.core.StandardReflectionParameterNameDiscoverer;
 import org.springframework.expression.EvaluationContext;
 import org.springframework.expression.Expression;
 import org.springframework.expression.ExpressionParser;
 import org.springframework.expression.spel.standard.SpelExpressionParser;
 import org.springframework.expression.spel.support.StandardEvaluationContext;
 
-import javax.annotation.Resource;
 import java.lang.reflect.Method;
 
 /**
@@ -113,7 +113,7 @@ public class DistributedLockAspectConfiguration {
         Method method = ((MethodSignature) pjp.getSignature()).getMethod();
         RedisLock redisLock = method.getAnnotation(RedisLock.class);
         //获取参数名
-        String[] parameterNames = new LocalVariableTableParameterNameDiscoverer().getParameterNames(((MethodSignature) pjp.getSignature()).getMethod());
+        String[] parameterNames = new StandardReflectionParameterNameDiscoverer().getParameterNames(((MethodSignature) pjp.getSignature()).getMethod());
         //获取参数值
         Object[] args = pjp.getArgs();
         String key = getValueBySpelKey(redisLock.value(), parameterNames, args);

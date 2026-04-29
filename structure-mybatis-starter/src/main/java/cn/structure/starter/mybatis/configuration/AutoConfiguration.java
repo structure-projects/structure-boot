@@ -19,6 +19,7 @@ import cn.hutool.core.lang.Snowflake;
 import cn.hutool.core.util.IdUtil;
 import cn.structure.starter.mybatis.plugin.OverWritePluginParameter;
 import com.github.pagehelper.PageInterceptor;
+import jakarta.annotation.Resource;
 import org.apache.ibatis.plugin.Interceptor;
 import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -26,7 +27,6 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import javax.annotation.Resource;
 import java.util.Properties;
 
 /**

@@ -6,6 +6,13 @@
 
 Structure Boot 是一个基于 Spring Boot 的快速开发框架，提供了一系列开箱即用的 Starter 组件，帮助开发者快速构建企业级应用。
 
+## 📌 版本说明
+
+| 版本系列      | Spring Boot 版本  | JDK 版本  | 状态                  |
+| --------- | --------------- | ------- | ------------------- |
+| **1.3.x** | Spring Boot 3.x | JDK 21+ | ✅ 最新版本，当前 1.3.1     |
+| **1.2.x** | Spring Boot 2.x | JDK 8+  | ✅ 持续支持中，最新版本 1.2.10 |
+
 ## 🚀 功能特性
 
 - **Web 开发**: RESTful API 支持、统一异常处理、参数校验、Swagger 文档
@@ -14,19 +21,20 @@ Structure Boot 是一个基于 Spring Boot 的快速开发框架，提供了一�
 - **文件存储**: MinIO 对象存储集成
 - **日志系统**: 统一日志配置、AOP 日志记录
 - **微服务**: RPC 调用支持、OAuth2 客户端
+- **多租户**: 多租户上下文管理、多种租户识别方式
 
 ## 📦 组件列表
 
-| 组件                             | 描述                | 版本                                                                                                                                                                                                |
-| -------------------------------- | ------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `structure-common`               | 公共工具类和常量    | [![Maven Central](https://img.shields.io/maven-central/v/cn.structured/structure-common.svg)](https://search.maven.org/search?q=g:cn.structured+AND+a:structure-common)                             |
-| `structure-restful-web-starter`  | Web 开发启动器      | [![Maven Central](https://img.shields.io/maven-central/v/cn.structured/structure-restful-web-starter.svg)](https://search.maven.org/search?q=g:cn.structured+AND+a:structure-restful-web-starter)   |
+| 组件                               | 描述               | 版本                                                                                                                                                                                                  |
+| -------------------------------- | ---------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `structure-common`               | 公共工具类和常量         | [![Maven Central](https://img.shields.io/maven-central/v/cn.structured/structure-common.svg)](https://search.maven.org/search?q=g:cn.structured+AND+a:structure-common)                             |
+| `structure-restful-web-starter`  | Web 开发启动器        | [![Maven Central](https://img.shields.io/maven-central/v/cn.structured/structure-restful-web-starter.svg)](https://search.maven.org/search?q=g:cn.structured+AND+a:structure-restful-web-starter)   |
 | `structure-mybatis-starter`      | MyBatis 启动器      | [![Maven Central](https://img.shields.io/maven-central/v/cn.structured/structure-mybatis-starter.svg)](https://search.maven.org/search?q=g:cn.structured+AND+a:structure-mybatis-starter)           |
 | `structure-mybatis-plus-starter` | MyBatis-Plus 启动器 | [![Maven Central](https://img.shields.io/maven-central/v/cn.structured/structure-mybatis-plus-starter.svg)](https://search.maven.org/search?q=g:cn.structured+AND+a:structure-mybatis-plus-starter) |
 | `structure-redis-starter`        | Redis 启动器        | [![Maven Central](https://img.shields.io/maven-central/v/cn.structured/structure-redis-starter.svg)](https://search.maven.org/search?q=g:cn.structured+AND+a:structure-redis-starter)               |
 | `structure-redisson-starter`     | Redisson 启动器     | [![Maven Central](https://img.shields.io/maven-central/v/cn.structured/structure-redisson-starter.svg)](https://search.maven.org/search?q=g:cn.structured+AND+a:structure-redisson-starter)         |
 | `structure-minio-starter`        | MinIO 启动器        | [![Maven Central](https://img.shields.io/maven-central/v/cn.structured/structure-minio-starter.svg)](https://search.maven.org/search?q=g:cn.structured+AND+a:structure-minio-starter)               |
-| `structure-log-starter`          | 日志启动器          | [![Maven Central](https://img.shields.io/maven-central/v/cn.structured/structure-log-starter.svg)](https://search.maven.org/search?q=g:cn.structured+AND+a:structure-log-starter)                   |
+| `structure-log-starter`          | 日志启动器            | [![Maven Central](https://img.shields.io/maven-central/v/cn.structured/structure-log-starter.svg)](https://search.maven.org/search?q=g:cn.structured+AND+a:structure-log-starter)                   |
 | `structure-rpc-starter`          | RPC 启动器          | [![Maven Central](https://img.shields.io/maven-central/v/cn.structured/structure-rpc-starter.svg)](https://search.maven.org/search?q=g:cn.structured+AND+a:structure-rpc-starter)                   |
 
 ## 🚀 快速开始
@@ -489,14 +497,14 @@ strategyConfig:
 
 ## 📞 联系我们
 
-- 项目地址: [https://github.com/structure-projects/structure-boot](https://github.com/structure-projects/structure-boot)
+- 项目地址: <https://github.com/structure-projects/structure-boot>
 - 问题反馈: [Issues](https://github.com/structure-projects/structure-boot/issues)
-- 邮箱: 361648887@qq.com
+- 邮箱: <361648887@qq.com>
 
 ## ⭐ 支持我们
 
 如果这个项目对您有帮助，请给我们一个 ⭐ Star！
 
----
+***
 
 **Structure Boot** - 让 Spring Boot 开发更简单、更高效！

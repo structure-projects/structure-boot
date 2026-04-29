@@ -18,9 +18,9 @@ package cn.structure.example.redis.service;
 import cn.structure.example.redis.entity.RedisLockBo;
 import cn.structure.starter.redis.annotation.RedisLock;
 import cn.structure.starter.redis.lock.IDistributedLock;
+import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
 
 
 /**

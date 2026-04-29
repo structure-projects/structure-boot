@@ -30,7 +30,7 @@ import org.redisson.api.RLock;
 import org.redisson.api.RReadWriteLock;
 import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.LocalVariableTableParameterNameDiscoverer;
+import org.springframework.core.StandardReflectionParameterNameDiscoverer;
 
 import java.util.concurrent.TimeUnit;
 
@@ -66,7 +66,7 @@ public class LockAop {
         if (keys.length == 0) {
             throw new RuntimeException("keys不能为空");
         }
-        String[] parameterNames = new LocalVariableTableParameterNameDiscoverer().getParameterNames(((MethodSignature) proceedingJoinPoint.getSignature()).getMethod());
+        String[] parameterNames = new StandardReflectionParameterNameDiscoverer().getParameterNames(((MethodSignature) proceedingJoinPoint.getSignature()).getMethod());
         Object[] args = proceedingJoinPoint.getArgs();
 
         long attemptTimeout = lock.attemptTimeout();

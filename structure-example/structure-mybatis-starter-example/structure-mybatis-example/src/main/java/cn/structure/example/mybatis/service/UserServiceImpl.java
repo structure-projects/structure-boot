@@ -17,10 +17,10 @@ package cn.structure.example.mybatis.service;
 
 import cn.structure.example.mybatis.entity.User;
 import cn.structure.example.mybatis.mapper.IUserMapper;
+import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
 import java.util.List;
 
 /**

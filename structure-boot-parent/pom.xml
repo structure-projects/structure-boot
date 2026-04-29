@@ -25,7 +25,7 @@
         <module>../structure-mybatis-starter</module>
         <!-- mybatis-plus -->
         <module>../structure-mybatis-plus-starter</module>
-        <module>../structure-mybatis-plus-generate</module>
+<!--        <module>../structure-mybatis-plus-generate</module>-->
         <!-- LOG -->
         <module>../structure-log-starter</module>
         <!--minio -->
@@ -140,27 +140,12 @@
         <pluginManagement>
             <plugins>
                 <plugin>
-                    <groupId>cn.structured</groupId>
-                    <artifactId>structure-mybatis-plus-generate</artifactId>
-                    <version>${revision}</version>
-                    <configuration>
-                        <configurationFile>${basedir}/src/main/resources/generator-config.yaml</configurationFile>
-                    </configuration>
-                    <dependencies>
-                        <dependency>
-                            <groupId>mysql</groupId>
-                            <artifactId>mysql-connector-java</artifactId>
-                            <version>${mysql.version}</version>
-                        </dependency>
-                    </dependencies>
-                </plugin>
-                <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
                     <version>${maven-compiler-plugin.version}</version>
                     <configuration>
-                        <source>8</source>
-                        <target>8</target>
+                        <source>${java.version}</source>
+                        <target>${java.version}</target>
                     </configuration>
                 </plugin>
             </plugins>

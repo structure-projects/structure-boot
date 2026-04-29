@@ -21,12 +21,12 @@ import cn.structure.common.exception.CommonException;
 import cn.structure.common.utils.IResultUtil;
 import cn.structure.starter.web.restful.exception.SystemException;
 import cn.structure.starter.web.restful.exception.ThirdPartyException;
+import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.annotation.Resource;
 
 
 /**

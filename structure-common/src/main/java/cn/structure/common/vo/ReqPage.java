@@ -16,8 +16,7 @@
 package cn.structure.common.vo;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -33,29 +32,29 @@ import java.time.LocalDateTime;
  * @since 2021/7/30 14:00
  */
 @Data
-@ApiModel(description = "入参分页")
+@Schema(description = "入参分页")
 public class ReqPage {
 
-    @ApiModelProperty(value = "当前页")
+    @Schema(description = "当前页")
     private Integer currentPage;
 
-    @ApiModelProperty(value = "当前页")
+    @Schema(description = "页码")
     private Integer page;
 
-    @ApiModelProperty(value = "每页数量")
+    @Schema(description = "每页数量")
     private Integer pageSize;
 
-    @ApiModelProperty(value = "关键字")
+    @Schema(description = "关键字")
     private String keyword;
 
-    @ApiModelProperty(value = "开始时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @Schema(description = "开始时间")
     private LocalDateTime beginTime;
 
-    @ApiModelProperty(value = "结束时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @Schema(description = "结束时间")
     private LocalDateTime endTime;
 
 }
