@@ -17,6 +17,7 @@ package cn.structure.common.vo;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
 
@@ -36,15 +37,25 @@ public class ReqPage {
     @Schema(description = "当前页")
     private Integer currentPage;
 
+    @ApiModelProperty(value = "当前页")
+    private Integer page;
+
+    @ApiModelProperty(value = "每页数量")
     @Schema(description = "每页数量")
     private Integer pageSize;
 
     @Schema(description = "关键字")
     private String keyword;
 
+    @ApiModelProperty(value = "开始时间")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Schema(description = "开始时间")
     private LocalDateTime beginTime;
 
+    @ApiModelProperty(value = "结束时间")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Schema(description = "结束时间")
     private LocalDateTime endTime;
 

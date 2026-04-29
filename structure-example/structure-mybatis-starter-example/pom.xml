@@ -6,17 +6,16 @@
     <parent>
         <groupId>cn.structured</groupId>
         <artifactId>structure-example</artifactId>
-        <version>${revision}</version>
+        <version>1.0.1</version>
+        <relativePath>../pom.xml</relativePath>
     </parent>
     <artifactId>structure-mybatis-starter-example</artifactId>
-    <version>1.0.1.RELEASE</version>
     <packaging>pom</packaging>
     <modules>
         <module>structure-mybatis-plus-starter-example</module>
         <module>structure-tk-mapper-starter-example</module>
         <module>structure-mybatis-example</module>
     </modules>
-
 
     <dependencies>
         <dependency>

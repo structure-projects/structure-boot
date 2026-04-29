@@ -5,11 +5,13 @@
     <parent>
         <groupId>cn.structured</groupId>
         <artifactId>structure-example</artifactId>
-        <version>${revision}</version>
+        <version>1.0.1</version>
+        <relativePath>../pom.xml</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>structure-log-example</artifactId>
     <packaging>jar</packaging>
+
 
     <dependencies>
         <dependency>
@@ -25,15 +27,6 @@
         <dependency>
             <groupId>cn.structured</groupId>
             <artifactId>structure-log-starter</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springdoc</groupId>
-            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springdoc</groupId>
-            <artifactId>springdoc-openapi-starter-webmvc-api</artifactId>
         </dependency>
     </dependencies>
 

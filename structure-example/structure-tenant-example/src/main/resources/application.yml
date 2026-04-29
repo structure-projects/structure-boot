@@ -1,0 +1,24 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: structure-tenant-example
+
+structure:
+  tenant:
+    enabled: true
+    # 默认租户ID，所有识别方式都失败时使用
+    default-tenant-id: "1"
+    # 请求头识别配置
+    header:
+      enabled: true
+      name: "X-Tenant-Id"
+    # 请求参数识别配置
+    param:
+      enabled: true
+      name: "tenantId"
+    # 识别器顺序，值越小优先级越高
+    resolver-order:
+      - "header"
+      - "param"

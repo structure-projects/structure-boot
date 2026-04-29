@@ -4,18 +4,13 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-parent</artifactId>
-        <version>3.4.5</version>
+        <groupId>cn.structured</groupId>
+        <artifactId>structure-example</artifactId>
+        <version>1.0.1</version>
+        <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <groupId>cn.structured</groupId>
     <artifactId>structure-minio-example</artifactId>
-    <version>1.0-SNAPSHOT</version>
-
-    <properties>
-        <structure.version>1.3.0</structure.version>
-    </properties>
 
     <dependencies>
 
@@ -27,7 +22,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-
 
         <dependency>
             <groupId>cn.structured</groupId>
@@ -44,12 +38,6 @@
                 <version>${structure.version}</version>
                 <scope>import</scope>
                 <type>pom</type>
-            </dependency>
-            <!-- 修复 Apache Commons Compress 无限循环漏洞 -->
-            <dependency>
-                <groupId>org.apache.commons</groupId>
-                <artifactId>commons-compress</artifactId>
-                <version>1.26.0</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

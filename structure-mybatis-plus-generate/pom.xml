@@ -10,6 +10,7 @@
         <version>${revision}</version>
         <relativePath>../structure-boot-parent/pom.xml</relativePath>
     </parent>
+    <name>structure-mybatis-plus-generate</name>
     <version>${revision}</version>
     <packaging>maven-plugin</packaging>
     <artifactId>structure-mybatis-plus-generate</artifactId>

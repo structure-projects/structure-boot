@@ -7,7 +7,8 @@
     <parent>
         <groupId>cn.structured</groupId>
         <artifactId>structure-example</artifactId>
-        <version>${revision}</version>
+        <version>1.0.1</version>
+        <relativePath>../pom.xml</relativePath>
     </parent>
     <artifactId>structure-redis-example</artifactId>
 

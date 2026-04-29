@@ -4,18 +4,14 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-parent</artifactId>
-        <version>3.4.5</version>
+        <groupId>cn.structured</groupId>
+        <artifactId>structure-example</artifactId>
+        <version>1.0.1</version>
+        <relativePath>../pom.xml</relativePath>
     </parent>
-    <groupId>cn.structured</groupId>
     <artifactId>structure-mybatis-plus-generate-example</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
     <name>structure-mybatis-plus-generate-example</name>
     <description>Demo project for Spring Boot</description>
-    <properties>
-        <structure.version>1.3.0</structure.version>
-    </properties>
 
     <dependencies>
         <dependency>
