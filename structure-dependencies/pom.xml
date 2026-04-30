@@ -526,7 +526,8 @@
                         <configuration>
                             <publishingServerId>oss</publishingServerId>
                             <autoPublish>true</autoPublish>
-                            <waitUntil>published</waitUntil>
+                            <waitUntil>validated</waitUntil> <!-- 不阻塞构建进程 -->
+                            <!--  <waitUntil>published</waitUntil>-->
                             <waitMaxTime>600</waitMaxTime>
                             <waitPollingInterval>10</waitPollingInterval>
                         </configuration>
