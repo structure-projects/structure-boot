@@ -17,14 +17,13 @@ package cn.structure.starter.redis.configuration;
 
 import cn.structure.starter.redis.annotation.RedisLock;
 import cn.structure.starter.redis.lock.IDistributedLock;
+import lombok.extern.slf4j.Slf4j;
 import jakarta.annotation.Resource;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.StandardReflectionParameterNameDiscoverer;
 import org.springframework.expression.EvaluationContext;
@@ -43,11 +42,10 @@ import java.lang.reflect.Method;
  * @author chuck
  * @version 1.0.1
  */
+@Slf4j
 @Aspect
 @Configuration
 public class DistributedLockAspectConfiguration {
-
-    private final Logger logger = LoggerFactory.getLogger(DistributedLockAspectConfiguration.class);
 
     @Resource
     private IDistributedLock distributedLock;
@@ -68,8 +66,10 @@ public class DistributedLockAspectConfiguration {
      * @return 返回redisLock key
      */
     public static String getValueBySpelKey(String key, String[] parameterNames, Object[] values) {
+        log.debug("[DistributedLockAspect] 解析SpEL表达式 - spelKey: {}, parameterNames: {}", key, parameterNames);
         //不存在表达式返回
         if (!key.contains("#")) {
+            log.debug("[DistributedLockAspect] SpEL表达式不包含变量，直接返回 - key: {}", key);
             return key;
         }
         //使用下划线拆分表达式
@@ -96,8 +96,10 @@ public class DistributedLockAspectConfiguration {
                 sb.append(value);
             }
         }
+        String resultKey = sb.toString();
+        log.debug("[DistributedLockAspect] SpEL表达式解析完成 - originalKey: {}, resultKey: {}", key, resultKey);
         //返回
-        return sb.toString();
+        return resultKey;
     }
 
     /**
@@ -111,6 +113,8 @@ public class DistributedLockAspectConfiguration {
     @Around("lockPoint()")
     public Object around(ProceedingJoinPoint pjp) throws Throwable {
         Method method = ((MethodSignature) pjp.getSignature()).getMethod();
+        String className = pjp.getTarget().getClass().getName();
+        String methodName = method.getName();
         RedisLock redisLock = method.getAnnotation(RedisLock.class);
         //获取参数名
         String[] parameterNames = new StandardReflectionParameterNameDiscoverer().getParameterNames(((MethodSignature) pjp.getSignature()).getMethod());
@@ -118,21 +122,35 @@ public class DistributedLockAspectConfiguration {
         Object[] args = pjp.getArgs();
         String key = getValueBySpelKey(redisLock.value(), parameterNames, args);
         int retryTimes = redisLock.action().equals(RedisLock.LockFailAction.CONTINUE) ? redisLock.retryTimes() : 0;
-        boolean lock = distributedLock.lock(key, redisLock.keepMills(), retryTimes, redisLock.sleepMills());
+        long keepMills = redisLock.keepMills();
+        long sleepMills = redisLock.sleepMills();
+
+        log.info("[DistributedLockAspect] 尝试获取分布式锁 - class: {}, method: {}, key: {}, keepMills: {}, retryTimes: {}, sleepMills: {}",
+                className, methodName, key, keepMills, retryTimes, sleepMills);
+
+        boolean lock = distributedLock.lock(key, keepMills, retryTimes, sleepMills);
         if (!lock) {
-            logger.debug("get lock failed : {}", key);
+            log.warn("[DistributedLockAspect] 获取分布式锁失败 - class: {}, method: {}, key: {}", className, methodName, key);
             return null;
         }
         //得到锁,执行方法，释放锁
-        logger.debug("get lock success : {}", key);
+        log.info("[DistributedLockAspect] 获取分布式锁成功 - class: {}, method: {}, key: {}", className, methodName, key);
         try {
-            return pjp.proceed();
+            log.debug("[DistributedLockAspect] 执行加锁方法 - class: {}, method: {}, key: {}", className, methodName, key);
+            Object result = pjp.proceed();
+            log.debug("[DistributedLockAspect] 加锁方法执行完成 - class: {}, method: {}, key: {}", className, methodName, key);
+            return result;
         } catch (Exception e) {
-            logger.error("execute locked method proceed an exception", e);
+            log.error("[DistributedLockAspect] 执行加锁方法发生异常 - class: {}, method: {}, key: {}", className, methodName, key, e);
+            throw e;
         } finally {
+            log.debug("[DistributedLockAspect] 准备释放分布式锁 - class: {}, method: {}, key: {}", className, methodName, key);
             boolean releaseResult = distributedLock.releaseLock(key);
-            logger.debug("release lock : {}{}", key, releaseResult ? " success" : " failed");
+            if (releaseResult) {
+                log.info("[DistributedLockAspect] 释放分布式锁成功 - class: {}, method: {}, key: {}", className, methodName, key);
+            } else {
+                log.warn("[DistributedLockAspect] 释放分布式锁失败 - class: {}, method: {}, key: {}", className, methodName, key);
+            }
         }
-        return null;
     }
 }

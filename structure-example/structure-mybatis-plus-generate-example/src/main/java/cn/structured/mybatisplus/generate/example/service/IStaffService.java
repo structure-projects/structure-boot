@@ -15,8 +15,8 @@
  */
 package cn.structured.mybatisplus.generate.example.service;
 
-import cn.structured.mybatis.plus.starter.base.IBaseService;
 import cn.structure.common.vo.ReqPage;
+import cn.structured.mybatis.plus.starter.base.IBaseService;
 import cn.structured.mybatisplus.generate.example.entity.Staff;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 

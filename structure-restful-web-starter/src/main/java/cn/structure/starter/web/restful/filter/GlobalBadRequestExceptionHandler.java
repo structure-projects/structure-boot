@@ -21,8 +21,6 @@ import cn.structure.common.enums.ResultCodeEnum;
 import cn.structure.common.utils.IResultUtil;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.converter.HttpMessageConversionException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -47,8 +45,6 @@ import java.util.List;
 @RestControllerAdvice
 public class GlobalBadRequestExceptionHandler {
 
-    private static final Logger logger = LoggerFactory.getLogger(GlobalBadRequestExceptionHandler.class);
-
     @Resource
     private IResultUtil iResultUtil;
 
@@ -60,13 +56,15 @@ public class GlobalBadRequestExceptionHandler {
      */
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public IResult validationBodyException(MethodArgumentNotValidException exception) {
+        log.warn("[ValidationExceptionHandler] 参数校验失败 - exception: {}", exception.getMessage());
         BindingResult result = exception.getBindingResult();
         List<VerificationFailedMsg> verificationFailedMsgArrayList = new ArrayList<>();
         if (result.hasErrors()) {
             List<ObjectError> errors = result.getAllErrors();
             errors.forEach(p -> {
                 FieldError fieldError = (FieldError) p;
-                logger.error(String.format("Data check failure : object{%s},field{%s},errorMessage{%s}", fieldError.getObjectName(), fieldError.getField(), fieldError.getDefaultMessage()));
+                log.warn("[ValidationExceptionHandler] 字段校验失败 - object: {}, field: {}, errorMessage: {}",
+                        fieldError.getObjectName(), fieldError.getField(), fieldError.getDefaultMessage());
                 VerificationFailedMsg vfs = new VerificationFailedMsg();
                 vfs.setField(fieldError.getField());
                 vfs.setErrorMessage(fieldError.getDefaultMessage());
@@ -84,8 +82,9 @@ public class GlobalBadRequestExceptionHandler {
      */
     @ExceptionHandler(HttpMessageConversionException.class)
     public IResult parameterTypeException(HttpMessageConversionException exception) {
-        logger.error(exception.getCause().getLocalizedMessage());
-        return iResultUtil.fail(ResultCodeEnum.CONVERT_FAILED.getCode(), ResultCodeEnum.CONVERT_FAILED.getMsg());
+        log.error("[HttpConversionExceptionHandler] HTTP消息转换异常 - message: {}", exception.getMessage(), exception);
+        String causeMessage = exception.getCause() != null ? exception.getCause().getLocalizedMessage() : "未知原因";
+        return iResultUtil.fail(ResultCodeEnum.CONVERT_FAILED.getCode(), causeMessage);
     }
 
 }

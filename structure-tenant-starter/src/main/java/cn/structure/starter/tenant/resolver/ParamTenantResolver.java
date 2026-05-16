@@ -17,6 +17,7 @@
 package cn.structure.starter.tenant.resolver;
 
 import cn.structure.starter.tenant.properties.TenantProperties;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -31,6 +32,7 @@ import jakarta.servlet.http.HttpServletRequest;
  * @version 1.0.0
  * @since 2026-04-27
  */
+@Slf4j
 public class ParamTenantResolver implements TenantResolver {
 
     public static final String NAME = "param";
@@ -39,6 +41,7 @@ public class ParamTenantResolver implements TenantResolver {
 
     public ParamTenantResolver(TenantProperties.Param paramConfig) {
         this.paramConfig = paramConfig;
+        log.debug("[ParamTenantResolver] 初始化 - paramName: {}, enabled: {}", paramConfig.getName(), paramConfig.isEnabled());
     }
 
     @Override
@@ -49,16 +52,20 @@ public class ParamTenantResolver implements TenantResolver {
     @Override
     public String resolve() {
         if (!paramConfig.isEnabled()) {
+            log.debug("[ParamTenantResolver] 识别器未启用");
             return null;
         }
 
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         if (attributes == null) {
+            log.debug("[ParamTenantResolver] 无法获取请求上下文");
             return null;
         }
 
         HttpServletRequest request = attributes.getRequest();
-        return request.getParameter(paramConfig.getName());
+        String tenantId = request.getParameter(paramConfig.getName());
+        log.debug("[ParamTenantResolver] 从请求参数获取租户ID - paramName: {}, tenantId: {}", paramConfig.getName(), tenantId);
+        return tenantId;
     }
 
     @Override

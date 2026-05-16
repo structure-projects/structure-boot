@@ -62,6 +62,8 @@ public class LockAop {
 
     @Around("controllerAspect(lock)")
     public Object aroundAdvice(ProceedingJoinPoint proceedingJoinPoint, Lock lock) throws Throwable {
+        String methodName = proceedingJoinPoint.getSignature().getName();
+        String className = proceedingJoinPoint.getTarget().getClass().getName();
         String[] keys = lock.keys();
         if (keys.length == 0) {
             throw new RuntimeException("keys不能为空");
@@ -93,7 +95,8 @@ public class LockAop {
         if (!lockModel.equals(LockModelEnum.MULTIPLE) && !lockModel.equals(LockModelEnum.REDLOCK) && keys.length > 1) {
             throw new RuntimeException("LockAop -> 参数有多个,锁模式为-> " + lockModel.name() + ".无法锁定");
         }
-        log.info("LockAop ->  :锁模式->{},等待锁定时间->{}秒.锁定最长时间->{}秒", lockModel.name(), attemptTimeout / 1000, lockWatchdogTimeout / 1000);
+        log.info("[LockAop] 锁配置信息 - class: {}, method: {}, lockModel: {}, attemptTimeout: {}ms, lockWatchdogTimeout: {}ms, keys: {}",
+                className, methodName, lockModel.name(), attemptTimeout, lockWatchdogTimeout, keys);
         boolean res = false;
         RLock rLock = null;
         //一直等待加锁.
@@ -137,12 +140,22 @@ public class LockAop {
                 if (attemptTimeout == -1) {
                     res = true;
                     //一直等待加锁
+                    log.debug("[LockAop] 开始尝试加锁 - 无限等待模式");
                     rLock.lock(lockWatchdogTimeout, TimeUnit.MILLISECONDS);
+                    log.info("[LockAop] 加锁成功 - 无限等待模式");
                 } else {
+                    log.debug("[LockAop] 开始尝试加锁 - 超时模式, timeout: {}ms", attemptTimeout);
                     res = rLock.tryLock(attemptTimeout, lockWatchdogTimeout, TimeUnit.MILLISECONDS);
+                    if (res) {
+                        log.info("[LockAop] 加锁成功 - 超时模式");
+                    } else {
+                        log.warn("[LockAop] 加锁失败 - 超时模式, timeout: {}ms", attemptTimeout);
+                    }
                 }
                 if (res) {
+                    log.debug("[LockAop] 执行业务方法 - class: {}, method: {}", className, methodName);
                     Object obj = proceedingJoinPoint.proceed();
+                    log.debug("[LockAop] 业务方法执行完成 - class: {}, method: {}", className, methodName);
                     return obj;
                 } else {
                     throw new LockException("获取锁失败");
@@ -151,7 +164,9 @@ public class LockAop {
 
             } finally {
                 if (res) {
+                    log.debug("[LockAop] 开始释放锁");
                     rLock.unlock();
+                    log.info("[LockAop] 锁释放成功");
                 }
             }
         }

@@ -21,6 +21,7 @@ import cn.structured.rpc.entity.RemoteService;
 import cn.structured.rpc.handler.IRpcHandler;
 import cn.structured.rpc.properties.RpcProperties;
 import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
@@ -47,6 +48,7 @@ import java.util.Optional;
  * @version 2024/07/17 下午4:01
  * @since 1.8
  */
+@Slf4j
 @Configuration
 @ImportAutoConfiguration(RpcProperties.class)
 @ConditionalOnClass(value = {RpcProperties.class})
@@ -60,6 +62,7 @@ public class AutoRpcConfiguration implements ApplicationListener<ApplicationStar
     @SneakyThrows
     @Override
     public void onApplicationEvent(ApplicationStartedEvent event) {
+        log.info("Rpc Auto Configuration Started");
         Map<String, RemoteService> serviceList = rpcProperties.getServiceList();
         //获取启动类注解
         Map<String, Object> beansWithAnnotation = event.getApplicationContext().getBeansWithAnnotation(SpringBootApplication.class);
@@ -92,10 +95,12 @@ public class AutoRpcConfiguration implements ApplicationListener<ApplicationStar
                 }
             }
         }
+        log.info("Rpc Auto Configuration Completed");
     }
 
     @Override
     public void setResourceLoader(ResourceLoader resourceLoader) {
+        log.info("Rpc Auto Configuration Set ResourceLoader");
         this.metadataReaderFactory = new SimpleMetadataReaderFactory(resourceLoader);
     }
 }

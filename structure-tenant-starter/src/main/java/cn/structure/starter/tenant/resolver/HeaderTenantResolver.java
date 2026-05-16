@@ -17,6 +17,7 @@
 package cn.structure.starter.tenant.resolver;
 
 import cn.structure.starter.tenant.properties.TenantProperties;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -31,6 +32,7 @@ import jakarta.servlet.http.HttpServletRequest;
  * @version 1.0.0
  * @since 2026-04-27
  */
+@Slf4j
 public class HeaderTenantResolver implements TenantResolver {
 
     public static final String NAME = "header";
@@ -39,6 +41,7 @@ public class HeaderTenantResolver implements TenantResolver {
 
     public HeaderTenantResolver(TenantProperties.Header headerConfig) {
         this.headerConfig = headerConfig;
+        log.debug("[HeaderTenantResolver] 初始化 - headerName: {}, enabled: {}", headerConfig.getName(), headerConfig.isEnabled());
     }
 
     @Override
@@ -49,16 +52,20 @@ public class HeaderTenantResolver implements TenantResolver {
     @Override
     public String resolve() {
         if (!headerConfig.isEnabled()) {
+            log.debug("[HeaderTenantResolver] 识别器未启用");
             return null;
         }
 
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         if (attributes == null) {
+            log.debug("[HeaderTenantResolver] 无法获取请求上下文");
             return null;
         }
 
         HttpServletRequest request = attributes.getRequest();
-        return request.getHeader(headerConfig.getName());
+        String tenantId = request.getHeader(headerConfig.getName());
+        log.debug("[HeaderTenantResolver] 从请求头获取租户ID - headerName: {}, tenantId: {}", headerConfig.getName(), tenantId);
+        return tenantId;
     }
 
     @Override

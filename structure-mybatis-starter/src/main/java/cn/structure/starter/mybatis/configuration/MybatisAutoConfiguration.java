@@ -19,6 +19,7 @@ import cn.hutool.core.lang.Snowflake;
 import cn.hutool.core.util.IdUtil;
 import cn.structure.starter.mybatis.plugin.OverWritePluginParameter;
 import com.github.pagehelper.PageInterceptor;
+import lombok.extern.slf4j.Slf4j;
 import jakarta.annotation.Resource;
 import org.apache.ibatis.plugin.Interceptor;
 import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
@@ -38,9 +39,10 @@ import java.util.Properties;
  * @version 1.0.1
  * @since 2020/12/26 23:47
  */
+@Slf4j
 @Configuration
 @ImportAutoConfiguration(value = {MybatisProperties.class, EnableSplitDateSource.class})
-public class AutoConfiguration {
+public class MybatisAutoConfiguration {
 
     @Resource
     private MybatisProperties mybatisProperties;
@@ -49,6 +51,7 @@ public class AutoConfiguration {
     @ConditionalOnProperty(value = "structure.mybatis.plugin.over-write", havingValue = "true")
     @ConditionalOnMissingBean(OverWritePluginParameter.class)
     public OverWritePluginParameter overWritePluginParameter() {
+        log.info("[MybatisAutoConfiguration] 初始化OverWritePluginParameter");
         return new OverWritePluginParameter();
     }
 
@@ -59,12 +62,14 @@ public class AutoConfiguration {
         Integer machine = mybatisProperties.getMachine();
         dataCenter = (null == dataCenter) ? 0 : dataCenter;
         machine = (null == machine) ? 0 : machine;
+        log.info("[MybatisAutoConfiguration] 初始化Snowflake - dataCenter: {}, machine: {}", dataCenter, machine);
         return IdUtil.createSnowflake(machine, dataCenter);
     }
 
     @Bean
     @ConditionalOnMissingBean(Interceptor.class)
     public Interceptor getPageInterceptor() {
+        log.info("[MybatisAutoConfiguration] 初始化PageHelper分页插件");
         PageInterceptor pageInterceptor = new PageInterceptor();
         Properties p = new Properties();
         p.setProperty("helperDialect", mybatisProperties.getPage().getHelperDialect());
@@ -76,6 +81,10 @@ public class AutoConfiguration {
         //支持通过 Mapper 接口参数来传递分页参数
         p.setProperty("supportMethodsArguments", mybatisProperties.getPage().getSupportMethodsArguments());
         pageInterceptor.setProperties(p);
+        log.info("[MybatisAutoConfiguration] PageHelper配置 - helperDialect: {}, pageSizeZero: {}, reasonable: {}",
+                mybatisProperties.getPage().getHelperDialect(),
+                mybatisProperties.getPage().getPageSizeZero(),
+                mybatisProperties.getPage().getReasonable());
         return pageInterceptor;
     }
 

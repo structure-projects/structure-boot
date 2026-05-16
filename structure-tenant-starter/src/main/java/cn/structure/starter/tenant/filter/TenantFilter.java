@@ -17,6 +17,7 @@
 package cn.structure.starter.tenant.filter;
 
 import cn.structure.starter.tenant.TenantContextHolder;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import jakarta.servlet.FilterChain;
@@ -34,17 +35,21 @@ import java.io.IOException;
  * @version 1.0.0
  * @since 2026-04-27
  */
+@Slf4j
 public class TenantFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+        log.debug("[TenantFilter] 开始处理请求 - uri: {}", request.getRequestURI());
         try {
             // 触发一次租户ID识别，会从识别器链中获取
-            TenantContextHolder.getTenantId();
+            String tenantId = TenantContextHolder.getTenantId();
+            log.debug("[TenantFilter] 租户ID识别完成 - tenantId: {}", tenantId);
             // 继续过滤器链
             filterChain.doFilter(request, response);
         } finally {
             // 清理租户上下文
+            log.debug("[TenantFilter] 请求处理完成，清理租户上下文");
             TenantContextHolder.clear();
         }
     }

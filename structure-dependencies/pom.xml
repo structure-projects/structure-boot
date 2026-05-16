@@ -572,7 +572,8 @@
                         <configuration>
                             <publishingServerId>oss</publishingServerId>
                             <autoPublish>true</autoPublish>
-                            <waitUntil>published</waitUntil>
+                            <waitUntil>validated</waitUntil> <!-- 不阻塞构建进程 -->
+                            <!--  <waitUntil>published</waitUntil>-->
                             <waitMaxTime>600</waitMaxTime>
                             <waitPollingInterval>10</waitPollingInterval>
                         </configuration>
@@ -642,15 +643,15 @@
     </distributionManagement>
 
     <repositories>
-    <repository>
-        <id>ossrh-snapshots</id>
-        <url>https://central.sonatype.com/repository/maven-snapshots/</url>
-        <releases>
-            <enabled>false</enabled>
-        </releases>
-        <snapshots>
-            <enabled>true</enabled>
-        </snapshots>
-    </repository>
-</repositories>
+        <repository>
+            <id>ossrh-snapshots</id>
+            <url>https://central.sonatype.com/repository/maven-snapshots/</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
 </project>

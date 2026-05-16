@@ -25,6 +25,7 @@ import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.alibaba.fastjson.serializer.ToStringSerializer;
 import com.alibaba.fastjson.support.config.FastJsonConfig;
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.http.HttpMessageConverters;
@@ -47,14 +48,16 @@ import java.util.List;
  * @version 1.0.1
  * @since 2021-01-03
  */
+@Slf4j
 @Configuration
 @Import(value = {GlobalBadRequestExceptionHandler.class, GlobalControllerAdvice.class})
 @ConditionalOnClass(value = {RestfulWebConfigProperties.class})
-public class AutoConfiguration {
+public class RestfulWebAutoConfiguration {
 
     @Bean
     @ConditionalOnMissingBean(IResultUtil.class)
     public IResultUtil iResultUtil() {
+        log.info("[RestfulWebAutoConfiguration] 初始化IResultUtil");
         return new ResultUtilSimpleImpl();
     }
 
@@ -62,6 +65,7 @@ public class AutoConfiguration {
     @Bean
     @ConditionalOnMissingBean(HttpMessageConverters.class)
     public HttpMessageConverters fastJsonHttpMessageConverters() {
+        log.info("[RestfulWebAutoConfiguration] 初始化FastJsonHttpMessageConverter");
         //1、定义一个convert转换消息的对象
         FastJsonHttpMessageConverter fastConverter = new FastJsonHttpMessageConverter();
         //2、添加fastjson的配置信息
@@ -82,6 +86,7 @@ public class AutoConfiguration {
         fastConverter.setFastJsonConfig(fastJsonConfig);
         //8、将convert添加到converters中
         HttpMessageConverter<?> converter = fastConverter;
+        log.info("[RestfulWebAutoConfiguration] FastJsonHttpMessageConverter初始化完成，支持MediaType: {}", fastMediaTypes);
         return new HttpMessageConverters(converter);
     }
 
