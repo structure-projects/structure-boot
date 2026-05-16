@@ -9,4 +9,4 @@ spring:
   profiles:
     active: dev
 server:
-  port: 18081
+  port: 16002

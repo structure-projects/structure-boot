@@ -17,6 +17,7 @@ package cn.structure.starter.redis.configuration;
 
 import cn.structure.starter.redis.lock.IDistributedLock;
 import cn.structure.starter.redis.lock.RedisDistributedLockImpl;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration;
@@ -33,6 +34,7 @@ import org.springframework.data.redis.core.RedisTemplate;
  * @author chuck
  * @version 1.0.1
  */
+@Slf4j
 @Configuration
 @AutoConfigureAfter(RedisAutoConfiguration.class)
 @Import(DistributedLockAspectConfiguration.class)
@@ -41,6 +43,7 @@ public class StructureRedisAutoConfiguration {
     @Bean
     @ConditionalOnBean(RedisTemplate.class)
     public IDistributedLock iDistributedLock(RedisTemplate redisTemplate) {
+        log.info("[StructureRedisAutoConfiguration] 创建Redis分布式锁实现类 - RedisDistributedLockImpl");
         return new RedisDistributedLockImpl(redisTemplate);
     }
 

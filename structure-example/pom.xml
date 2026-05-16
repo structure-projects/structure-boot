@@ -30,6 +30,7 @@
 
     <properties>
         <structure.version>1.2.9-SNAPSHOT</structure.version>
+        <java.version>1.8</java.version>
     </properties>
 
     <dependencies>

@@ -10,3 +10,5 @@ structure:
       split: true # 开启分表 开启后需要配合@SplitTable 注解对mapper 上进行分表操作
       over-write: true # 开启分表 开启后需要配合@SplitTable 注解对mapper 上进行分表操作
       generate-id-type: snowflake # 定义ID生成规则为雪花算法
+server:
+  port: 16006

@@ -62,7 +62,7 @@ public class MinioAutoConfiguration {
     @ConditionalOnMissingBean(MinioTemplate.class)
     @ConditionalOnProperty(name = "structure.minio.url")
     public MinioTemplate minioTemplate() {
-        return new MinioTemplate(minioClient);
+        return new MinioTemplate();
     }
 
 

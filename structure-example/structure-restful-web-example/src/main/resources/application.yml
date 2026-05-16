@@ -2,3 +2,5 @@ swagger:
   title: 标题
   description: 描述
   version: v1.0.1
+server:
+  port: 16009
