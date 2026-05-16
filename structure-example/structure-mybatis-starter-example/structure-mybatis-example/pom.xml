@@ -21,8 +21,6 @@
             <artifactId>structure-mybatis-starter</artifactId>
         </dependency>
 
-
-    </dependencies>
         <dependency>
             <groupId>com.mysql</groupId>
             <artifactId>mysql-connector-j</artifactId>
