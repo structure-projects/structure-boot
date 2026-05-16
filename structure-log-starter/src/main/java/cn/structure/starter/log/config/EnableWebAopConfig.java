@@ -15,6 +15,8 @@
  */
 package cn.structure.starter.log.config;
 
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.ImportResource;
 
 
@@ -27,8 +29,13 @@ import org.springframework.context.annotation.ImportResource;
  * @version 1.0.1
  * @since 2020/6/3 12:05
  */
+@Slf4j
 @ImportResource(locations = {"classpath:structure-boot-aop.xml"})
-
+@ConditionalOnProperty(value = "structure.log.aop.enable", matchIfMissing = true)
 public class EnableWebAopConfig {
+
+    public EnableWebAopConfig() {
+        log.info("[EnableWebAopConfig] 启动aop配置");
+    }
 
 }

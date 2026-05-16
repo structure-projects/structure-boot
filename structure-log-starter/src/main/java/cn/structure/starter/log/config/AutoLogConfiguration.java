@@ -17,6 +17,7 @@ package cn.structure.starter.log.config;
 
 import cn.structure.starter.log.filter.WebLogAspect;
 import cn.structure.starter.log.properties.WebAopConfigProperties;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
@@ -32,14 +33,16 @@ import org.springframework.context.annotation.Import;
  * @version 1.0.1
  * @since 2020/6/3 12:05
  */
+@Slf4j
 @Configuration
 @ConditionalOnClass(value = {WebAopConfigProperties.class})
 @Import(WebAopConfig.class)
-public class AutoConfiguration {
+public class AutoLogConfiguration {
 
     @Bean
     @ConditionalOnMissingBean(WebLogAspect.class)
     public WebLogAspect webLogAspect() {
+        log.info("[WebLogAspect] 创建WebLogAspect");
         return new WebLogAspect();
     }
 

@@ -17,6 +17,7 @@ package cn.structure.starter.log.aop;
 
 import cn.structure.common.entity.FunctionLog;
 import cn.structure.common.enums.LogEnums;
+import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -37,11 +38,11 @@ import java.util.Date;
  * @version 1.0.1
  * @since 2021-01-01
  */
+@Slf4j
 @Aspect
 @Component
 public class ParamLogsAspect {
 
-    private Logger log = LoggerFactory.getLogger(ParamLogsAspect.class);
 
     @Pointcut(value = "@annotation(cn.structure.starter.log.anno.AspectParamLog)")
     public void aroundPointcut() {
@@ -54,6 +55,7 @@ public class ParamLogsAspect {
      **/
     @Around("aroundPointcut()")
     public Object recodInParam(ProceedingJoinPoint pjp) throws Throwable {
+        log.info("[ParamLogsAspect] 日志入参记录");
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
         String targetClass = pjp.getTarget().getClass().toString();
         String targetMethod = pjp.getSignature().getName();
@@ -68,7 +70,9 @@ public class ParamLogsAspect {
         functionLog.setTargetMethod(targetClass + "." + targetMethod);
         functionLog.setArgs(args);
         try {
+            log.info("[ParamLogsAspect] 日志入参记录 - targetClass: {}, targetMethod: {}, args: {}", targetClass, targetMethod, args);
             outParam = pjp.proceed();
+            log.info("[ParamLogsAspect] 日志出参记录 - targetClass: {}, targetMethod: {}, outParam: {}", targetClass, targetMethod, outParam);
         } catch (Throwable throwable) {
             Throwable cause = throwable.getCause();
             String message = cause.getMessage();
@@ -78,7 +82,7 @@ public class ParamLogsAspect {
         Date endDateTime = new Date();
         functionLog.setEndTime(sdf.format(endDateTime));
         functionLog.setTimeDiff(endDateTime.getTime() - beginDate.getTime());
-        log.info(functionLog.toJSONString());
+        log.debug(functionLog.toJSONString());
         return outParam;
     }
 }

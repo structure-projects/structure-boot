@@ -7,10 +7,9 @@ structure:
     password: 123456
     single:
       #默认情况下只需要配置地址
-      address: redis://172.16.0.249:6379
+      address: redis://172.24.20.15:6379
     cache:
       key-group-name: test
-
 #---
 ##哨兵模式
 #structure:
@@ -44,3 +43,5 @@ structure:
 #    replicated:
 #      node-addresses: redis://192.168.2.138:26371,redis://192.168.2.138:26372,redis://192.168.2.138:26373
 #
+server:
+  port: 16008

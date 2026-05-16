@@ -1,4 +1,6 @@
 spring:
   redis:
-    host: 172.16.0.249
+    host: 172.24.20.15
     password: 123456
+server:
+  port: 16007
