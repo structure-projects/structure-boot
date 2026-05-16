@@ -63,8 +63,8 @@ public class WebLogAspect {
         controllerLog.setTargetMethod(joinPoint.getSignature().getDeclaringTypeName() + "." + joinPoint.getSignature().getName());
         controllerLog.setArgs(Arrays.toString(joinPoint.getArgs()));
         controllerLog.setBeginTime(sdf.format(new Date()));
-        log.debug("[WebLogAspect] 请求信息 - method: {}, url: {}, ip: {}, target: {}", 
-            controllerLog.getMethod(), controllerLog.getUrl(), controllerLog.getIpAddress(), controllerLog.getTargetMethod());
+        log.debug("[WebLogAspect] 请求信息 - method: {}, url: {}, ip: {}, target: {}",
+                controllerLog.getMethod(), controllerLog.getUrl(), controllerLog.getIpAddress(), controllerLog.getTargetMethod());
     }
 
     /**

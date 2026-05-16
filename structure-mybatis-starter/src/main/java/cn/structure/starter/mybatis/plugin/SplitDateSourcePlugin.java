@@ -110,8 +110,8 @@ public class SplitDateSourcePlugin implements Interceptor {
             }
             String convertedSql = originalSql;
             if (splitTable != null) {
-                log.info("[SplitTablePlugin] 检测到分表注解 - tableName: {}, splitType: {}, splitBy: {}", 
-                    splitTable.tableName(), splitTable.splitType(), splitTable.splitBy());
+                log.info("[SplitTablePlugin] 检测到分表注解 - tableName: {}, splitType: {}, splitBy: {}",
+                        splitTable.tableName(), splitTable.splitType(), splitTable.splitBy());
                 Map<String, Object> params = new HashMap<String, Object>();
                 params.put(TABLE_NAME, splitTable.tableName());
                 params.put(SPLIT_BY, splitTable.splitBy());

@@ -81,10 +81,10 @@ public class MybatisAutoConfiguration {
         //支持通过 Mapper 接口参数来传递分页参数
         p.setProperty("supportMethodsArguments", mybatisProperties.getPage().getSupportMethodsArguments());
         pageInterceptor.setProperties(p);
-        log.info("[MybatisAutoConfiguration] PageHelper配置 - helperDialect: {}, pageSizeZero: {}, reasonable: {}", 
-            mybatisProperties.getPage().getHelperDialect(), 
-            mybatisProperties.getPage().getPageSizeZero(), 
-            mybatisProperties.getPage().getReasonable());
+        log.info("[MybatisAutoConfiguration] PageHelper配置 - helperDialect: {}, pageSizeZero: {}, reasonable: {}",
+                mybatisProperties.getPage().getHelperDialect(),
+                mybatisProperties.getPage().getPageSizeZero(),
+                mybatisProperties.getPage().getReasonable());
         return pageInterceptor;
     }
 

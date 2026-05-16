@@ -54,12 +54,12 @@ public @interface RedisLock {
 
     enum LockFailAction {
         /**
-         *  
+         *
          * 放弃
          */
         GIVEUP,
         /**
-         *  
+         *
          * 继续
          */
         CONTINUE;
@@ -73,7 +73,7 @@ public @interface RedisLock {
     long sleepMills() default 200;
 
     /**
-     *  
+     *
      * 重试次数
      *
      * @return long

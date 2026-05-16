@@ -98,10 +98,10 @@ public class BaseServiceImpl<M extends IBaseMapper<T>, T> extends ServiceImpl<M,
         List<String> keyword = tableInfo.getKeyword();
         queryJoinPageListWrapper.setSearchList(keyword);
         queryJoinPageListWrapper.addTime("create_time");
-        
-        log.info("[BaseService] 分页查询 - currentPage: {}, pageSize: {}, isJoin: {}, keyword: {}", 
-            reqPage.getCurrentPage(), reqPage.getPageSize(), isJoin, reqPage.getKeyword());
-        
+
+        log.info("[BaseService] 分页查询 - currentPage: {}, pageSize: {}, isJoin: {}, keyword: {}",
+                reqPage.getCurrentPage(), reqPage.getPageSize(), isJoin, reqPage.getKeyword());
+
         IPage iPage = new Page();
         IPage<HashMap<String, Object>> hashMapPage = baseMapper.selectJoinPageList(new Page(reqPage.getCurrentPage(), reqPage.getPageSize()), queryJoinPageListWrapper);
         BeanUtils.copyProperties(hashMapPage, iPage);

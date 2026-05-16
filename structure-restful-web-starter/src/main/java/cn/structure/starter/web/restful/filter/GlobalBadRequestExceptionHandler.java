@@ -63,8 +63,8 @@ public class GlobalBadRequestExceptionHandler {
             List<ObjectError> errors = result.getAllErrors();
             errors.forEach(p -> {
                 FieldError fieldError = (FieldError) p;
-                log.warn("[ValidationExceptionHandler] 字段校验失败 - object: {}, field: {}, errorMessage: {}", 
-                    fieldError.getObjectName(), fieldError.getField(), fieldError.getDefaultMessage());
+                log.warn("[ValidationExceptionHandler] 字段校验失败 - object: {}, field: {}, errorMessage: {}",
+                        fieldError.getObjectName(), fieldError.getField(), fieldError.getDefaultMessage());
                 VerificationFailedMsg vfs = new VerificationFailedMsg();
                 vfs.setField(fieldError.getField());
                 vfs.setErrorMessage(fieldError.getDefaultMessage());

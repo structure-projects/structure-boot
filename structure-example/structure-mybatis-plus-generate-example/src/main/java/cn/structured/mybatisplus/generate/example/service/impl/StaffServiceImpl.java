@@ -15,10 +15,10 @@
  */
 package cn.structured.mybatisplus.generate.example.service.impl;
 
+import cn.structure.common.vo.ReqPage;
 import cn.structured.mybatis.plus.starter.base.BaseServiceImpl;
 import cn.structured.mybatis.plus.starter.core.JoinHelper;
 import cn.structured.mybatis.plus.starter.core.QueryJoinPageListWrapper;
-import cn.structure.common.vo.ReqPage;
 import cn.structured.mybatisplus.generate.example.dao.StaffMapper;
 import cn.structured.mybatisplus.generate.example.entity.Staff;
 import cn.structured.mybatisplus.generate.example.group.PostGroup;

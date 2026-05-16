@@ -124,10 +124,10 @@ public class DistributedLockAspectConfiguration {
         int retryTimes = redisLock.action().equals(RedisLock.LockFailAction.CONTINUE) ? redisLock.retryTimes() : 0;
         long keepMills = redisLock.keepMills();
         long sleepMills = redisLock.sleepMills();
-        
-        log.info("[DistributedLockAspect] 尝试获取分布式锁 - class: {}, method: {}, key: {}, keepMills: {}, retryTimes: {}, sleepMills: {}", 
-            className, methodName, key, keepMills, retryTimes, sleepMills);
-        
+
+        log.info("[DistributedLockAspect] 尝试获取分布式锁 - class: {}, method: {}, key: {}, keepMills: {}, retryTimes: {}, sleepMills: {}",
+                className, methodName, key, keepMills, retryTimes, sleepMills);
+
         boolean lock = distributedLock.lock(key, keepMills, retryTimes, sleepMills);
         if (!lock) {
             log.warn("[DistributedLockAspect] 获取分布式锁失败 - class: {}, method: {}, key: {}", className, methodName, key);

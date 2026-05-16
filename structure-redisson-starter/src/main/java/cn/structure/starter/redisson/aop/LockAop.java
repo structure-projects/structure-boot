@@ -95,8 +95,8 @@ public class LockAop {
         if (!lockModel.equals(LockModelEnum.MULTIPLE) && !lockModel.equals(LockModelEnum.REDLOCK) && keys.length > 1) {
             throw new RuntimeException("LockAop -> 参数有多个,锁模式为-> " + lockModel.name() + ".无法锁定");
         }
-        log.info("[LockAop] 锁配置信息 - class: {}, method: {}, lockModel: {}, attemptTimeout: {}ms, lockWatchdogTimeout: {}ms, keys: {}", 
-            className, methodName, lockModel.name(), attemptTimeout, lockWatchdogTimeout, keys);
+        log.info("[LockAop] 锁配置信息 - class: {}, method: {}, lockModel: {}, attemptTimeout: {}ms, lockWatchdogTimeout: {}ms, keys: {}",
+                className, methodName, lockModel.name(), attemptTimeout, lockWatchdogTimeout, keys);
         boolean res = false;
         RLock rLock = null;
         //一直等待加锁.
