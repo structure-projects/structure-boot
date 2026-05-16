@@ -21,6 +21,7 @@ import cn.structure.starter.minio.http.MinioEndpoint;
 import cn.structure.starter.minio.properties.MinioProperties;
 import cn.structure.starter.minio.service.MinioTemplate;
 import io.minio.MinioClient;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -37,20 +38,20 @@ import org.springframework.context.annotation.Primary;
  * @version 1.0.1
  * @since 2021/7/17 14:06
  */
+@Slf4j
 @EnableConfigurationProperties({MinioProperties.class})
 public class MinioAutoConfiguration {
 
     @Autowired
     private MinioProperties minioProperties;
 
-    @Autowired
-    private MinioClient minioClient;
 
     @Primary
     @Bean
     @ConditionalOnMissingBean(MinioClient.class)
     @ConditionalOnProperty(name = "structure.minio.url")
     public MinioClient minioClient() throws Exception {
+        log.debug("[MinioAutoConfiguration] 初始化MinioClient - url: {}, accessKey: {}, secretKey: {}", minioProperties.getUrl(), minioProperties.getAccessKey(), minioProperties.getSecretKey());
         return MinioClient.builder()
                 .endpoint(minioProperties.getUrl())
                 .credentials(minioProperties.getAccessKey(), minioProperties.getSecretKey())
@@ -62,6 +63,7 @@ public class MinioAutoConfiguration {
     @ConditionalOnMissingBean(MinioTemplate.class)
     @ConditionalOnProperty(name = "structure.minio.url")
     public MinioTemplate minioTemplate() {
+        log.debug("[MinioAutoConfiguration] 初始化MinioTemplate");
         return new MinioTemplate();
     }
 
@@ -70,6 +72,7 @@ public class MinioAutoConfiguration {
     @ConditionalOnMissingBean(MinioEndpoint.class)
     @ConditionalOnProperty(name = "structure.minio.endpoint-enable", havingValue = "true")
     public MinioEndpoint minioEndpoint(MinioTemplate template) {
+        log.debug("[MinioAutoConfiguration] 创建MinioEndpoint");
         return new MinioEndpoint(template);
     }
 

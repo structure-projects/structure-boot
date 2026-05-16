@@ -20,6 +20,7 @@ import cn.hutool.core.util.IdUtil;
 import cn.structure.starter.mybatis.annotation.CreateTime;
 import cn.structure.starter.mybatis.annotation.UpdateTime;
 import cn.structure.starter.mybatis.configuration.MybatisProperties;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.binding.MapperMethod;
 import org.apache.ibatis.cache.CacheKey;
 import org.apache.ibatis.executor.Executor;
@@ -47,6 +48,7 @@ import java.util.Properties;
  * @version 1.0.1
  * @since 2020/12/26 23:47
  */
+@Slf4j
 @Intercepts({
         @Signature(type = Executor.class, method = "update", args = {MappedStatement.class, Object.class}),
         @Signature(type = Executor.class, method = "query", args = {MappedStatement.class, Object.class,
@@ -66,6 +68,7 @@ public class OverWritePluginParameter implements Interceptor {
     private MybatisProperties properties;
 
     public Object intercept(Invocation invocation) throws Throwable {
+        log.debug("OverWritePluginParameter");
         MappedStatement ms = (MappedStatement) invocation.getArgs()[0];
         SqlCommandType type = ms.getSqlCommandType();
         Object parameter = invocation.getArgs()[1];

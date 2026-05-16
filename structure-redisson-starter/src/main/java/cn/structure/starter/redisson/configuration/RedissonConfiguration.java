@@ -64,18 +64,21 @@ public class RedissonConfiguration {
     @Bean
     @ConditionalOnMissingBean(LockAop.class)
     public LockAop lockAop() {
+        log.info("[RedissonConfiguration] 创建Redisson分布式锁切面类 - LockAop");
         return new LockAop();
     }
 
     @Bean
     @ConditionalOnMissingBean(RedisCacheAop.class)
     public RedisCacheAop redisCacheAop() {
+        log.info("[RedissonConfiguration] 创建Redisson分布式缓存切面类 - RedisCacheAop");
         return new RedisCacheAop();
     }
 
     @Bean
     @ConditionalOnClass(RedissonClient.class)
     public IDistributedLocker distributedLocker(RedissonClient redissonClient) {
+        log.info("[RedissonConfiguration] 创建Redisson分布式锁实现类 - DistributedLockerImpl");
         return new DistributedLockerImpl(redissonClient);
     }
 
@@ -87,6 +90,7 @@ public class RedissonConfiguration {
     @Bean
     @ConditionalOnMissingBean(Config.class)
     public Config config() {
+        log.info("[RedissonConfiguration] 创建Redisson配置类 - Config");
         Config config = new Config();
         try {
             config.setCodec((Codec) Class.forName(redissonProperties.getCodec()).newInstance());
@@ -115,6 +119,7 @@ public class RedissonConfiguration {
     @ConditionalOnProperty(value = "structure.redisson.model", havingValue = "single")
     @ConditionalOnMissingBean(RedissonReactiveClient.class)
     public RedissonReactiveClient redissonReactiveClientBySingle(Config config) {
+        log.info("[RedissonConfiguration] 创建RedissonReactiveClient 单体模式");
         redissonSingleConfig(config);
         return Redisson.createReactive(config);
     }
@@ -130,6 +135,7 @@ public class RedissonConfiguration {
     @ConditionalOnProperty(value = "structure.redisson.model", havingValue = "single")
     @ConditionalOnMissingBean(RedissonClient.class)
     public RedissonClient redissonClientBySingle(Config config) {
+        log.info("[RedissonConfiguration] 创建RedissonClient 单体模式");
         redissonSingleConfig(config);
         return Redisson.create(config);
     }
@@ -145,6 +151,7 @@ public class RedissonConfiguration {
     @ConditionalOnProperty(value = "structure.redisson.model", havingValue = "single")
     @ConditionalOnMissingBean(RedissonRxClient.class)
     public RedissonRxClient redissonRxClientBySingle(Config config) {
+        log.info("[RedissonConfiguration] 创建RedissonRxClient 单体模式");
         redissonSingleConfig(config);
         return Redisson.createRx(config);
     }
@@ -160,6 +167,7 @@ public class RedissonConfiguration {
     @ConditionalOnProperty(value = "structure.redisson.model", havingValue = "sentinel")
     @ConditionalOnMissingBean(RedissonReactiveClient.class)
     public RedissonReactiveClient redissonReactiveClientBySentinel(Config config) {
+        log.info("[RedissonConfiguration] 创建RedissonReactiveClient 哨兵模式");
         redissonSentinelConfig(config);
         return Redisson.createReactive(config);
     }
@@ -175,6 +183,7 @@ public class RedissonConfiguration {
     @ConditionalOnProperty(value = "structure.redisson.model", havingValue = "sentinel")
     @ConditionalOnMissingBean(RedissonClient.class)
     public RedissonClient redissonClientBySentinel(Config config) {
+        log.info("[RedissonConfiguration] 创建RedissonClient 哨兵模式");
         redissonSentinelConfig(config);
         return Redisson.create(config);
     }
@@ -190,6 +199,7 @@ public class RedissonConfiguration {
     @ConditionalOnProperty(value = "structure.redisson.model", havingValue = "sentinel")
     @ConditionalOnMissingBean(RedissonRxClient.class)
     public RedissonRxClient redissonRxClientBySentinel(Config config) {
+        log.info("[RedissonConfiguration] 创建RedissonRxClient 哨兵模式");
         redissonSentinelConfig(config);
         return Redisson.createRx(config);
     }
@@ -206,6 +216,7 @@ public class RedissonConfiguration {
     @ConditionalOnProperty(value = "structure.redisson.model", havingValue = "cluster")
     @ConditionalOnMissingBean(RedissonReactiveClient.class)
     public RedissonReactiveClient redissonReactiveClientByCluster(Config config) {
+        log.info("[RedissonConfiguration] 创建RedissonReactiveClient 集群模式");
         redissonClusterConfig(config);
         return Redisson.createReactive(config);
     }
@@ -221,6 +232,7 @@ public class RedissonConfiguration {
     @ConditionalOnProperty(value = "structure.redisson.model", havingValue = "cluster")
     @ConditionalOnMissingBean(RedissonClient.class)
     public RedissonClient redissonClientByCluster(Config config) {
+        log.info("[RedissonConfiguration] 创建RedissonClient 集群模式");
         redissonClusterConfig(config);
         return Redisson.create(config);
     }
@@ -236,6 +248,7 @@ public class RedissonConfiguration {
     @ConditionalOnProperty(value = "structure.redisson.model", havingValue = "cluster")
     @ConditionalOnMissingBean(RedissonRxClient.class)
     public RedissonRxClient redissonRxClientByCluster(Config config) {
+        log.info("[RedissonConfiguration] 创建RedissonRxClient 集群模式");
         redissonClusterConfig(config);
         return Redisson.createRx(config);
     }
@@ -252,6 +265,7 @@ public class RedissonConfiguration {
     @ConditionalOnProperty(value = "structure.redisson.model", havingValue = "replicated")
     @ConditionalOnMissingBean(RedissonReactiveClient.class)
     public RedissonReactiveClient redissonReactiveClientByReplicated(Config config) {
+        log.info("[RedissonConfiguration] 创建RedissonReactiveClient 托管模式");
         redissonReplicatedConfig(config);
         return Redisson.createReactive(config);
     }
@@ -267,6 +281,7 @@ public class RedissonConfiguration {
     @ConditionalOnProperty(value = "structure.redisson.model", havingValue = "replicated")
     @ConditionalOnMissingBean(RedissonClient.class)
     public RedissonClient redissonClientByReplicated(Config config) {
+        log.info("[RedissonConfiguration] 创建RedissonClient 托管模式");
         redissonReplicatedConfig(config);
         return Redisson.create(config);
     }
@@ -282,6 +297,7 @@ public class RedissonConfiguration {
     @ConditionalOnProperty(value = "structure.redisson.model", havingValue = "replicated")
     @ConditionalOnMissingBean(RedissonRxClient.class)
     public RedissonRxClient redissonRxClientByReplicated(Config config) {
+        log.info("[RedissonConfiguration] 创建RedissonRxClient 托管模式");
         redissonReplicatedConfig(config);
         return Redisson.createRx(config);
     }
@@ -297,6 +313,7 @@ public class RedissonConfiguration {
     @ConditionalOnProperty(value = "structure.redisson.model", havingValue = "master-slave")
     @ConditionalOnMissingBean(RedissonReactiveClient.class)
     public RedissonReactiveClient redissonReactiveClientByMasterSlave(Config config) {
+        log.info("[RedissonConfiguration] 创建RedissonReactiveClient 主从模式");
         redissonMasterSlaveConfig(config);
         return Redisson.createReactive(config);
     }
@@ -306,6 +323,7 @@ public class RedissonConfiguration {
     @ConditionalOnProperty(value = "structure.redisson.model", havingValue = "master-slave")
     @ConditionalOnMissingBean(RedissonClient.class)
     public RedissonClient redissonClientByMasterSlave(Config config) {
+        log.info("[RedissonConfiguration] 创建RedissonClient 主从模式");
         redissonMasterSlaveConfig(config);
         return Redisson.create(config);
     }
@@ -315,6 +333,7 @@ public class RedissonConfiguration {
     @ConditionalOnProperty(value = "structure.redisson.model", havingValue = "master-slave")
     @ConditionalOnMissingBean(RedissonRxClient.class)
     public RedissonRxClient redissonRxClientByMasterSlave(Config config) {
+        log.info("[RedissonConfiguration] 创建RedissonRxClient 主从模式");
         redissonMasterSlaveConfig(config);
         return Redisson.createRx(config);
     }

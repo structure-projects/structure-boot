@@ -1,12 +1,15 @@
 structure:
   log:
     aop:
-      enable: false
+      enable: true
       expression: execution(public * cn.structure.example.log.controller..*Controller.*(..))
 spring:
   application:
     name: log-example
   profiles:
     active: dev
+
+  main:
+    allow-bean-definition-overriding: true
 server:
   port: 16002

@@ -1,1 +1,1 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=cn.structure.starter.log.config.AutoConfiguration
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=cn.structure.starter.log.config.AutoLogConfiguration
