@@ -18,10 +18,9 @@ package cn.structure.starter.log.filter;
 import cn.structure.common.entity.ControllerLog;
 import cn.structure.common.enums.LogEnums;
 import com.alibaba.fastjson.JSON;
+import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -39,9 +38,8 @@ import java.util.Date;
  * @version 1.0.1
  * @since 2020/6/3 12:05
  */
+@Slf4j
 public class WebLogAspect {
-
-    private static final Logger log = LoggerFactory.getLogger(WebLogAspect.class);
 
     private long c;
 
@@ -50,9 +48,13 @@ public class WebLogAspect {
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
 
     public void doBefore(JoinPoint joinPoint) {
+        log.debug("[WebLogAspect] 请求开始");
         // 接收到请求，记录请求内容
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
-        assert attributes != null;
+        if (attributes == null) {
+            log.warn("[WebLogAspect] 无法获取请求上下文");
+            return;
+        }
         HttpServletRequest request = attributes.getRequest();
         controllerLog = new ControllerLog();
         controllerLog.setMethod(request.getMethod());
@@ -61,6 +63,8 @@ public class WebLogAspect {
         controllerLog.setTargetMethod(joinPoint.getSignature().getDeclaringTypeName() + "." + joinPoint.getSignature().getName());
         controllerLog.setArgs(Arrays.toString(joinPoint.getArgs()));
         controllerLog.setBeginTime(sdf.format(new Date()));
+        log.debug("[WebLogAspect] 请求信息 - method: {}, url: {}, ip: {}, target: {}", 
+            controllerLog.getMethod(), controllerLog.getUrl(), controllerLog.getIpAddress(), controllerLog.getTargetMethod());
     }
 
     /**
@@ -71,7 +75,7 @@ public class WebLogAspect {
         controllerLog.setType(LogEnums.CONTROLLER);
         controllerLog.setEndTime(sdf.format(new Date()));
         // 处理完请求，返回内容
-        log.info(JSON.toJSONString(controllerLog));
+        log.info("[WebLogAspect] {}", JSON.toJSONString(controllerLog));
     }
 
     public Object doAround(ProceedingJoinPoint pjp) throws Throwable {

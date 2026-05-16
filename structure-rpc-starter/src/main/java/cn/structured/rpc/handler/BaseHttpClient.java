@@ -16,6 +16,7 @@
 package cn.structured.rpc.handler;
 
 import cn.structure.common.utils.HttpClientUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.http.HttpHost;
 import org.apache.http.HttpRequest;
 import org.apache.http.HttpResponse;
@@ -30,6 +31,7 @@ import java.io.IOException;
  * @version 2024/07/17 下午4:47
  * @since 1.8
  */
+@Slf4j
 public class BaseHttpClient implements IRpcHandler {
 
     private HttpHost httpHost;
@@ -38,18 +40,23 @@ public class BaseHttpClient implements IRpcHandler {
 
     @Override
     public void init(String host, Integer port) {
+        log.info("[RpcClient] 初始化RPC客户端 - host: {}, port: {}", host, port);
         this.httpHost = new HttpHost(host, port);
         this.httpClient = HttpClientUtil.getHttpClient();
+        log.info("[RpcClient] RPC客户端初始化完成 - httpHost: {}", httpHost);
     }
 
     @Override
     public HttpResponse handler(HttpRequest httpRequest) {
         try {
             preposition(httpRequest);
+            log.debug("[RpcClient] 发送RPC请求 - target: {}, requestLine: {}", httpHost, httpRequest.getRequestLine());
             HttpResponse execute = httpClient.execute(httpHost, httpRequest);
             postposition(execute);
+            log.info("[RpcClient] RPC请求成功 - target: {}, statusLine: {}", httpHost, execute.getStatusLine());
             return execute;
         } catch (IOException e) {
+            log.error("[RpcClient] RPC请求失败 - target: {}, error: {}", httpHost, e.getMessage(), e);
             throw new RuntimeException(e);
         }
     }

@@ -18,6 +18,7 @@ package cn.structure.starter.mybatis.plugin;
 import cn.structure.starter.mybatis.annotation.SplitTable;
 import cn.structure.starter.mybatis.configuration.MybatisProperties;
 import cn.structure.starter.mybatis.enums.SplitTableEnum;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.executor.statement.StatementHandler;
 import org.apache.ibatis.mapping.MappedStatement;
 import org.apache.ibatis.mapping.ParameterMap;
@@ -30,8 +31,6 @@ import org.apache.ibatis.reflection.factory.DefaultObjectFactory;
 import org.apache.ibatis.reflection.factory.ObjectFactory;
 import org.apache.ibatis.reflection.wrapper.DefaultObjectWrapperFactory;
 import org.apache.ibatis.reflection.wrapper.ObjectWrapperFactory;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -49,14 +48,13 @@ import java.util.*;
  * @version 1.0.1
  * @since 2020/12/26 23:47
  */
+@Slf4j
 @Component
 @Intercepts({@Signature(type = StatementHandler.class, method = "prepare", args = {Connection.class, Integer.class})})
 public class SplitDateSourcePlugin implements Interceptor {
 
     @Resource
     private MybatisProperties mybatisProperties;
-
-    private final Logger log = LoggerFactory.getLogger(SplitDateSourcePlugin.class);
 
     private static final ObjectFactory DEFAULT_OBJECT_FACTORY = new DefaultObjectFactory();
     private static final ObjectWrapperFactory DEFAULT_OBJECT_WRAPPER_FACTORY = new DefaultObjectWrapperFactory();
@@ -93,11 +91,12 @@ public class SplitDateSourcePlugin implements Interceptor {
         String originalSql = (String) metaStatementHandler.getValue("delegate.boundSql.sql");
         if (originalSql != null && !originalSql.isEmpty()) {
             Object param = metaStatementHandler.getValue("delegate.boundSql.parameterObject");
-            log.info("分表前的SQL：{}", originalSql);
+            log.debug("[SplitTablePlugin] 执行SQL - originalSql: {}", originalSql);
             MappedStatement mappedStatement = (MappedStatement) metaStatementHandler.getValue("delegate.mappedStatement");
             String id = mappedStatement.getId();
             String className = id.substring(0, id.lastIndexOf("."));
             String methodName = id.substring(id.lastIndexOf(".") + 1);
+            log.debug("[SplitTablePlugin] 解析Mapper - class: {}, method: {}", className, methodName);
             Class<?> clazz = Class.forName(className);
             ParameterMap paramMap = mappedStatement.getParameterMap();
             Method method = findMethod(clazz.getDeclaredMethods(), methodName);
@@ -111,6 +110,8 @@ public class SplitDateSourcePlugin implements Interceptor {
             }
             String convertedSql = originalSql;
             if (splitTable != null) {
+                log.info("[SplitTablePlugin] 检测到分表注解 - tableName: {}, splitType: {}, splitBy: {}", 
+                    splitTable.tableName(), splitTable.splitType(), splitTable.splitBy());
                 Map<String, Object> params = new HashMap<String, Object>();
                 params.put(TABLE_NAME, splitTable.tableName());
                 params.put(SPLIT_BY, splitTable.splitBy());
@@ -122,9 +123,12 @@ public class SplitDateSourcePlugin implements Interceptor {
                 params.put(ORIGINAL_SQL, originalSql);
                 params.put(SQL_COMMAND_TYPE, mappedStatement.getSqlCommandType());
                 convertedSql = convert(params);
+                log.info("[SplitTablePlugin] 分表转换完成 - originalSql: {}, convertedSql: {}", originalSql, convertedSql);
+            } else {
+                log.debug("[SplitTablePlugin] 未检测到分表注解，跳过 - class: {}, method: {}", className, methodName);
+                metaStatementHandler.setValue("delegate.boundSql.sql", originalSql);
             }
             metaStatementHandler.setValue("delegate.boundSql.sql", convertedSql);
-            log.info("分表后的SQL：{}", convertedSql);
         }
     }
 
@@ -140,6 +144,7 @@ public class SplitDateSourcePlugin implements Interceptor {
         Object objectParam = params.get(EXECUTE_PARAM_VALUES);
         Map<String, Object> splitParams = new HashMap<>();
         SplitTableEnum splitType = (SplitTableEnum) params.get(SPLIT_TYPE);
+        log.debug("[SplitTablePlugin] 转换SQL - splitType: {}", splitType);
         //获取sql用到的参数
         if (null != objectParam) {
 
@@ -153,6 +158,7 @@ public class SplitDateSourcePlugin implements Interceptor {
                     //获取时间分表字段
                     Object value = map.get(params.get(SPLIT_BY));
                     splitParams.put(SPLIT_PARAM, value);
+                    log.debug("[SplitTablePlugin] 区域分表参数 - splitParam: {}", value);
                 }
                 //时间分表类型
                 if (splitType.equals(SplitTableEnum.TIME)) {
@@ -162,6 +168,7 @@ public class SplitDateSourcePlugin implements Interceptor {
                     Object value1 = map.get(params.get(SPLIT_PARAM));
                     //获取查询时间区间
                     splitParams.put(SPLIT_PARAM, value1);
+                    log.debug("[SplitTablePlugin] 时间分表参数 - splitBy: {}, splitParam: {}", value, value1);
                 }
                 //取模分表类型
                 if (splitType.equals(SplitTableEnum.KEY)) {
@@ -170,6 +177,7 @@ public class SplitDateSourcePlugin implements Interceptor {
                     splitParams.put(SPLIT_BY, value2);
                     //设置取模基数
                     splitParams.put(SPLIT_PARAM, params.get(SPLIT_PARAM));
+                    log.debug("[SplitTablePlugin] 取模分表参数 - splitBy: {}, splitParam: {}", value2, params.get(SPLIT_PARAM));
                 }
             } else {
                 //时间分表类型
@@ -211,6 +219,7 @@ public class SplitDateSourcePlugin implements Interceptor {
         if (splitType.equals(SplitTableEnum.KEY)) {
             convertedSql = keySplit(params, splitParams);
         }
+        log.debug("[SplitTablePlugin] SQL转换结果 - convertedSql: {}", convertedSql);
         return convertedSql;
     }
 
@@ -226,6 +235,7 @@ public class SplitDateSourcePlugin implements Interceptor {
         StringBuilder newTableName = new StringBuilder((String) params.get(TABLE_NAME));
         String area = (String) splitParams.get(SPLIT_BY);
         newTableName.append("_").append(area);
+        log.debug("[SplitTablePlugin] 区域分表 - originalTable: {}, newTable: {}", params.get(TABLE_NAME), newTableName.toString());
         //替换sql
         return replaceTableName(originalSql, (String) params.get(TABLE_NAME), newTableName.toString(), (SqlCommandType) params.get(SQL_COMMAND_TYPE), (ParameterMap) params.get(EXECUTE_PARAM_DECLARE));
     }
@@ -254,6 +264,7 @@ public class SplitDateSourcePlugin implements Interceptor {
             size = mybatisProperties.getSplitLength();
         }
         if (params.get(SQL_COMMAND_TYPE).equals(SqlCommandType.SELECT)) {
+            log.debug("[SplitTablePlugin] 时间分表(SELECT) - date: {}, size: {}", sdf.format(date), size);
             StringBuilder unionTable = new StringBuilder("(");
             String unionSelect = "( SELECT * FROM " + params.get(TABLE_NAME).toString() + ")";
             for (int i = 0; i < size; i++) {
@@ -279,6 +290,7 @@ public class SplitDateSourcePlugin implements Interceptor {
             String mon = sdf.format(date);
             tableName.append("_");
             tableName.append(mon);
+            log.debug("[SplitTablePlugin] 时间分表(INSERT/UPDATE/DELETE) - date: {}, newTable: {}", sdf.format(date), tableName.toString());
             return replaceTableName(originalSql, params.get(TABLE_NAME).toString(), tableName.toString(), (SqlCommandType) params.get(SQL_COMMAND_TYPE), (ParameterMap) params.get(EXECUTE_PARAM_DECLARE));
         }
     }
@@ -299,6 +311,7 @@ public class SplitDateSourcePlugin implements Interceptor {
         Long tableNameAfter = id % splitParam;
         //拼接取模后的表名
         newTableName.append("_").append(tableNameAfter);
+        log.debug("[SplitTablePlugin] 取模分表 - id: {}, splitParam: {}, newTable: {}", id, splitParam, newTableName.toString());
         //替换sql
         return replaceTableName(originalSql, (String) params.get(TABLE_NAME), newTableName.toString(), (SqlCommandType) params.get(SQL_COMMAND_TYPE), (ParameterMap) params.get(EXECUTE_PARAM_DECLARE));
     }
@@ -313,7 +326,7 @@ public class SplitDateSourcePlugin implements Interceptor {
      * @return 替换后的sql
      */
     private String replaceTableName(String originalSql, String tableName, String newTableName, SqlCommandType sqlType, ParameterMap parameterMap) {
-        log.info(parameterMap.toString());
+        log.debug("[SplitTablePlugin] 替换表名 - sqlType: {}, originalTable: {}, newTable: {}", sqlType, tableName, newTableName);
         StringBuilder newSql = new StringBuilder();
         String sqlTypeStr = null;
         if (sqlType.equals(SqlCommandType.INSERT)) {
@@ -330,6 +343,7 @@ public class SplitDateSourcePlugin implements Interceptor {
         int sqlTypeStrIndex = originalSql.indexOf(sqlTypeStr);
         //未找到指定关键字返回原sql
         if (sqlTypeStrIndex == -1) {
+            log.warn("[SplitTablePlugin] 未找到SQL关键字，返回原SQL - originalSql: {}", originalSql);
             return originalSql;
         }
         int tableNameIndex = originalSql.indexOf(tableName, sqlTypeStrIndex);
@@ -374,6 +388,7 @@ public class SplitDateSourcePlugin implements Interceptor {
         // 当目标类是StatementHandler类型时，才包装目标类，否者直接返回目标本身,减少目标被代理的
         // 次数
         if (target instanceof StatementHandler) {
+            log.debug("[SplitTablePlugin] 包装StatementHandler代理");
             return Plugin.wrap(target, this);
         } else {
             return target;
@@ -382,5 +397,6 @@ public class SplitDateSourcePlugin implements Interceptor {
 
     @Override
     public void setProperties(Properties properties) {
+        log.info("[SplitTablePlugin] 设置分表插件属性 - properties: {}", properties);
     }
 }

@@ -22,6 +22,7 @@ import cn.structure.starter.tenant.resolver.HeaderTenantResolver;
 import cn.structure.starter.tenant.resolver.ParamTenantResolver;
 import cn.structure.starter.tenant.resolver.TenantResolver;
 import cn.structure.starter.tenant.resolver.TenantResolverChain;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -41,6 +42,7 @@ import java.util.List;
  * @version 1.0.0
  * @since 2026-04-27
  */
+@Slf4j
 @Configuration
 @EnableConfigurationProperties(TenantProperties.class)
 @ConditionalOnProperty(prefix = "structure.tenant", name = "enabled", havingValue = "true", matchIfMissing = true)
@@ -56,6 +58,7 @@ public class TenantAutoConfiguration {
     @ConditionalOnWebApplication
     @ConditionalOnMissingBean(name = "headerTenantResolver")
     public TenantResolver headerTenantResolver(TenantProperties properties) {
+        log.info("structure-tenant-starter: 创建HTTP请求头租户识别器");
         return new HeaderTenantResolver(properties.getHeader());
     }
 
@@ -69,6 +72,7 @@ public class TenantAutoConfiguration {
     @ConditionalOnWebApplication
     @ConditionalOnMissingBean(name = "paramTenantResolver")
     public TenantResolver paramTenantResolver(TenantProperties properties) {
+        log.info("structure-tenant-starter: 创建请求参数租户识别器");
         return new ParamTenantResolver(properties.getParam());
     }
 
@@ -82,6 +86,7 @@ public class TenantAutoConfiguration {
     @Bean
     @ConditionalOnMissingBean
     public TenantResolverChain tenantResolverChain(TenantProperties properties, List<TenantResolver> resolvers) {
+        log.info("structure-tenant-starter: 创建租户识别器链");
         TenantResolverChain chain = new TenantResolverChain(properties);
         for (TenantResolver resolver : resolvers) {
             chain.addResolver(resolver);
@@ -98,6 +103,7 @@ public class TenantAutoConfiguration {
     @Bean
     @ConditionalOnBean(TenantResolverChain.class)
     public Object tenantContextInitializer(TenantResolverChain chain) {
+        log.info("structure-tenant-starter: 初始化租户上下文");
         TenantContextHolder.setResolverChain(chain);
         return new Object();
     }

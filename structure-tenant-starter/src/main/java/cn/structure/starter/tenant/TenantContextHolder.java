@@ -17,6 +17,7 @@
 package cn.structure.starter.tenant;
 
 import cn.structure.starter.tenant.resolver.TenantResolverChain;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -30,6 +31,7 @@ import java.util.Map;
  * @version 1.0.0
  * @since 2026-04-27
  */
+@Slf4j
 public class TenantContextHolder {
 
     /**
@@ -53,6 +55,7 @@ public class TenantContextHolder {
      * @param chain 租户识别器链
      */
     public static void setResolverChain(TenantResolverChain chain) {
+        log.debug("[TenantContextHolder] 设置租户识别器链");
         resolverChain = chain;
     }
 
@@ -62,6 +65,7 @@ public class TenantContextHolder {
      * @param tenantId 租户ID
      */
     public static void setTenantId(String tenantId) {
+        log.debug("[TenantContextHolder] 设置租户ID - tenantId: {}", tenantId);
         TENANT_CONTEXT.get().put("tenantId", tenantId);
     }
 
@@ -72,10 +76,15 @@ public class TenantContextHolder {
      */
     public static String getTenantId() {
         String tenantId = (String) TENANT_CONTEXT.get().get("tenantId");
+        log.debug("[TenantContextHolder] 获取租户ID - fromContext: {}", tenantId);
         if (tenantId == null && resolverChain != null) {
+            log.debug("[TenantContextHolder] 从识别器链获取租户ID");
             tenantId = resolverChain.resolveTenantId();
             if (tenantId != null) {
+                log.info("[TenantContextHolder] 从识别器链获取租户ID成功 - tenantId: {}", tenantId);
                 setTenantId(tenantId);
+            } else {
+                log.debug("[TenantContextHolder] 从识别器链未获取到租户ID");
             }
         }
         return tenantId;
@@ -88,6 +97,7 @@ public class TenantContextHolder {
      * @param value 值
      */
     public static void set(String key, Object value) {
+        log.debug("[TenantContextHolder] 设置租户信息 - key: {}, value: {}", key, value);
         TENANT_CONTEXT.get().put(key, value);
     }
 
@@ -98,13 +108,16 @@ public class TenantContextHolder {
      * @return 值
      */
     public static Object get(String key) {
-        return TENANT_CONTEXT.get().get(key);
+        Object value = TENANT_CONTEXT.get().get(key);
+        log.debug("[TenantContextHolder] 获取租户信息 - key: {}, value: {}", key, value);
+        return value;
     }
 
     /**
      * 清理租户上下文
      */
     public static void clear() {
+        log.debug("[TenantContextHolder] 清理租户上下文");
         if (resolverChain != null) {
             resolverChain.cleanup();
         }
@@ -117,7 +130,9 @@ public class TenantContextHolder {
      * @return 租户信息
      */
     public static Map<String, Object> getAll() {
-        return TENANT_CONTEXT.get();
+        Map<String, Object> all = TENANT_CONTEXT.get();
+        log.debug("[TenantContextHolder] 获取所有租户信息 - size: {}", all.size());
+        return all;
     }
 
     /**
@@ -126,6 +141,8 @@ public class TenantContextHolder {
      * @return 是否存在租户信息
      */
     public static boolean hasTenant() {
-        return getTenantId() != null;
+        boolean hasTenant = getTenantId() != null;
+        log.debug("[TenantContextHolder] 检查是否存在租户信息 - hasTenant: {}", hasTenant);
+        return hasTenant;
     }
 }

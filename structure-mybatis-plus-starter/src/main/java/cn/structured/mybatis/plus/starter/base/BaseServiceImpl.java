@@ -22,6 +22,7 @@ import cn.structured.mybatis.plus.starter.core.QueryJoinPageListWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 
 import java.util.HashMap;
@@ -36,10 +37,12 @@ import java.util.List;
  * @version 1.0.1
  * @since 2021/8/2 14:29
  */
+@Slf4j
 public class BaseServiceImpl<M extends IBaseMapper<T>, T> extends ServiceImpl<M, T> implements IBaseService<T> {
 
     @Override
     public IPage<T> page(IPage<T> page, QueryJoinPageListWrapper<T> queryWrapper) {
+        log.debug("[BaseService] 分页查询 - page: {}, queryWrapper: {}", page, queryWrapper);
         //查询数据
         IPage<HashMap<String, Object>> hashMapPage = baseMapper.selectJoinPageList(page, queryWrapper);
         IPage<T> iPage = new Page<>();
@@ -48,17 +51,23 @@ public class BaseServiceImpl<M extends IBaseMapper<T>, T> extends ServiceImpl<M,
         //设置新的结果集合
         List list = JoinHelper.getList(records, entityClass);
         iPage.setRecords(list);
+        log.info("[BaseService] 分页查询完成 - total: {}, records: {}", iPage.getTotal(), iPage.getRecords().size());
         return iPage;
     }
 
     @Override
     public List<T> list(QueryJoinPageListWrapper<T> queryWrapper) {
         Boolean isJoin = queryWrapper.getIsJoin();
+        log.debug("[BaseService] 查询列表 - isJoin: {}, queryWrapper: {}", isJoin, queryWrapper);
         if (Boolean.TRUE.equals(isJoin)) {
             List<HashMap<String, Object>> hashMapList = baseMapper.selectJoinList(queryWrapper);
-            return (List<T>) JoinHelper.getList(hashMapList, entityClass);
+            List<T> result = (List<T>) JoinHelper.getList(hashMapList, entityClass);
+            log.info("[BaseService] 查询列表完成(JOIN) - count: {}", result.size());
+            return result;
         } else {
-            return baseMapper.selectJoin(queryWrapper);
+            List<T> result = baseMapper.selectJoin(queryWrapper);
+            log.info("[BaseService] 查询列表完成 - count: {}", result.size());
+            return result;
         }
 
     }
@@ -71,8 +80,10 @@ public class BaseServiceImpl<M extends IBaseMapper<T>, T> extends ServiceImpl<M,
         try {
             entity = (T) entityClass.newInstance();
         } catch (InstantiationException e) {
+            log.error("[BaseService] 创建实体实例失败 - entityClass: {}", entityClass.getName(), e);
             e.printStackTrace();
         } catch (IllegalAccessException e) {
+            log.error("[BaseService] 创建实体实例失败 - entityClass: {}", entityClass.getName(), e);
             e.printStackTrace();
         }
         //拷贝属性
@@ -87,6 +98,10 @@ public class BaseServiceImpl<M extends IBaseMapper<T>, T> extends ServiceImpl<M,
         List<String> keyword = tableInfo.getKeyword();
         queryJoinPageListWrapper.setSearchList(keyword);
         queryJoinPageListWrapper.addTime("create_time");
+        
+        log.info("[BaseService] 分页查询 - currentPage: {}, pageSize: {}, isJoin: {}, keyword: {}", 
+            reqPage.getCurrentPage(), reqPage.getPageSize(), isJoin, reqPage.getKeyword());
+        
         IPage iPage = new Page();
         IPage<HashMap<String, Object>> hashMapPage = baseMapper.selectJoinPageList(new Page(reqPage.getCurrentPage(), reqPage.getPageSize()), queryJoinPageListWrapper);
         BeanUtils.copyProperties(hashMapPage, iPage);
@@ -94,6 +109,7 @@ public class BaseServiceImpl<M extends IBaseMapper<T>, T> extends ServiceImpl<M,
         //设置新的结果集合
         List list = JoinHelper.getList(records, this.entityClass);
         iPage.setRecords(list);
+        log.info("[BaseService] 分页查询完成 - total: {}, records: {}", iPage.getTotal(), iPage.getRecords().size());
         return iPage;
     }
 
