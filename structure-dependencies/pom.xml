@@ -49,7 +49,7 @@
 
     <properties>
         <!-- 这个版本好只在开发时候有效，发布时时忽略的，建议使用预发布版本好定义 -->
-        <revision>1.3.1-SNAPSHOT</revision>
+        <revision>1.3.3-SNAPSHOT</revision>
         <!-- 注意版本升级时需要考虑相关依赖版本，谨慎升级 -->
         <structure.version>${project.version}</structure.version>
         <!-- jdk -->
@@ -127,6 +127,19 @@
         <springdoc.version>2.3.0</springdoc.version>
         <swagger2.version>2.9.2</swagger2.version>
         <swagger-bootstrap-ui.version>1.9.6</swagger-bootstrap-ui.version>
+
+        <!--lombok-->
+        <lombok.version>1.18.30</lombok.version>
+
+        <!--httpclient-->
+        <httpclient.version>4.5.14</httpclient.version>
+
+        <!--servlet api-->
+        <servlet-api.version>4.0.1</servlet-api.version>
+
+        <!--springdoc (if needed for newer versions)-->
+        <springdoc.version>2.3.0</springdoc.version>
+
         <commons-compress.version>1.24.0</commons-compress.version>
         <!--buf-->
         <protobuf.version>3.25.1</protobuf.version>
@@ -190,7 +203,7 @@
                 <artifactId>spring-security-web</artifactId>
                 <version>${spring-security.version}</version>
             </dependency>
-            
+
 
             <!-- data 实例化相关插件  -->
             <!-- mybatis plus -->
@@ -342,6 +355,21 @@
                 <artifactId>httpclient</artifactId>
                 <version>${httpclient.version}</version>
             </dependency>
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.httpcomponents</groupId>
+                <artifactId>httpclient</artifactId>
+                <version>${httpclient.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springdoc</groupId>
+                <artifactId>springdoc-openapi-starter-webmvc-api</artifactId>
+                <version>${springdoc.version}</version>
+            </dependency>
 
             <!-- redis redisson-->
             <dependency>
@@ -477,7 +505,13 @@
                     <!-- 避免IDE将 .flattened-pom.xml自动识别为功能模块 -->
                     <flattenedPomFilename>pom-xml-flattened</flattenedPomFilename>
                     <updatePomFile>true</updatePomFile>
-                    <flattenMode>resolveCiFriendliesOnly</flattenMode>
+                    <!-- 使用 oss 模式以确保依赖版本被正确解析并保留必要元数据 -->
+                    <flattenMode>oss</flattenMode>
+                    <pomElements>
+                        <dependencies>expand</dependencies>
+                        <dependencyManagement>remove</dependencyManagement>
+                        <parent>remove</parent>
+                    </pomElements>
                 </configuration>
                 <executions>
                     <execution>
