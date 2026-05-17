@@ -85,11 +85,11 @@
 
         <!-- 内部插件版本区域 -->
         <!-- mybatis 和mybatis plus 区域-->
-        <pagehelper.version>5.1.8</pagehelper.version>
+        <pagehelper.version>5.3.2</pagehelper.version>
 
-        <!-- tk-mapper -->
-        <tk-mapper.version>4.1.3</tk-mapper.version>
-        <mapper-spring-boot-starter.version>2.1.2</mapper-spring-boot-starter.version>
+        <!-- tk-mapper - 支持 Spring Boot 3.x -->
+        <tk-mapper.version>5.0.0</tk-mapper.version>
+        <mapper-spring-boot-starter.version>5.0.0</mapper-spring-boot-starter.version>
         <oceanc.version>0.4.0</oceanc.version>
 
         <!--mybatis -->
@@ -253,17 +253,11 @@
                 <artifactId>pagehelper</artifactId>
                 <version>${pagehelper.version}</version>
             </dependency>
-            <!--tk mapper-->
+            <!--tk mapper - 5.0.0+ 已支持 Spring Boot 3.x 和 Jakarta EE-->
             <dependency>
                 <groupId>tk.mybatis</groupId>
                 <artifactId>mapper</artifactId>
                 <version>${tk-mapper.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>jakarta.persistence</groupId>
-                        <artifactId>jakarta.persistence-api</artifactId>
-                    </exclusion>
-                </exclusions>
             </dependency>
             <dependency>
                 <groupId>tk.mybatis</groupId>

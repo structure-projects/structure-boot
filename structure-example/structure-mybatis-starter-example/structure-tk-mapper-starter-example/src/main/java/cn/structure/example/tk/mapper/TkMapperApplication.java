@@ -21,12 +21,12 @@ import tk.mybatis.spring.annotation.MapperScan;
 
 /**
  * <p>
- * 启动Tk-Mapper例子入口  spring boot 3.0 有问题 需要调整 TODO
+ * 启动Tk-Mapper例子入口 - 已升级 tk-mapper 5.0.0 支持 Spring Boot 3.x
  * </p>
  *
  * @author chuck
  * @version 1.0.1
- * @since 2020/12/27 20:28
+ * @since 2020/12/27 20:27
  */
 @MapperScan("cn.structure.example.tk.mapper.dao.**")
 @SpringBootApplication
