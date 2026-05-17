@@ -58,7 +58,6 @@
         <java.version>21</java.version>
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.build.sourceEncoding>${charset}</project.build.sourceEncoding>
 
         <!--nexus-->
@@ -68,7 +67,6 @@
         <maven-project-info-reports-plugin.version>3.0.0</maven-project-info-reports-plugin.version>
         <maven-site-plugin.version>3.7.1</maven-site-plugin.version>
         <maven.jar.plugin.version>3.0.2</maven.jar.plugin.version>
-        <maven-compiler-plugin>3.8.1</maven-compiler-plugin>
         <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
         <maven-surefire-plugin.version>2.5</maven-surefire-plugin.version>
         <maven-source-plugin.version>2.2.1</maven-source-plugin.version>
@@ -81,7 +79,6 @@
         <spring-security.version>6.2.4</spring-security.version>
         <!--spring boot version -->
         <spring-boot.version>3.2.4</spring-boot.version>
-        <spring-framework.version>6.1.5</spring-framework.version>
 
         <!-- 内部插件版本区域 -->
         <!-- mybatis 和mybatis plus 区域-->
@@ -136,9 +133,7 @@
 
         <!--servlet api-->
         <servlet-api.version>4.0.1</servlet-api.version>
-
-        <!--springdoc (if needed for newer versions)-->
-        <springdoc.version>2.3.0</springdoc.version>
+        <jakarta.servlet-api.version>6.0.0</jakarta.servlet-api.version>
 
         <commons-compress.version>1.24.0</commons-compress.version>
         <!--buf-->
@@ -148,10 +143,6 @@
         <!--数据库迁移工具-->
         <flywaydb.version>5.2.4</flywaydb.version>
         <central-publishing-maven-plugin.version>0.9.0</central-publishing-maven-plugin.version>
-        <!--lombok-->
-        <lombok.version>1.18.30</lombok.version>
-        <!--httpclient-->
-        <httpclient.version>4.5.14</httpclient.version>
     </properties>
     <dependencyManagement>
         <dependencies>
@@ -306,12 +297,6 @@
             </dependency>
             <dependency>
                 <groupId>org.springdoc</groupId>
-                <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
-                <version>${springdoc.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.springdoc</groupId>
                 <artifactId>springdoc-openapi-starter-webmvc-api</artifactId>
                 <version>${springdoc.version}</version>
             </dependency>
@@ -338,7 +323,7 @@
             <dependency>
                 <groupId>jakarta.servlet</groupId>
                 <artifactId>jakarta.servlet-api</artifactId>
-                <version>6.0.0</version>
+                <version>${jakarta.servlet-api.version}</version>
             </dependency>
             <dependency>
                 <groupId>jakarta.persistence</groupId>
@@ -354,21 +339,6 @@
                 <groupId>org.apache.httpcomponents</groupId>
                 <artifactId>httpclient</artifactId>
                 <version>${httpclient.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.projectlombok</groupId>
-                <artifactId>lombok</artifactId>
-                <version>${lombok.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.httpcomponents</groupId>
-                <artifactId>httpclient</artifactId>
-                <version>${httpclient.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springdoc</groupId>
-                <artifactId>springdoc-openapi-starter-webmvc-api</artifactId>
-                <version>${springdoc.version}</version>
             </dependency>
 
             <!-- redis redisson-->
