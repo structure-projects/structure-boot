@@ -20,11 +20,13 @@ import cn.structure.starter.redis.lock.RedisDistributedLockImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
-import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.connection.RedisConnectionFactory;
+import org.springframework.data.redis.core.StringRedisTemplate;
 
 /**
  * <p>
@@ -41,10 +43,17 @@ import org.springframework.data.redis.core.RedisTemplate;
 public class StructureRedisAutoConfiguration {
 
     @Bean
-    @ConditionalOnBean(RedisTemplate.class)
-    public IDistributedLock iDistributedLock(RedisTemplate redisTemplate) {
+    @ConditionalOnMissingBean(StringRedisTemplate.class)
+    public StringRedisTemplate stringRedisTemplate(RedisConnectionFactory redisConnectionFactory) {
+        log.info("[StructureRedisAutoConfiguration] 创建RedisStringTemplate");
+        return new StringRedisTemplate(redisConnectionFactory);
+    }
+
+    @Bean
+    @ConditionalOnBean(StringRedisTemplate.class)
+    public IDistributedLock iDistributedLock(StringRedisTemplate stringRedisTemplate) {
         log.info("[StructureRedisAutoConfiguration] 创建Redis分布式锁实现类 - RedisDistributedLockImpl");
-        return new RedisDistributedLockImpl(redisTemplate);
+        return new RedisDistributedLockImpl(stringRedisTemplate);
     }
 
 }

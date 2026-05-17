@@ -15,15 +15,15 @@
  */
 package cn.structure.starter.redis.lock;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.ClassPathResource;
-import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.script.DefaultRedisScript;
 import org.springframework.scripting.support.ResourceScriptSource;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 
 /**
@@ -33,31 +33,43 @@ import java.util.List;
  *
  * @author chuck
  */
+@Slf4j
 public class RedisDistributedLockImpl implements IDistributedLock {
 
-    private final Logger logger = LoggerFactory.getLogger(RedisDistributedLockImpl.class);
+    private final StringRedisTemplate stringRedisTemplate;
 
-    private final RedisTemplate<String, Object> redisTemplate;
+    private final ThreadLocal<String> lockFlag = new ThreadLocal<>();
 
-    private final ThreadLocal<String> lockFlag = new ThreadLocal<String>();
-
-    public RedisDistributedLockImpl(RedisTemplate<String, Object> redisTemplate) {
-        super();
-        this.redisTemplate = redisTemplate;
+    public RedisDistributedLockImpl(StringRedisTemplate stringRedisTemplate) {
+        this.stringRedisTemplate = stringRedisTemplate;
     }
 
     @Override
     public boolean lock(String key, long expire, int retryTimes, long sleepMillis) {
+        String lockValue = UUID.randomUUID().toString() + ":" + Thread.currentThread().getId();
+        lockFlag.set(lockValue);
+        log.debug("[RedisDistributedLockImpl] 准备获取分布式锁 - key: {}, expire: {}, retryTimes: {}, sleepMillis: {}, lockValue: {}",
+                key, expire, retryTimes, sleepMillis, lockValue);
+        
         boolean result = setRedis(key, expire);
-        // 如果获取锁失败，按照传入的重试次数进行重试
         while ((!result) && retryTimes-- > 0) {
             try {
-                logger.debug("lock failed, retrying...{}", retryTimes);
+                log.debug("[RedisDistributedLockImpl] 获取锁失败，正在重试 - key: {}, retryTimes: {}", key, retryTimes);
                 Thread.sleep(sleepMillis);
             } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                log.warn("[RedisDistributedLockImpl] 获取锁被中断 - key: {}", key);
+                lockFlag.remove();
                 return false;
             }
             result = setRedis(key, expire);
+        }
+        
+        if (result) {
+            log.info("[RedisDistributedLockImpl] 获取分布式锁成功 - key: {}, lockValue: {}", key, lockValue);
+        } else {
+            log.warn("[RedisDistributedLockImpl] 获取分布式锁失败 - key: {}, lockValue: {}", key, lockValue);
+            lockFlag.remove();
         }
         return result;
     }
@@ -66,24 +78,24 @@ public class RedisDistributedLockImpl implements IDistributedLock {
         try {
             List<String> keys = new ArrayList<>();
             keys.add(key);
-            List<Object> args = new ArrayList<>();
+            List<String> args = new ArrayList<>();
             args.add(lockFlag.get());
-            args.add(expire);
+            args.add(String.valueOf(expire));
             DefaultRedisScript<Long> script = new DefaultRedisScript<>();
             script.setResultType(Long.class);
-            //获取lua文件方式
             script.setScriptSource(new ResourceScriptSource(new ClassPathResource("script/lock.lua")));
-            Long execute = redisTemplate.execute(script, keys, args);
+            Long execute = stringRedisTemplate.execute(script, keys, args.toArray(new String[0]));
+            log.debug("[RedisDistributedLockImpl] Lua脚本执行结果 - key: {}, result: {}", key, execute);
             return execute != null && execute > 0;
         } catch (Exception e) {
-            logger.error("set redis proceed an exception", e);
+            log.error("[RedisDistributedLockImpl] 设置Redis锁发生异常 - key: {}, error: {}", key, e.getMessage(), e);
         }
         return false;
     }
 
     @Override
     public boolean releaseLock(String key) {
-        // 释放锁的时候，有可能因为持锁之后方法执行时间大于锁的有效期，此时有可能已经被另外一个线程持有锁，所以不能直接删除
+        log.debug("[RedisDistributedLockImpl] 准备释放分布式锁 - key: {}", key);
         try {
             List<String> keys = new ArrayList<>();
             keys.add(key);
@@ -91,13 +103,20 @@ public class RedisDistributedLockImpl implements IDistributedLock {
             args.add(lockFlag.get());
             DefaultRedisScript<Long> script = new DefaultRedisScript<>();
             script.setResultType(Long.class);
-            //获取lua文件方式
             script.setScriptSource(new ResourceScriptSource(new ClassPathResource("script/unLock.lua")));
-            Long execute = redisTemplate.execute(script, keys, args);
-            return execute != null && execute > 0;
+            Long execute = stringRedisTemplate.execute(script, keys, args.toArray(new String[0]));
+            boolean result = execute != null && execute > 0;
+            if (result) {
+                log.info("[RedisDistributedLockImpl] 释放分布式锁成功 - key: {}", key);
+            } else {
+                log.warn("[RedisDistributedLockImpl] 释放分布式锁失败 - key: {}", key);
+            }
+            return result;
         } catch (Exception e) {
-            logger.error("release lock proceed an exception", e);
+            log.error("[RedisDistributedLockImpl] 释放锁发生异常 - key: {}, error: {}", key, e.getMessage(), e);
+            return false;
+        } finally {
+            lockFlag.remove();
         }
-        return false;
     }
 }
