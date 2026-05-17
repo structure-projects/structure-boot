@@ -17,15 +17,16 @@ package cn.structure.starter.redis.configuration;
 
 import cn.structure.starter.redis.annotation.RedisLock;
 import cn.structure.starter.redis.lock.IDistributedLock;
-import lombok.extern.slf4j.Slf4j;
 import jakarta.annotation.Resource;
+import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.StandardReflectionParameterNameDiscoverer;
+import org.springframework.core.DefaultParameterNameDiscoverer;
+import org.springframework.core.ParameterNameDiscoverer;
 import org.springframework.expression.EvaluationContext;
 import org.springframework.expression.Expression;
 import org.springframework.expression.ExpressionParser;
@@ -49,6 +50,8 @@ public class DistributedLockAspectConfiguration {
 
     @Resource
     private IDistributedLock distributedLock;
+
+    private static final ParameterNameDiscoverer PARAMETER_NAME_DISCOVERER = new DefaultParameterNameDiscoverer();
 
     @Pointcut("@annotation(cn.structure.starter.redis.annotation.RedisLock)")
     private void lockPoint() {
@@ -117,7 +120,12 @@ public class DistributedLockAspectConfiguration {
         String methodName = method.getName();
         RedisLock redisLock = method.getAnnotation(RedisLock.class);
         //获取参数名
-        String[] parameterNames = new StandardReflectionParameterNameDiscoverer().getParameterNames(((MethodSignature) pjp.getSignature()).getMethod());
+        String[] parameterNames = PARAMETER_NAME_DISCOVERER.getParameterNames(method);
+        if (parameterNames == null) {
+            log.warn("[DistributedLockAspect] 无法获取方法参数名 - class: {}, method: {}, 请检查编译参数是否包含-parameters", className, methodName);
+            parameterNames = new String[0];
+        }
+        //String[] parameterNames = new StandardReflectionParameterNameDiscoverer().getParameterNames(((MethodSignature) pjp.getSignature()).getMethod());
         //获取参数值
         Object[] args = pjp.getArgs();
         String key = getValueBySpelKey(redisLock.value(), parameterNames, args);

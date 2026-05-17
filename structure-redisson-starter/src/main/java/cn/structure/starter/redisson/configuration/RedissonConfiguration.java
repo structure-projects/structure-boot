@@ -35,7 +35,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 
 import java.net.MalformedURLException;
 import java.net.URI;
@@ -54,7 +54,7 @@ import static cn.structure.starter.redisson.utils.StringUtil.prefixAddress;
  * @since 2020-12-23
  */
 @Slf4j
-@Configuration
+@AutoConfiguration
 @EnableConfigurationProperties(value = RedissonProperties.class)
 @ConditionalOnClass(RedissonProperties.class)
 public class RedissonConfiguration {

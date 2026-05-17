@@ -30,7 +30,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.http.HttpMessageConverters;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
@@ -49,7 +49,7 @@ import java.util.List;
  * @since 2021-01-03
  */
 @Slf4j
-@Configuration
+@AutoConfiguration
 @Import(value = {GlobalBadRequestExceptionHandler.class, GlobalControllerAdvice.class})
 @ConditionalOnClass(value = {RestfulWebConfigProperties.class})
 public class RestfulWebAutoConfiguration {

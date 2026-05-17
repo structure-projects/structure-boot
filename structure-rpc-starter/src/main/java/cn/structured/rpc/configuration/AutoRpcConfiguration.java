@@ -29,7 +29,7 @@ import org.springframework.boot.context.event.ApplicationStartedEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.ResourceLoaderAware;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.core.io.support.ResourcePatternResolver;
@@ -49,7 +49,7 @@ import java.util.Optional;
  * @since 1.8
  */
 @Slf4j
-@Configuration
+@AutoConfiguration
 @ImportAutoConfiguration(RpcProperties.class)
 @ConditionalOnClass(value = {RpcProperties.class})
 public class AutoRpcConfiguration implements ApplicationListener<ApplicationStartedEvent>, ResourceLoaderAware {

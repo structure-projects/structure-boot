@@ -29,7 +29,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 
 import java.util.List;
 
@@ -43,7 +43,7 @@ import java.util.List;
  * @since 2026-04-27
  */
 @Slf4j
-@Configuration
+@AutoConfiguration
 @EnableConfigurationProperties(TenantProperties.class)
 @ConditionalOnProperty(prefix = "structure.tenant", name = "enabled", havingValue = "true", matchIfMissing = true)
 public class TenantAutoConfiguration {

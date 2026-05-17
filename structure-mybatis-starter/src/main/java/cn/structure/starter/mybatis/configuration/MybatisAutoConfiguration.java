@@ -26,7 +26,7 @@ import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 
 import java.util.Properties;
 
@@ -40,7 +40,7 @@ import java.util.Properties;
  * @since 2020/12/26 23:47
  */
 @Slf4j
-@Configuration
+@AutoConfiguration
 @ImportAutoConfiguration(value = {MybatisProperties.class, EnableSplitDateSource.class})
 public class MybatisAutoConfiguration {
 

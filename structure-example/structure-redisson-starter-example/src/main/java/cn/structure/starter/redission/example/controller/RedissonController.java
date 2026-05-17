@@ -15,12 +15,12 @@
  */
 package cn.structure.starter.redission.example.controller;
 
+import jakarta.annotation.Resource;
 import org.redisson.api.RBucket;
 import org.redisson.api.RedissonClient;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.annotation.Resource;
 
 /**
  * <p>

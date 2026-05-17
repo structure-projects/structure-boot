@@ -23,7 +23,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 
 
 /**
@@ -34,7 +34,7 @@ import org.springframework.context.annotation.Configuration;
  * @since 1.0.1
  */
 @Slf4j
-@Configuration
+@AutoConfiguration
 @ImportAutoConfiguration(value = {SnowflakeProperties.class})
 public class AutoSnowflakeConfiguration {
 

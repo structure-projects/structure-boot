@@ -23,6 +23,7 @@ import cn.structure.starter.minio.service.MinioTemplate;
 import io.minio.MinioClient;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -39,6 +40,7 @@ import org.springframework.context.annotation.Primary;
  * @since 2021/7/17 14:06
  */
 @Slf4j
+@AutoConfiguration
 @EnableConfigurationProperties({MinioProperties.class})
 public class MinioAutoConfiguration {
 
