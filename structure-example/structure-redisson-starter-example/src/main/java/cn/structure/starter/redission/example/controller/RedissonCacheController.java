@@ -16,6 +16,7 @@
 package cn.structure.starter.redission.example.controller;
 
 import cn.structure.starter.redisson.anno.*;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -42,11 +43,11 @@ public class RedissonCacheController {
      * @return
      */
     @RequestMapping(value = "cache")
-    @WCache(key = "#testVO.id", isObjCache = true
+    @WCache(key = "#p0.id", isObjCache = true
             , list = @CList(listKeyName = "test-list", isList = true, size = 100, time = @CTime(isTime = true, time = 10))
             , map = @CMap(mapKey = "test-map", isMap = true, time = @CTime(isTime = true, time = 100))
     )
-    public TestVO cache(TestVO testVO) {
+    public TestVO cache(@RequestBody TestVO testVO) {
         System.out.println("testVO = " + testVO);
         return testVO;
     }
@@ -57,7 +58,7 @@ public class RedissonCacheController {
      * @param id
      * @return
      */
-    @RCache(key = "#id")
+    @RCache(key = "#p0")
     @RequestMapping("/getCache")
     public TestVO getCache(@RequestParam("id") String id) {
         TestVO testVO = new TestVO();
@@ -74,7 +75,7 @@ public class RedissonCacheController {
      * @return
      */
     @RequestMapping(value = "cacheMapList")
-    @WCache(key = "#testVO.id", isObjCache = false
+    @WCache(key = "#p0.id", isObjCache = false
             , list = @CList(listKeyName = "cache-list", isList = true, size = 100
             , time = @CTime(isTime = true, time = 10), mapKey = "cache-map", value = CList.ListType.MAP)
             , map = @CMap(mapKey = "cache-map", isMap = true, time = @CTime(isTime = true, time = 100))
@@ -91,7 +92,7 @@ public class RedissonCacheController {
      * @return
      */
     @RequestMapping(value = "cacheList")
-    @WCache(key = "#testVO.id", isObjCache = true
+    @WCache(key = "#p0.id", isObjCache = true
             , list = @CList(listKeyName = "cache-list-key", isList = true, size = 100
             , time = @CTime(isTime = true, time = 10), value = CList.ListType.KEY))
     public TestVO cacheList(TestVO testVO) {

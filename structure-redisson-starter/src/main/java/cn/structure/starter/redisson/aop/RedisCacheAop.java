@@ -25,9 +25,12 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.redisson.api.*;
-import org.springframework.core.StandardReflectionParameterNameDiscoverer;
+import org.springframework.core.DefaultParameterNameDiscoverer;
+import org.springframework.core.ParameterNameDiscoverer;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import java.util.Arrays;
 import java.util.*;
 
 import static cn.structure.starter.redisson.utils.StringUtil.getValueBySpelKey;
@@ -51,6 +54,8 @@ public class RedisCacheAop {
     @Resource
     private RedissonProperties redissonProperties;
 
+    private static final ParameterNameDiscoverer PARAMETER_NAME_DISCOVERER = new DefaultParameterNameDiscoverer();
+
     /**
      * <p>
      * 写入缓存
@@ -58,14 +63,15 @@ public class RedisCacheAop {
      **/
     @Around("@annotation(wCache)")
     public Object writeCache(ProceedingJoinPoint proceedingJoinPoint, WCache wCache) throws Throwable {
+        MethodSignature methodSignature = (MethodSignature) proceedingJoinPoint.getSignature();
+        Method method = methodSignature.getMethod();
+        String className = proceedingJoinPoint.getTarget().getClass().getName();
+        String methodName = methodSignature.getName();
         //获取参数名
-        String[] parameterNames = new StandardReflectionParameterNameDiscoverer().getParameterNames(((MethodSignature) proceedingJoinPoint.getSignature()).getMethod());
+        String[] parameterNames = resolveParameterNames(method, methodSignature);
+        log.debug("[RedisCacheAop] 获取方法参数名 - class: {}, method: {}, parameterNames: {}", className, methodName, Arrays.toString(parameterNames));
         //获取参数值
         Object[] args = proceedingJoinPoint.getArgs();
-        //方法名
-        String methodName = proceedingJoinPoint.getSignature().getName();
-        //className
-        String className = proceedingJoinPoint.getTarget().getClass().toString();
         //1.0 获取Redis中的key
         String key = getKey(getValueBySpelKey(wCache.key(), parameterNames, args));
         //判断key是否无效
@@ -164,10 +170,13 @@ public class RedisCacheAop {
      **/
     @Around("@annotation(rListCache)")
     public Object readListCache(ProceedingJoinPoint proceedingJoinPoint, RListCache rListCache) throws Throwable {
-        String methodName = proceedingJoinPoint.getSignature().getName();
+        MethodSignature methodSignature = (MethodSignature) proceedingJoinPoint.getSignature();
+        Method method = methodSignature.getMethod();
         String className = proceedingJoinPoint.getTarget().getClass().getName();
+        String methodName = methodSignature.getName();
         //获取参数名
-        String[] parameterNames = new StandardReflectionParameterNameDiscoverer().getParameterNames(((MethodSignature) proceedingJoinPoint.getSignature()).getMethod());
+        String[] parameterNames = resolveParameterNames(method, methodSignature);
+        log.debug("[RedisCacheAop] 获取方法参数名 - class: {}, method: {}, parameterNames: {}", className, methodName, Arrays.toString(parameterNames));
         //获取参数值
         Object[] args = proceedingJoinPoint.getArgs();
         //key
@@ -229,10 +238,13 @@ public class RedisCacheAop {
 
     @Around("@annotation(rCache)")
     public Object readCache(ProceedingJoinPoint proceedingJoinPoint, RCache rCache) throws Throwable {
-        String methodName = proceedingJoinPoint.getSignature().getName();
+        MethodSignature methodSignature = (MethodSignature) proceedingJoinPoint.getSignature();
+        Method method = methodSignature.getMethod();
         String className = proceedingJoinPoint.getTarget().getClass().getName();
+        String methodName = methodSignature.getName();
         //获取参数名
-        String[] parameterNames = new StandardReflectionParameterNameDiscoverer().getParameterNames(((MethodSignature) proceedingJoinPoint.getSignature()).getMethod());
+        String[] parameterNames = resolveParameterNames(method, methodSignature);
+        log.debug("[RedisCacheAop] 获取方法参数名 - class: {}, method: {}, parameterNames: {}", className, methodName, Arrays.toString(parameterNames));
         //获取参数值
         Object[] args = proceedingJoinPoint.getArgs();
         //key
@@ -258,10 +270,13 @@ public class RedisCacheAop {
 
     @Around("@annotation(rMapCache)")
     public Object readMapCache(ProceedingJoinPoint proceedingJoinPoint, RCacheMap rMapCache) throws Throwable {
-        String methodName = proceedingJoinPoint.getSignature().getName();
+        MethodSignature methodSignature = (MethodSignature) proceedingJoinPoint.getSignature();
+        Method method = methodSignature.getMethod();
         String className = proceedingJoinPoint.getTarget().getClass().getName();
+        String methodName = methodSignature.getName();
         //获取参数名
-        String[] parameterNames = new StandardReflectionParameterNameDiscoverer().getParameterNames(((MethodSignature) proceedingJoinPoint.getSignature()).getMethod());
+        String[] parameterNames = resolveParameterNames(method, methodSignature);
+        log.debug("[RedisCacheAop] 获取方法参数名 - class: {}, method: {}, parameterNames: {}", className, methodName, Arrays.toString(parameterNames));
         //获取参数值
         Object[] args = proceedingJoinPoint.getArgs();
         //mapKey
@@ -294,10 +309,13 @@ public class RedisCacheAop {
 
     @Around("@annotation(rMapAllCache)")
     public Object readMapAllCache(ProceedingJoinPoint proceedingJoinPoint, RMapAllCache rMapAllCache) throws Throwable {
-        String methodName = proceedingJoinPoint.getSignature().getName();
+        MethodSignature methodSignature = (MethodSignature) proceedingJoinPoint.getSignature();
+        Method method = methodSignature.getMethod();
         String className = proceedingJoinPoint.getTarget().getClass().getName();
+        String methodName = methodSignature.getName();
         //获取参数名
-        String[] parameterNames = new StandardReflectionParameterNameDiscoverer().getParameterNames(((MethodSignature) proceedingJoinPoint.getSignature()).getMethod());
+        String[] parameterNames = resolveParameterNames(method, methodSignature);
+        log.debug("[RedisCacheAop] 获取方法参数名 - class: {}, method: {}, parameterNames: {}", className, methodName, Arrays.toString(parameterNames));
         //获取参数值
         Object[] args = proceedingJoinPoint.getArgs();
         //mapKey
@@ -363,5 +381,43 @@ public class RedisCacheAop {
         }
         stringBuffer.append(key);
         return stringBuffer.toString();
+    }
+
+    /**
+     * 尝试多种方式获取参数名
+     */
+    private String[] resolveParameterNames(Method method, MethodSignature methodSignature) {
+        String[] parameterNames = null;
+        int argCount = method.getParameterCount();
+
+        // 1. 首先尝试使用MethodSignature
+        try {
+            parameterNames = methodSignature.getParameterNames();
+            if (parameterNames != null && parameterNames.length == argCount) {
+                log.debug("[RedisCacheAop] 使用MethodSignature获取参数名成功");
+                return parameterNames;
+            }
+        } catch (Exception e) {
+            log.debug("[RedisCacheAop] MethodSignature获取参数名失败: {}", e.getMessage());
+        }
+
+        // 2. 使用Spring的ParameterNameDiscoverer
+        try {
+            parameterNames = PARAMETER_NAME_DISCOVERER.getParameterNames(method);
+            if (parameterNames != null && parameterNames.length == argCount) {
+                log.debug("[RedisCacheAop] 使用ParameterNameDiscoverer获取参数名成功");
+                return parameterNames;
+            }
+        } catch (Exception e) {
+            log.debug("[RedisCacheAop] ParameterNameDiscoverer获取参数名失败: {}", e.getMessage());
+        }
+
+        // 3. 使用默认参数名
+        parameterNames = new String[argCount];
+        for (int i = 0; i < argCount; i++) {
+            parameterNames[i] = "p" + i;
+        }
+        log.debug("[RedisCacheAop] 使用默认参数名: {}", Arrays.toString(parameterNames));
+        return parameterNames;
     }
 }

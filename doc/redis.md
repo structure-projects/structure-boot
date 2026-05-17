@@ -6,6 +6,13 @@
 
 - redis 分布式锁进行了封装 structure-redis-starter 对 spring-boot-starter-data-redis 启动器进行封装
 
+## Spring Boot 3.0 兼容性说明
+
+本项目已适配 Spring Boot 3.0，SpEL 表达式解析支持两种写法：
+
+1. **使用真实参数名**（推荐，需要 Maven 编译配置保留参数名）
+2. **使用 p0/p1/p2... 索引形式**（兼容性更好，随时可用）
+
 ## 使用方法
 
 ### pom 引用
@@ -30,7 +37,8 @@
      * 注解使用redis锁 参数为非对象的使用
      * @param key
      */
-    @RedisLock("#key")
+    @RedisLock("#key")  // 使用真实参数名
+    // @RedisLock("#p0")  // 或使用索引形式，兼容性更好
     public void redisLock(String key){
         System.out.println("redisLock ----> key = " + key);
     }
@@ -43,7 +51,8 @@
      * 注解使用redis锁 参数为对象的使用
      * @param redisLockBo
      */
-    @RedisLock("#redisLockBo.key")
+    @RedisLock("#redisLockBo.key")  // 使用真实参数名
+    // @RedisLock("#p0.key")  // 或使用索引形式
     public void redisLock(RedisLockBo redisLockBo) {
         System.out.println("redisLock ----> redisLockBo ----> key = " + redisLockBo.getKey());
     }
@@ -55,8 +64,10 @@
     /**
      * 注解使用redis锁 多个key拼接的key
      * @param redisLockBo
+     * @param key
      */
-    @RedisLock("#redisLockBo.key:_#key")
+    @RedisLock("#redisLockBo.key:_#key")  // 使用真实参数名
+    // @RedisLock("#p0.key:_#p1")  // 或使用索引形式
     public void redisLock(RedisLockBo redisLockBo,String key) {
         System.out.println("redisLock ----> redisLockBo ----> key = " + redisLockBo.getKey()+ ":" + key);
     }
@@ -85,6 +96,23 @@
         //释放锁
         iDistributedLock.releaseLock(key);
     }
+```
+
+## Maven 编译配置说明
+
+为确保能正确获取参数名，请确保项目的 `pom.xml` 中 maven-compiler-plugin 配置了 `<parameters>true</parameters>`：
+
+```xml
+<plugin>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-compiler-plugin</artifactId>
+    <version>3.8.1</version>
+    <configuration>
+        <source>17</source>
+        <target>17</target>
+        <parameters>true</parameters>
+    </configuration>
+</plugin>
 ```
 
 ### 案例

@@ -12,5 +12,10 @@ spring:
           max-idle: 8
           min-idle: 0
           max-wait: -1ms
+logging:
+  level:
+    root: INFO
+    cn.structure.starter.redis: DEBUG
+    cn.structure.starter.redisson: DEBUG
 server:
   port: 16007

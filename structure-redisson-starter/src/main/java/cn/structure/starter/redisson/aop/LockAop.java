@@ -30,8 +30,11 @@ import org.redisson.api.RLock;
 import org.redisson.api.RReadWriteLock;
 import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.StandardReflectionParameterNameDiscoverer;
+import org.springframework.core.DefaultParameterNameDiscoverer;
+import org.springframework.core.ParameterNameDiscoverer;
 
+import java.lang.reflect.Method;
+import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 
 import static cn.structure.starter.redisson.utils.StringUtil.getValueBySpelKey;
@@ -56,19 +59,26 @@ public class LockAop {
     @Autowired
     private RedissonClient redissonClient;
 
+    private static final ParameterNameDiscoverer PARAMETER_NAME_DISCOVERER = new DefaultParameterNameDiscoverer();
+
     @Pointcut("@annotation(lock)")
     public void controllerAspect(Lock lock) {
     }
 
     @Around("controllerAspect(lock)")
     public Object aroundAdvice(ProceedingJoinPoint proceedingJoinPoint, Lock lock) throws Throwable {
-        String methodName = proceedingJoinPoint.getSignature().getName();
+        MethodSignature methodSignature = (MethodSignature) proceedingJoinPoint.getSignature();
+        Method method = methodSignature.getMethod();
         String className = proceedingJoinPoint.getTarget().getClass().getName();
+        String methodName = methodSignature.getName();
         String[] keys = lock.keys();
         if (keys.length == 0) {
             throw new RuntimeException("keys不能为空");
         }
-        String[] parameterNames = new StandardReflectionParameterNameDiscoverer().getParameterNames(((MethodSignature) proceedingJoinPoint.getSignature()).getMethod());
+        //获取参数名
+        String[] parameterNames = resolveParameterNames(method, methodSignature);
+        log.debug("[LockAop] 获取方法参数名 - class: {}, method: {}, parameterNames: {}", className, methodName, Arrays.toString(parameterNames));
+        //获取参数值
         Object[] args = proceedingJoinPoint.getArgs();
 
         long attemptTimeout = lock.attemptTimeout();
@@ -171,5 +181,43 @@ public class LockAop {
             }
         }
         throw new LockException("获取锁失败");
+    }
+
+    /**
+     * 尝试多种方式获取参数名
+     */
+    private String[] resolveParameterNames(Method method, MethodSignature methodSignature) {
+        String[] parameterNames = null;
+        int argCount = method.getParameterCount();
+
+        // 1. 首先尝试使用MethodSignature
+        try {
+            parameterNames = methodSignature.getParameterNames();
+            if (parameterNames != null && parameterNames.length == argCount) {
+                log.debug("[LockAop] 使用MethodSignature获取参数名成功");
+                return parameterNames;
+            }
+        } catch (Exception e) {
+            log.debug("[LockAop] MethodSignature获取参数名失败: {}", e.getMessage());
+        }
+
+        // 2. 使用Spring的ParameterNameDiscoverer
+        try {
+            parameterNames = PARAMETER_NAME_DISCOVERER.getParameterNames(method);
+            if (parameterNames != null && parameterNames.length == argCount) {
+                log.debug("[LockAop] 使用ParameterNameDiscoverer获取参数名成功");
+                return parameterNames;
+            }
+        } catch (Exception e) {
+            log.debug("[LockAop] ParameterNameDiscoverer获取参数名失败: {}", e.getMessage());
+        }
+
+        // 3. 使用默认参数名
+        parameterNames = new String[argCount];
+        for (int i = 0; i < argCount; i++) {
+            parameterNames[i] = "p" + i;
+        }
+        log.debug("[LockAop] 使用默认参数名: {}", Arrays.toString(parameterNames));
+        return parameterNames;
     }
 }

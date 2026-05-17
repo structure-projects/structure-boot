@@ -15,12 +15,15 @@
  */
 package cn.structure.starter.redisson.utils;
 
-import org.springframework.expression.EvaluationContext;
-import org.springframework.expression.Expression;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.expression.ExpressionParser;
 import org.springframework.expression.spel.standard.SpelExpressionParser;
 import org.springframework.expression.spel.support.StandardEvaluationContext;
 import org.springframework.util.StringUtils;
+
+import java.util.Arrays;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * <p>
@@ -30,11 +33,15 @@ import org.springframework.util.StringUtils;
  * @author chuck
  * @since 2020-12-26
  */
+@Slf4j
 public class StringUtil {
+
+    private static final Pattern VARIABLE_PATTERN = Pattern.compile("#([a-zA-Z_][a-zA-Z0-9_.]*)");
 
     /**
      * <p>
      * 通过spel表达式获取理想的key值
+     * 支持格式：#key, #redisLockBo.key, #redisLockBo.key:_#key
      * </p>
      *
      * @param key            key 参数
@@ -43,36 +50,49 @@ public class StringUtil {
      * @return java.lang.String
      */
     public static String getValueBySpelKey(String key, String[] parameterNames, Object[] values) {
+        log.debug("[StringUtil] 解析SpEL表达式 - spelKey: {}, parameterNames: {}, values: {}", key, Arrays.toString(parameterNames), Arrays.toString(values));
         //不存在表达式返回
         if (!key.contains("#")) {
+            log.debug("[StringUtil] SpEL表达式不包含变量，直接返回 - key: {}", key);
             return key;
         }
-        //使用下划线拆分表达式
-        String[] spelKeys = key.split("_");
-        //要返回的key
-        StringBuilder sb = new StringBuilder();
-        //遍历拆分结果用解析器解析
-        for (int i = 0; i <= spelKeys.length - 1; i++) {
-            if (!spelKeys[i].startsWith("#")) {
-                sb.append(spelKeys[i]);
-                continue;
-            }
-            String tempKey = spelKeys[i];
-            //spel解析器
+
+        try {
+            //创建 SpEL 上下文并设置变量
             ExpressionParser parser = new SpelExpressionParser();
-            //spel上下文
-            EvaluationContext context = new StandardEvaluationContext();
-            for (int j = 0; j < parameterNames.length; j++) {
-                context.setVariable(parameterNames[j], values[j]);
+            StandardEvaluationContext context = new StandardEvaluationContext();
+            for (int i = 0; i < parameterNames.length; i++) {
+                //同时设置两种变量名：参数名和p0/p1/p2...，提高兼容性
+                if (parameterNames[i] != null && !parameterNames[i].isEmpty()) {
+                    context.setVariable(parameterNames[i], values[i]);
+                }
+                context.setVariable("p" + i, values[i]);
+                log.debug("[StringUtil] 设置SpEL变量 - 参数名: {}, p{}: {}", parameterNames[i], i, values[i]);
             }
-            Expression expression = parser.parseExpression(tempKey);
-            Object value = expression.getValue(context);
-            if (value != null) {
-                sb.append(value.toString());
+
+            //使用正则匹配变量并替换
+            StringBuffer result = new StringBuffer();
+            Matcher matcher = VARIABLE_PATTERN.matcher(key);
+            while (matcher.find()) {
+                String variable = matcher.group(1);
+                try {
+                    Object value = parser.parseExpression("#" + variable).getValue(context);
+                    String replacement = value != null ? value.toString() : "";
+                    matcher.appendReplacement(result, Matcher.quoteReplacement(replacement));
+                } catch (Exception e) {
+                    log.warn("[StringUtil] 解析变量失败 - variable: {}, error: {}", variable, e.getMessage());
+                    matcher.appendReplacement(result, "");
+                }
             }
+            matcher.appendTail(result);
+            
+            String resultKey = result.toString();
+            log.debug("[StringUtil] SpEL表达式解析完成 - originalKey: {}, resultKey: {}", key, resultKey);
+            return resultKey;
+        } catch (Exception e) {
+            log.error("[StringUtil] SpEL表达式解析失败 - key: {}, error: {}", key, e.getMessage(), e);
+            return key;
         }
-        //返回
-        return sb.toString();
     }
 
     /**
