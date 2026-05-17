@@ -126,6 +126,18 @@
         <swagger2.version>2.9.2</swagger2.version>
         <swagger-bootstrap-ui.version>1.9.6</swagger-bootstrap-ui.version>
 
+        <!--lombok-->
+        <lombok.version>1.18.30</lombok.version>
+
+        <!--httpclient-->
+        <httpclient.version>4.5.14</httpclient.version>
+
+        <!--servlet api-->
+        <servlet-api.version>4.0.1</servlet-api.version>
+
+        <!--springdoc (if needed for newer versions)-->
+        <springdoc.version>2.3.0</springdoc.version>
+
         <!--buf-->
         <protobuf.version>3.25.1</protobuf.version>
         <protostuff.version>1.0.8</protostuff.version>
@@ -301,13 +313,28 @@
             <!-- API -->
             <dependency>
                 <groupId>javax.servlet</groupId>
-                <artifactId>servlet-api</artifactId>
+                <artifactId>javax.servlet-api</artifactId>
                 <version>${servlet-api.version}</version>
             </dependency>
             <dependency>
                 <groupId>javax.persistence</groupId>
                 <artifactId>javax.persistence-api</artifactId>
                 <version>${persistence-api.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.httpcomponents</groupId>
+                <artifactId>httpclient</artifactId>
+                <version>${httpclient.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springdoc</groupId>
+                <artifactId>springdoc-openapi-starter-webmvc-api</artifactId>
+                <version>${springdoc.version}</version>
             </dependency>
 
             <!-- redis redisson-->
@@ -438,7 +465,15 @@
                     <!-- 避免IDE将 .flattened-pom.xml自动识别为功能模块 -->
                     <flattenedPomFilename>pom-xml-flattened</flattenedPomFilename>
                     <updatePomFile>true</updatePomFile>
-                    <flattenMode>resolveCiFriendliesOnly</flattenMode>
+                    <!-- 使用 oss 模式以确保完整的 dependencyManagement 被包含 -->
+                    <flattenMode>oss</flattenMode>
+                    <pomElements>
+                        <!-- 保留这些元素 -->
+                        <dependencies>keep</dependencies>
+                        <dependencyManagement>keep</dependencyManagement>
+                        <properties>keep</properties>
+                        <modules>keep</modules>
+                    </pomElements>
                 </configuration>
                 <executions>
                     <execution>
