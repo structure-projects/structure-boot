@@ -8,6 +8,6 @@ structure 公共组件库
     <dependency>
         <groupId>cn.structured</groupId>
         <artifactId>structure-common</artifactId>
-        <version>1.2.3</version>
+        <version>1.3.1</version>
     </dependency>
 ```

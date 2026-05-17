@@ -7,6 +7,8 @@ structure-dependencies : 主要整合 spring-boot、spring-cloud、alibaba-cloud
 | structure.version | spring-boot.version | spring-cloud.version | alibaba-cloud.version | spring-alibaba-cloud.version | kubernetes.version |
 | ----------------- | ------------------- | -------------------- | --------------------- | ---------------------------- | ------------------ |
 | 1.0.X             | 2.1.X.RELEASE       | Greenwich.SR2        | 2.1.2.RELEASE         | 0.9.0.RELEASE                | 1.1.6.RELEASE      |
+| 1.2.X             | 2.7.X.RELEASE       | 2021.0.5.0           | 2021.0.5.0            | 2021.0.5.0                   | 5.12.2             |
+| 1.3.X             | 3.2.X.RELEASE       | 2023.0.1.0           | 2023.0.1.0            | 2023.0.1.0                   | 6.8.0              |
 
 ## structure-dependencies 的使用
 
@@ -18,7 +20,7 @@ structure-dependencies : 主要整合 spring-boot、spring-cloud、alibaba-cloud
             <dependency>
                <groupId>cn.structured</groupId>
                <artifactId>structure-dependencies</artifactId>
-               <version>1.2.3</version>
+               <version>1.3.1</version>
                <type>pom</type>
                <scope>import</scope>
            </dependency>
@@ -32,6 +34,6 @@ structure-dependencies : 主要整合 spring-boot、spring-cloud、alibaba-cloud
     <parent>
         <groupId>cn.structured</groupId>
         <artifactId>structure-dependencies</artifactId>
-        <version>1.2.3</version>
+        <version>1.3.1</version>
     </parent>
 ```

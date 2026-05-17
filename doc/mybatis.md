@@ -16,7 +16,7 @@ structure-mybatis 对 mybatis 进行部分功能的扩展
     <dependency>
         <groupId>cn.structured</groupId>
         <artifactId>structure-mybatis-starter</artifactId>
-        <version>1.2.3</version>
+        <version>1.3.1</version>
     </dependency>
 ```
 

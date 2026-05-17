@@ -17,9 +17,9 @@
 
 ### 环境要求
 
-- JDK 8+
+- JDK 21+
 - Maven 3.6+
-- Spring Boot 2.7.x+
+- Spring Boot 3.2.x+
 
 ### 基础配置
 
@@ -31,7 +31,7 @@
         <dependency>
             <groupId>cn.structured</groupId>
             <artifactId>structure-boot-parent</artifactId>
-            <version>1.2.3</version>
+            <version>1.3.1</version>
             <scope>import</scope>
             <type>pom</type>
         </dependency>
@@ -595,6 +595,8 @@ mvn structure-mybatis-plus-generate:generate
 | structure.version | spring-boot.version | spring-cloud.version | alibaba-cloud.version |
 | ----------------- | ------------------- | -------------------- | --------------------- |
 | 1.0.X             | 2.1.X.RELEASE       | Greenwich.SR2        | 2.1.2.RELEASE         |
+| 1.2.X             | 2.7.X.RELEASE       | 2021.0.5.0           | 2021.0.5.0            |
+| 1.3.X             | 3.2.X.RELEASE       | 2023.0.1.0           | 2023.0.1.0            |
 
 ## 📖 示例项目
 
@@ -656,11 +658,12 @@ spring:
     password: password
     driver-class-name: com.mysql.cj.jdbc.Driver
 
-  redis:
-    host: localhost
-    port: 6379
-    password:
-    database: 0
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      password:
+      database: 0
 
   jpa:
     hibernate:

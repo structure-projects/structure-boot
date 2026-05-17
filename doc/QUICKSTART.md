@@ -6,7 +6,7 @@
 
 ### 必需环境
 
-- **JDK**: 8 或更高版本
+- **JDK**: 21 或更高版本
 - **Maven**: 3.6 或更高版本
 - **IDE**: IntelliJ IDEA 或 Eclipse
 - **数据库**: MySQL 5.7+ 或 PostgreSQL
@@ -34,12 +34,12 @@ git --version
 
    - **Project**: Maven
    - **Language**: Java
-   - **Spring Boot**: 2.1.x
+   - **Spring Boot**: 3.2.x
    - **Group**: com.example
    - **Artifact**: demo
    - **Package name**: com.example.demo
    - **Packaging**: Jar
-   - **Java**: 8
+   - **Java**: 21
 
 3. 添加依赖：
 
@@ -90,11 +90,11 @@ demo/
     <description>Structure Boot 框架使用示例</description>
 
     <properties>
-        <maven.compiler.source>8</maven.compiler.source>
-        <maven.compiler.target>8</maven.compiler.target>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <spring.boot.version>2.7.18</spring.boot.version>
-        <structure.version>1.2.3</structure.version>
+        <spring.boot.version>3.2.5</spring.boot.version>
+        <structure.version>1.3.1</structure.version>
     </properties>
 
     <dependencyManagement>
@@ -234,18 +234,19 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   # Redis 配置
-  redis:
-    host: localhost
-    port: 6379
-    password:
-    database: 0
-    timeout: 3000ms
-    lettuce:
-      pool:
-        max-active: 8
-        max-wait: -1ms
-        max-idle: 8
-        min-idle: 0
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      password:
+      database: 0
+      timeout: 3000ms
+      lettuce:
+        pool:
+          max-active: 8
+          max-wait: -1ms
+          max-idle: 8
+          min-idle: 0
 
 # Structure Boot 配置
 structure:

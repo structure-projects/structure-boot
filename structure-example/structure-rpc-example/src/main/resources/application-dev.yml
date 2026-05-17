@@ -4,10 +4,11 @@ spring:
     password: 123456
     url: jdbc:mysql://172.16.0.249:3306/oauth?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
     driver-class-name: com.mysql.cj.jdbc.Driver
-  redis:
-    database: 1
-    password: 123456
-    host: 172.16.0.249
+  data:
+    redis:
+      database: 1
+      password: 123456
+      host: 172.16.0.249
   flyway:
     enabled: true # 开启flyway
     clean-disabled: true # 禁止清理数据表

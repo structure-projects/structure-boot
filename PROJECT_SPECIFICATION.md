@@ -2,14 +2,14 @@
 
 ## 项目概述
 
-Structure Boot是一个基于Spring Boot 2.7.x的企业级快速开发框架，提供一系列开箱即用的Starter组件，旨在简化企业级应用开发流程，提升开发效率。
+Structure Boot是一个基于Spring Boot 3.2.x的企业级快速开发框架，提供一系列开箱即用的Starter组件，旨在简化企业级应用开发流程，提升开发效率。
 
 ## 技术栈
 
 ### 核心技术框架
-- **Spring Boot**: 2.7.18 - 微服务快速开发框架
-- **Spring Security**: 5.7.10 - 安全管理框架
-- **Java**: 1.8+ - 开发语言
+- **Spring Boot**: 3.2.5 - 微服务快速开发框架
+- **Spring Security**: 6.2.x - 安全管理框架
+- **Java**: 21+ - 开发语言
 - **Maven**: 3.6+ - 项目构建工具
 
 ### 数据持久层
@@ -148,11 +148,12 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   # Redis配置
-  redis:
-    host: localhost
-    port: 6379
-    password:
-    database: 0
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      password:
+      database: 0
 
 # 自定义配置
 structure:
@@ -367,7 +368,7 @@ public class UserController {
 ## 部署说明
 
 ### 环境要求
-- JDK 1.8+
+- JDK 21+
 - Maven 3.6+
 - MySQL 8.0+
 - Redis 6.0+
