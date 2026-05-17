@@ -1,6 +1,16 @@
 spring:
-  redis:
-    host: 172.24.20.15
-    password: 123456
+  data:
+    redis:
+      host: 172.24.20.15
+      port: 6379
+      password: 123456
+      database: 0
+      timeout: 10000ms
+      lettuce:
+        pool:
+          max-active: 8
+          max-idle: 8
+          min-idle: 0
+          max-wait: -1ms
 server:
   port: 16007

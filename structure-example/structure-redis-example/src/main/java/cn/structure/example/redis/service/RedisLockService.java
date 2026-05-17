@@ -39,7 +39,7 @@ public class RedisLockService {
      *
      * @param key
      */
-    @RedisLock("#key")
+    @RedisLock("#p0")
     public void redisLock(String key) {
         System.out.println("redisLock ----> key = " + key);
     }
@@ -49,9 +49,20 @@ public class RedisLockService {
      *
      * @param redisLockBo
      */
-    @RedisLock("#key")
+    @RedisLock("#p0.key")
     public void redisLock(RedisLockBo redisLockBo) {
         System.out.println("redisLock ----> redisLockBo ----> key = " + redisLockBo.getKey());
+    }
+
+    /**
+     * 注解使用redis锁 多个key拼接的key
+     *
+     * @param redisLockBo
+     * @param key
+     */
+    @RedisLock("#p0.key:_#p1")
+    public void redisLock(RedisLockBo redisLockBo, String key) {
+        System.out.println("redisLock ----> redisLockBo ----> key = " + redisLockBo.getKey() + ":" + key);
     }
 
     /**

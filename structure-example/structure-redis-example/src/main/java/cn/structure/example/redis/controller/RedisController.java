@@ -15,6 +15,7 @@
  */
 package cn.structure.example.redis.controller;
 
+import cn.structure.example.redis.entity.RedisLockBo;
 import cn.structure.example.redis.service.RedisLockService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -59,6 +60,16 @@ public class RedisController {
     @GetMapping(value = "/redisLock")
     public void redisLock(@RequestParam(value = "key") String key, HttpServletResponse response) throws IOException {
         redisLockService.redisLock(key);
+        ServletOutputStream outputStream = response.getOutputStream();
+        outputStream.write(("this key is " + key).getBytes());
+        outputStream.close();
+    }
+
+    @GetMapping(value = "/redisLock1")
+    public void redisLock1(@RequestParam(value = "key") String key, HttpServletResponse response) throws IOException {
+        RedisLockBo redisLockBo = new RedisLockBo();
+        redisLockBo.setKey(key);
+        redisLockService.redisLock(redisLockBo);
         ServletOutputStream outputStream = response.getOutputStream();
         outputStream.write(("this key is " + key).getBytes());
         outputStream.close();

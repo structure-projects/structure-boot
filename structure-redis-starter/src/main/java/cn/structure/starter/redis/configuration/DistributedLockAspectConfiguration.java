@@ -27,13 +27,14 @@ import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.DefaultParameterNameDiscoverer;
 import org.springframework.core.ParameterNameDiscoverer;
-import org.springframework.expression.EvaluationContext;
-import org.springframework.expression.Expression;
 import org.springframework.expression.ExpressionParser;
 import org.springframework.expression.spel.standard.SpelExpressionParser;
 import org.springframework.expression.spel.support.StandardEvaluationContext;
 
 import java.lang.reflect.Method;
+import java.util.Arrays;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * <p>
@@ -51,6 +52,7 @@ public class DistributedLockAspectConfiguration {
     @Resource
     private IDistributedLock distributedLock;
 
+    private static final Pattern VARIABLE_PATTERN = Pattern.compile("#([a-zA-Z_][a-zA-Z0-9_.]*)");
     private static final ParameterNameDiscoverer PARAMETER_NAME_DISCOVERER = new DefaultParameterNameDiscoverer();
 
     @Pointcut("@annotation(cn.structure.starter.redis.annotation.RedisLock)")
@@ -61,6 +63,7 @@ public class DistributedLockAspectConfiguration {
     /**
      * <p>
      * 解析spel表达式获取redisLock 的key
+     * 支持格式：#key, #redisLockBo.key, #redisLockBo.key:_#key
      * </p>
      *
      * @param key            spel 表达式key入参
@@ -69,40 +72,49 @@ public class DistributedLockAspectConfiguration {
      * @return 返回redisLock key
      */
     public static String getValueBySpelKey(String key, String[] parameterNames, Object[] values) {
-        log.debug("[DistributedLockAspect] 解析SpEL表达式 - spelKey: {}, parameterNames: {}", key, parameterNames);
+        log.debug("[DistributedLockAspect] 解析SpEL表达式 - spelKey: {}, parameterNames: {}, values: {}", key, Arrays.toString(parameterNames), Arrays.toString(values));
         //不存在表达式返回
         if (!key.contains("#")) {
             log.debug("[DistributedLockAspect] SpEL表达式不包含变量，直接返回 - key: {}", key);
             return key;
         }
-        //使用下划线拆分表达式
-        String[] spelKeys = key.split("_");
-        //要返回的key
-        StringBuilder sb = new StringBuilder();
-        //遍历拆分结果用解析器解析
-        for (int i = 0; i <= spelKeys.length - 1; i++) {
-            if (!spelKeys[i].startsWith("#")) {
-                sb.append(spelKeys[i]);
-                continue;
-            }
-            String tempKey = spelKeys[i];
-            //spel解析器
+
+        try {
+            //创建 SpEL 上下文并设置变量
             ExpressionParser parser = new SpelExpressionParser();
-            //spel上下文
-            EvaluationContext context = new StandardEvaluationContext();
-            for (int j = 0; j < parameterNames.length; j++) {
-                context.setVariable(parameterNames[j], values[j]);
+            StandardEvaluationContext context = new StandardEvaluationContext();
+            for (int i = 0; i < parameterNames.length; i++) {
+                //同时设置两种变量名：参数名和p0/p1/p2...，提高兼容性
+                if (parameterNames[i] != null && !parameterNames[i].isEmpty()) {
+                    context.setVariable(parameterNames[i], values[i]);
+                }
+                context.setVariable("p" + i, values[i]);
+                log.debug("[DistributedLockAspect] 设置SpEL变量 - 参数名: {}, p{}: {}", parameterNames[i], i, values[i]);
             }
-            Expression expression = parser.parseExpression(tempKey);
-            Object value = expression.getValue(context);
-            if (value != null) {
-                sb.append(value);
+
+            //使用正则匹配变量并替换
+            StringBuffer result = new StringBuffer();
+            Matcher matcher = VARIABLE_PATTERN.matcher(key);
+            while (matcher.find()) {
+                String variable = matcher.group(1);
+                try {
+                    Object value = parser.parseExpression("#" + variable).getValue(context);
+                    String replacement = value != null ? value.toString() : "";
+                    matcher.appendReplacement(result, Matcher.quoteReplacement(replacement));
+                } catch (Exception e) {
+                    log.warn("[DistributedLockAspect] 解析变量失败 - variable: {}, error: {}", variable, e.getMessage());
+                    matcher.appendReplacement(result, "");
+                }
             }
+            matcher.appendTail(result);
+            
+            String resultKey = result.toString();
+            log.debug("[DistributedLockAspect] SpEL表达式解析完成 - originalKey: {}, resultKey: {}", key, resultKey);
+            return resultKey;
+        } catch (Exception e) {
+            log.error("[DistributedLockAspect] SpEL表达式解析失败 - key: {}, error: {}", key, e.getMessage(), e);
+            return key;
         }
-        String resultKey = sb.toString();
-        log.debug("[DistributedLockAspect] SpEL表达式解析完成 - originalKey: {}, resultKey: {}", key, resultKey);
-        //返回
-        return resultKey;
     }
 
     /**
@@ -115,17 +127,16 @@ public class DistributedLockAspectConfiguration {
      */
     @Around("lockPoint()")
     public Object around(ProceedingJoinPoint pjp) throws Throwable {
-        Method method = ((MethodSignature) pjp.getSignature()).getMethod();
+        MethodSignature methodSignature = (MethodSignature) pjp.getSignature();
+        Method method = methodSignature.getMethod();
         String className = pjp.getTarget().getClass().getName();
         String methodName = method.getName();
         RedisLock redisLock = method.getAnnotation(RedisLock.class);
-        //获取参数名
-        String[] parameterNames = PARAMETER_NAME_DISCOVERER.getParameterNames(method);
-        if (parameterNames == null) {
-            log.warn("[DistributedLockAspect] 无法获取方法参数名 - class: {}, method: {}, 请检查编译参数是否包含-parameters", className, methodName);
-            parameterNames = new String[0];
-        }
-        //String[] parameterNames = new StandardReflectionParameterNameDiscoverer().getParameterNames(((MethodSignature) pjp.getSignature()).getMethod());
+
+        //获取参数名 - 多重保障
+        String[] parameterNames = resolveParameterNames(method, methodSignature);
+
+        log.debug("[DistributedLockAspect] 获取方法参数名 - class: {}, method: {}, parameterNames: {}", className, methodName, Arrays.toString(parameterNames));
         //获取参数值
         Object[] args = pjp.getArgs();
         String key = getValueBySpelKey(redisLock.value(), parameterNames, args);
@@ -160,5 +171,43 @@ public class DistributedLockAspectConfiguration {
                 log.warn("[DistributedLockAspect] 释放分布式锁失败 - class: {}, method: {}, key: {}", className, methodName, key);
             }
         }
+    }
+
+    /**
+     * 尝试多种方式获取参数名
+     */
+    private String[] resolveParameterNames(Method method, MethodSignature methodSignature) {
+        String[] parameterNames = null;
+        int argCount = method.getParameterCount();
+
+        // 1. 首先尝试使用MethodSignature
+        try {
+            parameterNames = methodSignature.getParameterNames();
+            if (parameterNames != null && parameterNames.length == argCount) {
+                log.debug("[DistributedLockAspect] 使用MethodSignature获取参数名成功");
+                return parameterNames;
+            }
+        } catch (Exception e) {
+            log.debug("[DistributedLockAspect] MethodSignature获取参数名失败: {}", e.getMessage());
+        }
+
+        // 2. 使用Spring的ParameterNameDiscoverer
+        try {
+            parameterNames = PARAMETER_NAME_DISCOVERER.getParameterNames(method);
+            if (parameterNames != null && parameterNames.length == argCount) {
+                log.debug("[DistributedLockAspect] 使用ParameterNameDiscoverer获取参数名成功");
+                return parameterNames;
+            }
+        } catch (Exception e) {
+            log.debug("[DistributedLockAspect] ParameterNameDiscoverer获取参数名失败: {}", e.getMessage());
+        }
+
+        // 3. 使用默认参数名
+        parameterNames = new String[argCount];
+        for (int i = 0; i < argCount; i++) {
+            parameterNames[i] = "p" + i;
+        }
+        log.debug("[DistributedLockAspect] 使用默认参数名: {}", Arrays.toString(parameterNames));
+        return parameterNames;
     }
 }
