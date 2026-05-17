@@ -49,7 +49,7 @@
 
     <properties>
         <!-- 这个版本好只在开发时候有效，发布时时忽略的，建议使用预发布版本好定义 -->
-        <revision>1.2.9-SNAPSHOT</revision>
+        <revision>1.2.11-SNAPSHOT</revision>
         <!-- 注意版本升级时需要考虑相关依赖版本，谨慎升级 -->
         <structure.version>${project.version}</structure.version>
         <!-- jdk -->
@@ -465,14 +465,12 @@
                     <!-- 避免IDE将 .flattened-pom.xml自动识别为功能模块 -->
                     <flattenedPomFilename>pom-xml-flattened</flattenedPomFilename>
                     <updatePomFile>true</updatePomFile>
-                    <!-- 使用 oss 模式以确保完整的 dependencyManagement 被包含 -->
+                    <!-- 使用 oss 模式以确保依赖版本被正确解析并保留必要元数据 -->
                     <flattenMode>oss</flattenMode>
                     <pomElements>
-                        <!-- 保留这些元素 -->
-                        <dependencies>keep</dependencies>
-                        <dependencyManagement>keep</dependencyManagement>
-                        <properties>keep</properties>
-                        <modules>keep</modules>
+                        <dependencies>expand</dependencies>
+                        <dependencyManagement>remove</dependencyManagement>
+                        <parent>remove</parent>
                     </pomElements>
                 </configuration>
                 <executions>
