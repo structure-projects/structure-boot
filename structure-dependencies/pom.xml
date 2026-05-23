@@ -476,12 +476,6 @@
                     <flattenedPomFilename>pom-xml-flattened</flattenedPomFilename>
                     <updatePomFile>true</updatePomFile>
                     <!-- 使用 oss 模式以确保依赖版本被正确解析并保留必要元数据 -->
-                    <flattenMode>oss</flattenMode>
-                    <pomElements>
-                        <dependencies>expand</dependencies>
-                        <dependencyManagement>remove</dependencyManagement>
-                        <parent>remove</parent>
-                    </pomElements>
                 </configuration>
                 <executions>
                     <execution>
