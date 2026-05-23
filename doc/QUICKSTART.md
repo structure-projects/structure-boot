@@ -6,7 +6,7 @@
 
 ### 必需环境
 
-- **JDK**: 21 或更高版本
+- **JDK**: 17 或更高版本
 - **Maven**: 3.6 或更高版本
 - **IDE**: IntelliJ IDEA 或 Eclipse
 - **数据库**: MySQL 5.7+ 或 PostgreSQL
@@ -39,7 +39,7 @@ git --version
    - **Artifact**: demo
    - **Package name**: com.example.demo
    - **Packaging**: Jar
-   - **Java**: 21
+   - **Java**: 17
 
 3. 添加依赖：
 
@@ -90,8 +90,8 @@ demo/
     <description>Structure Boot 框架使用示例</description>
 
     <properties>
-        <maven.compiler.source>21</maven.compiler.source>
-        <maven.compiler.target>21</maven.compiler.target>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <spring.boot.version>3.2.5</spring.boot.version>
         <structure.version>1.3.1</structure.version>

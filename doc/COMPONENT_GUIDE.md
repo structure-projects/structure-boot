@@ -17,7 +17,7 @@
 
 ### 环境要求
 
-- JDK 21+
+- JDK 17+
 - Maven 3.6+
 - Spring Boot 3.2.x+
 
