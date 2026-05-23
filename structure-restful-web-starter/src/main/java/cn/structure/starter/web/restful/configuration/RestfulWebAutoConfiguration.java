@@ -28,7 +28,6 @@ import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
-import org.springframework.boot.autoconfigure.http.HttpMessageConverters;
 import org.springframework.context.annotation.Bean;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.context.annotation.Import;
@@ -63,8 +62,8 @@ public class RestfulWebAutoConfiguration {
 
 
     @Bean
-    @ConditionalOnMissingBean(HttpMessageConverters.class)
-    public HttpMessageConverters fastJsonHttpMessageConverters() {
+    @ConditionalOnMissingBean(FastJsonHttpMessageConverter.class)
+    public FastJsonHttpMessageConverter fastJsonHttpMessageConverter() {
         log.info("[RestfulWebAutoConfiguration] 初始化FastJsonHttpMessageConverter");
         //1、定义一个convert转换消息的对象
         FastJsonHttpMessageConverter fastConverter = new FastJsonHttpMessageConverter();
@@ -80,14 +79,13 @@ public class RestfulWebAutoConfiguration {
         fastJsonConfig.setSerializeConfig(serializeConfig);
         //6、处理中文乱码问题
         List<MediaType> fastMediaTypes = new ArrayList<>();
-        fastMediaTypes.add(MediaType.APPLICATION_JSON_UTF8);
+        fastMediaTypes.add(MediaType.APPLICATION_JSON);
         fastConverter.setSupportedMediaTypes(fastMediaTypes);
         //7、在convert中添加配置信息
         fastConverter.setFastJsonConfig(fastJsonConfig);
         //8、将convert添加到converters中
-        HttpMessageConverter<?> converter = fastConverter;
         log.info("[RestfulWebAutoConfiguration] FastJsonHttpMessageConverter初始化完成，支持MediaType: {}", fastMediaTypes);
-        return new HttpMessageConverters(converter);
+        return fastConverter;
     }
 
 }

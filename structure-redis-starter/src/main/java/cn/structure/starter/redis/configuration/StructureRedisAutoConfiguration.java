@@ -18,11 +18,8 @@ package cn.structure.starter.redis.configuration;
 import cn.structure.starter.redis.lock.IDistributedLock;
 import cn.structure.starter.redis.lock.RedisDistributedLockImpl;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
-import org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.context.annotation.Import;
@@ -39,7 +36,6 @@ import org.springframework.data.redis.core.StringRedisTemplate;
  */
 @Slf4j
 @AutoConfiguration
-@AutoConfigureAfter(RedisAutoConfiguration.class)
 @Import(DistributedLockAspectConfiguration.class)
 public class StructureRedisAutoConfiguration {
 

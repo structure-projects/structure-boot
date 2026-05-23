@@ -2,12 +2,12 @@
 # 更新快照版本
 version=$1
 if [ -z "$version" ]; then
-    version=1.2.12-SNAPSHOT
+    version=1.3.6-SNAPSHOT
 fi
 cd ../
 cd structure-dependencies
-mvn clean deploy -P release,oss -Dmaven.test.skip=true -Drevision=$version
+mvn clean deploy -P oss -Dmaven.test.skip=true -Drevision=$version
 cd ../structure-common
-mvn clean deploy -P release,oss -Dmaven.test.skip=true -Drevision=$version
+mvn clean deploy -P oss -Dmaven.test.skip=true -Drevision=$version
 cd ../structure-boot-parent
-mvn clean deploy -P release,oss -Dmaven.test.skip=true -Drevision=$version
+mvn clean deploy -P oss -Dmaven.test.skip=true -Drevision=$version

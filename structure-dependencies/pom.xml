@@ -63,22 +63,25 @@
         <!--nexus-->
         <nexus-staging-maven-plugin.version>1.6.13</nexus-staging-maven-plugin.version>
         <!--maven-->
-        <maven-plugin.version>3.5</maven-plugin.version>
+        <maven-plugin.version>3.8.1</maven-plugin.version>
+        <plexus-utils.version>4.0.3</plexus-utils.version>
+
         <maven-project-info-reports-plugin.version>3.0.0</maven-project-info-reports-plugin.version>
         <maven-site-plugin.version>3.7.1</maven-site-plugin.version>
         <maven.jar.plugin.version>3.0.2</maven.jar.plugin.version>
         <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
         <maven-surefire-plugin.version>2.5</maven-surefire-plugin.version>
         <maven-source-plugin.version>2.2.1</maven-source-plugin.version>
-        <maven-javadoc-plugin.version>2.9.1</maven-javadoc-plugin.version>
+        <maven-javadoc-plugin.version>3.6.3</maven-javadoc-plugin.version>
         <maven-gpg-plugin.version>1.5</maven-gpg-plugin.version>
         <cobertura-maven-plugin.version>2.7</cobertura-maven-plugin.version>
         <maven-flatten-maven-plugin.version>1.2.7</maven-flatten-maven-plugin.version>
         <!--spring version -->
-        <spring.version>6.1.5</spring.version>
+        <spring.version>6.2.17</spring.version>
         <spring-security.version>6.2.4</spring-security.version>
         <!--spring boot version -->
-        <spring-boot.version>3.2.4</spring-boot.version>
+        <spring-boot.version>4.0.6</spring-boot.version>
+        <spring-boot-starter-aop.version>3.4.3</spring-boot-starter-aop.version>
 
         <!-- 内部插件版本区域 -->
         <!-- mybatis 和mybatis plus 区域-->
@@ -112,14 +115,15 @@
         <persistence-api.version>3.0.0</persistence-api.version>
 
         <!-- hutool util -->
-        <hutool.version>5.8.25</hutool.version>
+        <hutool.version>5.8.40</hutool.version>
         <fastjson.version>2.0.43</fastjson.version>
-        <commons-lang3.version>3.14.0</commons-lang3.version>
+        <commons-lang3.version>3.18.0</commons-lang3.version>
 
         <guava.version>33.2.1-jre</guava.version>
         <modelmapper.version>3.2.0</modelmapper.version>
         <geodesy.version>1.1.3</geodesy.version>
-        <minio.version>8.5.7</minio.version>
+        <minio.version>8.6.0</minio.version>
+        <okhttp.version>4.12.0</okhttp.version>
         <!--swagger -->
         <springdoc.version>2.3.0</springdoc.version>
         <swagger2.version>2.9.2</swagger2.version>
@@ -128,6 +132,9 @@
         <!--lombok-->
         <lombok.version>1.18.30</lombok.version>
 
+        <!--logback-->
+        <logback-core.version>1.5.25</logback-core.version>
+
         <!--httpclient-->
         <httpclient.version>4.5.14</httpclient.version>
 
@@ -135,9 +142,9 @@
         <servlet-api.version>4.0.1</servlet-api.version>
         <jakarta.servlet-api.version>6.0.0</jakarta.servlet-api.version>
 
-        <commons-compress.version>1.24.0</commons-compress.version>
+        <commons-compress.version>1.26.0</commons-compress.version>
         <!--buf-->
-        <protobuf.version>3.25.1</protobuf.version>
+        <protobuf.version>4.28.2</protobuf.version>
         <protostuff.version>1.0.8</protostuff.version>
 
         <!--数据库迁移工具-->
@@ -168,7 +175,7 @@
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-aop</artifactId>
-                <version>${spring-boot.version}</version>
+                <version>${spring-boot-starter-aop.version}</version>
             </dependency>
 
             <dependency>
@@ -177,24 +184,6 @@
                 <version>${spring-boot.version}</version>
                 <scope>compile</scope>
             </dependency>
-
-            <!-- spring dependency -->
-            <dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-web</artifactId>
-                <version>${spring.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework.security</groupId>
-                <artifactId>spring-security-core</artifactId>
-                <version>${spring-security.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework.security</groupId>
-                <artifactId>spring-security-web</artifactId>
-                <version>${spring-security.version}</version>
-            </dependency>
-
 
             <!-- data 实例化相关插件  -->
             <!-- mybatis plus -->
@@ -408,6 +397,12 @@
                 <artifactId>minio</artifactId>
                 <version>${minio.version}</version>
             </dependency>
+            <!-- okHttp -->
+            <dependency>
+                <groupId>com.squareup.okhttp3</groupId>
+                <artifactId>okhttp</artifactId>
+                <version>${okhttp.version}</version>
+            </dependency>
             <!--1.1.3-->
             <dependency>
                 <groupId>org.gavaghan</groupId>
@@ -437,6 +432,16 @@
                 <artifactId>protostuff-runtime</artifactId>
                 <version>${protostuff.version}</version>
             </dependency>
+            <dependency>
+                <groupId>org.codehaus.plexus</groupId>
+                <artifactId>plexus-utils</artifactId>
+                <version>${plexus-utils.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>ch.qos.logback</groupId>
+                <artifactId>logback-core</artifactId>
+                <version>${logback-core.version}</version>
+            </dependency>
 
         </dependencies>
 
@@ -445,7 +450,6 @@
     <build>
         <pluginManagement>
             <plugins>
-
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-plugin-plugin</artifactId>
@@ -465,6 +469,33 @@
         </pluginManagement>
         <plugins>
             <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>flatten-maven-plugin</artifactId>
+                <version>${maven-flatten-maven-plugin.version}</version>
+                <configuration>
+                    <flattenedPomFilename>pom-xml-flattened</flattenedPomFilename>
+                    <updatePomFile>true</updatePomFile>
+                    <!-- 使用 oss 模式适合发布到 Maven 中央仓库的 jar 包 -->
+                    <flattenMode>oss</flattenMode>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>flatten</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>flatten</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>flatten-clean</id>
+                        <phase>clean</phase>
+                        <goals>
+                            <goal>clean</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>${maven-compiler-plugin.version}</version>
@@ -479,15 +510,26 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <version>${maven-javadoc-plugin.version}</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                    <charset>${charset}</charset>
+                    <docencoding>${charset}</docencoding>
+                    <show>private</show>
+                    <nohelp>true</nohelp>
+                    <links>
+                        <link>https://docs.oracle.com/en/java/javase/${java.version}/docs/api/</link>
+                    </links>
+                    <additionalOptions>
+                        <additionalOption>-Xdoclint:none</additionalOption>
+                    </additionalOptions>
+                </configuration>
                 <executions>
                     <execution>
                         <phase>package</phase>
                         <goals>
                             <goal>jar</goal>
                         </goals>
-                        <configuration>
-                            <additionalparam>-Xdoclint:none</additionalparam>
-                        </configuration>
                     </execution>
                 </executions>
             </plugin>
@@ -536,7 +578,7 @@
                             <autoPublish>true</autoPublish>
                             <waitUntil>validated</waitUntil> <!-- 不阻塞构建进程 -->
                             <!--  <waitUntil>published</waitUntil>-->
-                            <waitMaxTime>600</waitMaxTime>
+                            <waitMaxTime>3600</waitMaxTime>
                             <waitPollingInterval>10</waitPollingInterval>
                         </configuration>
                     </plugin>
@@ -558,15 +600,26 @@
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-javadoc-plugin</artifactId>
                         <version>${maven-javadoc-plugin.version}</version>
+                        <configuration>
+                            <source>${java.version}</source>
+                            <encoding>${project.build.sourceEncoding}</encoding>
+                            <charset>${charset}</charset>
+                            <docencoding>${charset}</docencoding>
+                            <show>private</show>
+                            <nohelp>true</nohelp>
+                            <links>
+                                <link>https://docs.oracle.com/en/java/javase/${java.version}/docs/api/</link>
+                            </links>
+                            <additionalOptions>
+                                <additionalOption>-Xdoclint:none</additionalOption>
+                            </additionalOptions>
+                        </configuration>
                         <executions>
                             <execution>
                                 <phase>package</phase>
                                 <goals>
                                     <goal>jar</goal>
                                 </goals>
-                                <configuration>
-                                    <additionalparam>-Xdoclint:none</additionalparam>
-                                </configuration>
                             </execution>
                         </executions>
                     </plugin>

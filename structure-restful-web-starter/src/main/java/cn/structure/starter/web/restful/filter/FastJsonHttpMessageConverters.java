@@ -22,7 +22,6 @@ import com.alibaba.fastjson.serializer.ToStringSerializer;
 import com.alibaba.fastjson.support.config.FastJsonConfig;
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
 import lombok.*;
-import org.springframework.boot.autoconfigure.http.HttpMessageConverters;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ImportSelector;
 import org.springframework.core.type.AnnotationMetadata;
@@ -56,7 +55,7 @@ public class FastJsonHttpMessageConverters implements ImportSelector {
     private boolean nullShowValue;
 
     @Bean
-    public HttpMessageConverters fastJsonHttpMessageConverters() {
+    public FastJsonHttpMessageConverter fastJsonHttpMessageConverter() {
         //1、定义一个convert转换消息的对象
         FastJsonHttpMessageConverter fastConverter = new FastJsonHttpMessageConverter();
         //2、添加fastjson的配置信息
@@ -75,12 +74,12 @@ public class FastJsonHttpMessageConverters implements ImportSelector {
         fastJsonConfig.setSerializeConfig(serializeConfig);
         //6、处理中文乱码问题
         List<MediaType> fastMediaTypes = new ArrayList<>();
-        fastMediaTypes.add(MediaType.APPLICATION_JSON_UTF8);
+        fastMediaTypes.add(MediaType.APPLICATION_JSON);
         fastConverter.setSupportedMediaTypes(fastMediaTypes);
         //7、在convert中添加配置信息
         fastConverter.setFastJsonConfig(fastJsonConfig);
-        //8、将convert添加到converters中
-        return new HttpMessageConverters(fastConverter);
+        //8、返回converter
+        return fastConverter;
     }
 
     @Override
