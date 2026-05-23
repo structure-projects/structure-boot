@@ -33,22 +33,9 @@
         <structure.version>1.3.6-SNAPSHOT</structure.version>
     </properties>
 
-    <dependencies>
-        <dependency>
-            <groupId>cn.structured</groupId>
-            <artifactId>structure-restful-web-starter</artifactId>
-        </dependency>
-    </dependencies>
 
     <dependencyManagement>
         <dependencies>
-            <dependency>
-                <groupId>cn.structured</groupId>
-                <artifactId>structure-boot-parent</artifactId>
-                <version>${structure.version}</version>
-                <scope>import</scope>
-                <type>pom</type>
-            </dependency>
             <dependency>
                 <groupId>cn.structured</groupId>
                 <artifactId>structure-boot-parent</artifactId>

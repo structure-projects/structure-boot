@@ -19,18 +19,4 @@
             <artifactId>structure-restful-web-starter</artifactId>
         </dependency>
     </dependencies>
-
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>cn.structured</groupId>
-                <artifactId>structure-boot-parent</artifactId>
-                <version>${structure.version}</version>
-                <scope>import</scope>
-                <type>pom</type>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
-
-
 </project>

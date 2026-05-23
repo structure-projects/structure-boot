@@ -19,12 +19,12 @@ import cn.hutool.core.io.IoUtil;
 import cn.structure.oauth.client.UserClient;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
