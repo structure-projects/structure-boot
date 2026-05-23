@@ -29,7 +29,7 @@
     </modules>
 
     <properties>
-        <structure.version>1.3.5-SNAPSHOT</structure.version>
+        <structure.version>1.3.6-SNAPSHOT</structure.version>
     </properties>
 
     <dependencies>
