@@ -468,6 +468,7 @@
             </plugins>
         </pluginManagement>
         <plugins>
+
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>flatten-maven-plugin</artifactId>
@@ -476,7 +477,7 @@
                     <flattenedPomFilename>pom-xml-flattened</flattenedPomFilename>
                     <updatePomFile>true</updatePomFile>
                     <!-- 使用 oss 模式适合发布到 Maven 中央仓库的 jar 包 -->
-                    <flattenMode>oss</flattenMode>
+                    <flattenMode>resolveCiFriendliesOnly</flattenMode>
                 </configuration>
                 <executions>
                     <execution>
