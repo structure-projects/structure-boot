@@ -7,8 +7,8 @@ if [ -z "$version" ]; then
 fi
 cd ../
 cd structure-dependencies
-mvn clean deploy -P release,oss -Dmaven.test.skip=true -Dmaven.wagon.http.ssl.insecure=true -Dmaven.wagon.http.ssl.allowall=true -Drevision=$version
+mvn clean deploy -P release,oss -Dmaven.test.skip=true -Drevision=$version
 cd ../structure-common
-mvn clean deploy -P release,oss -Dmaven.test.skip=true -Dmaven.wagon.http.ssl.insecure=true -Dmaven.wagon.http.ssl.allowall=true -Drevision=$version
+mvn clean deploy -P release,oss -Dmaven.test.skip=true -Drevision=$version
 cd ../structure-boot-parent
-mvn clean deploy -P release,oss -Dmaven.test.skip=true -Dmaven.wagon.http.ssl.insecure=true -Dmaven.wagon.http.ssl.allowall=true -Drevision=$version
+mvn clean deploy -P release,oss -Dmaven.test.skip=true -Drevision=$version
