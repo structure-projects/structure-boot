@@ -30,7 +30,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @since 2020/12/27 10:20
  */
 @SpringBootApplication()
-@MapperScan(basePackages = "cn.structure.example.mybatis.mapper", annotationClass = Mapper.class)
 public class MybatisApplication {
     public static void main(String[] args) {
         SpringApplication.run(MybatisApplication.class, args);

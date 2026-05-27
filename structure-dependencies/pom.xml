@@ -102,7 +102,7 @@
 
         <!-- mybatis plus -->
         <mybatis-plus.version>3.5.16</mybatis-plus.version>
-        <mybatis-spring-boot-starter.version>3.0.4</mybatis-spring-boot-starter.version>
+        <mybatis-spring-boot-starter.version>4.0.0</mybatis-spring-boot-starter.version>
         <mysql.version>8.2.0</mysql.version>
 
         <!-- 模板版本 -->
