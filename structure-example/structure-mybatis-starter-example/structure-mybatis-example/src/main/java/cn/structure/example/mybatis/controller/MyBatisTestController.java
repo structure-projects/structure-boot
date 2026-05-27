@@ -234,11 +234,12 @@ public class MyBatisTestController {
             newUser.setUpdateTime(new Date());
 
             int insertedId = iUserService.insertUser(newUser);
+            newUser.setId((long) insertedId);
             
-            Map<String, Object> stepResult = new HashMap<>();
-            stepResult.put("success", true);
-            stepResult.put("id", insertedId);
-            result.put("step1_insert", stepResult);
+            Map<String, Object> step1Result = new HashMap<>();
+            step1Result.put("success", true);
+            step1Result.put("id", insertedId);
+            result.put("step1_insert", step1Result);
             passed++;
 
             // Step 2: Query by ID
@@ -246,7 +247,7 @@ public class MyBatisTestController {
             if (fetchedUser != null && fetchedUser.getUsername().equals("mybatis_crud_" + timestamp)) {
                 Map<String, Object> step2Result = new HashMap<>();
                 step2Result.put("success", true);
-                step2Result.put("user", fetchedUser);
+                step2Result.put("data", fetchedUser);
                 result.put("step2_select", step2Result);
                 passed++;
             } else {

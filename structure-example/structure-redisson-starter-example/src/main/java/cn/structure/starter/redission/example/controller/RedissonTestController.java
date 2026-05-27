@@ -134,7 +134,8 @@ public class RedissonTestController {
         
         try {
             RMap<String, String> map = redissonClient.getMap(fullMapName);
-            map.put(field, value, DEFAULT_TIMEOUT, TimeUnit.SECONDS);
+            map.put(field, value);
+            map.expire(java.time.Duration.ofSeconds(DEFAULT_TIMEOUT));
             
             String retrievedValue = map.get(field);
             boolean success = value.equals(retrievedValue);
@@ -295,7 +296,8 @@ public class RedissonTestController {
         try {
             String mapName = TEST_KEY_PREFIX + "map_test_" + timestamp;
             RMap<String, String> map = redissonClient.getMap(mapName);
-            map.put("field1", "value1", DEFAULT_TIMEOUT, TimeUnit.SECONDS);
+            map.put("field1", "value1");
+            map.expire(java.time.Duration.ofSeconds(DEFAULT_TIMEOUT));
             String value = map.get("field1");
             boolean success = "value1".equals(value);
             result.put("test2_map", success);

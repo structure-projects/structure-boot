@@ -103,10 +103,10 @@ public class TkMapperTestController {
             User user = new User();
             user.setUsername(userData.getOrDefault("username", "testuser_" + System.currentTimeMillis()).toString());
             user.setPassword(userData.getOrDefault("password", "password123").toString());
-            user.setPhone(userData.getOrDefault("phone", "13800138000").toString());
-            user.setEmail(userData.getOrDefault("email", "test@example.com").toString());
-            user.setNickname(userData.getOrDefault("nickname", "Test User").toString());
-            user.setSex(userData.getOrDefault("sex", 1).toString());
+            user.setUnexpired(true);
+            user.setEnabled(true);
+            user.setUnlocked(true);
+            user.setDeleted(false);
             user.setCreateTime(new Date());
             user.setUpdateTime(new Date());
 
@@ -139,14 +139,11 @@ public class TkMapperTestController {
             if (userData.containsKey("username")) {
                 user.setUsername(userData.get("username").toString());
             }
-            if (userData.containsKey("nickname")) {
-                user.setNickname(userData.get("nickname").toString());
+            if (userData.containsKey("password")) {
+                user.setPassword(userData.get("password").toString());
             }
-            if (userData.containsKey("email")) {
-                user.setEmail(userData.get("email").toString());
-            }
-            if (userData.containsKey("phone")) {
-                user.setPhone(userData.get("phone").toString());
+            if (userData.containsKey("enabled")) {
+                user.setEnabled(Boolean.parseBoolean(userData.get("enabled").toString()));
             }
             user.setUpdateTime(new Date());
 
@@ -198,7 +195,13 @@ public class TkMapperTestController {
             result.put("operation", "listUserPage");
             result.put("data", users);
             result.put("count", users != null ? users.size() : 0);
-            result.put("params", Map.of("username", username, "pageSize", pageSize, "offset", offset));
+            
+            Map<String, Object> params = new HashMap<>();
+            params.put("username", username);
+            params.put("pageSize", pageSize);
+            params.put("offset", offset);
+            result.put("params", params);
+            
             result.put("message", "Query returned " + (users != null ? users.size() : 0) + " users");
         } catch (Exception e) {
             result.put("success", false);
@@ -223,41 +226,61 @@ public class TkMapperTestController {
             User newUser = new User();
             newUser.setUsername("crud_test_" + timestamp);
             newUser.setPassword("password123");
-            newUser.setPhone("13800138000");
-            newUser.setEmail("crud_test_" + timestamp + "@example.com");
-            newUser.setNickname("CRUD Test User");
-            newUser.setSex("1");
+            newUser.setUnexpired(true);
+            newUser.setEnabled(true);
+            newUser.setUnlocked(true);
+            newUser.setDeleted(false);
             newUser.setCreateTime(new Date());
             newUser.setUpdateTime(new Date());
 
             int insertedId = iUserService.insertUser(newUser);
-            result.put("step1_insert", Map.of("success", true, "id", insertedId));
+            newUser.setId((long) insertedId);
+            
+            Map<String, Object> step1Result = new HashMap<>();
+            step1Result.put("success", true);
+            step1Result.put("id", insertedId);
+            result.put("step1_insert", step1Result);
             passed++;
 
             // Step 2: Query by ID
             User fetchedUser = iUserService.getUserById((long) insertedId);
             if (fetchedUser != null && fetchedUser.getUsername().equals("crud_test_" + timestamp)) {
-                result.put("step2_select", Map.of("success", true, "user", fetchedUser));
+                Map<String, Object> step2Result = new HashMap<>();
+                step2Result.put("success", true);
+                step2Result.put("data", fetchedUser);
+                result.put("step2_select", step2Result);
                 passed++;
             } else {
-                result.put("step2_select", Map.of("success", false, "message", "User not found or mismatch"));
+                Map<String, Object> step2Result = new HashMap<>();
+                step2Result.put("success", false);
+                step2Result.put("message", "User not found or mismatch");
+                result.put("step2_select", step2Result);
                 failed++;
             }
 
             // Step 3: Update
-            newUser.setNickname("Updated Nickname");
+            newUser.setEnabled(false);
             int updated = iUserService.updateUserById(newUser);
             if (updated > 0) {
                 User updatedUser = iUserService.getUserById((long) insertedId);
-                if (updatedUser != null && "Updated Nickname".equals(updatedUser.getNickname())) {
-                    result.put("step3_update", Map.of("success", true, "message", "Update verified"));
+                if (updatedUser != null && updatedUser.getEnabled() != null && !updatedUser.getEnabled()) {
+                    Map<String, Object> step3Result = new HashMap<>();
+                    step3Result.put("success", true);
+                    step3Result.put("message", "Update verified");
+                    result.put("step3_update", step3Result);
                     passed++;
                 } else {
-                    result.put("step3_update", Map.of("success", false, "message", "Update not reflected"));
+                    Map<String, Object> step3Result = new HashMap<>();
+                    step3Result.put("success", false);
+                    step3Result.put("message", "Update not reflected");
+                    result.put("step3_update", step3Result);
                     failed++;
                 }
             } else {
-                result.put("step3_update", Map.of("success", false, "message", "No rows affected"));
+                Map<String, Object> step3Result = new HashMap<>();
+                step3Result.put("success", false);
+                step3Result.put("message", "No rows affected");
+                result.put("step3_update", step3Result);
                 failed++;
             }
 
@@ -266,14 +289,23 @@ public class TkMapperTestController {
             if (deleted > 0) {
                 User deletedUser = iUserService.getUserById((long) insertedId);
                 if (deletedUser == null) {
-                    result.put("step4_delete", Map.of("success", true, "message", "Delete verified"));
+                    Map<String, Object> step4Result = new HashMap<>();
+                    step4Result.put("success", true);
+                    step4Result.put("message", "Delete verified");
+                    result.put("step4_delete", step4Result);
                     passed++;
                 } else {
-                    result.put("step4_delete", Map.of("success", false, "message", "User still exists after delete"));
+                    Map<String, Object> step4Result = new HashMap<>();
+                    step4Result.put("success", false);
+                    step4Result.put("message", "User still exists after delete");
+                    result.put("step4_delete", step4Result);
                     failed++;
                 }
             } else {
-                result.put("step4_delete", Map.of("success", false, "message", "No rows affected"));
+                Map<String, Object> step4Result = new HashMap<>();
+                step4Result.put("success", false);
+                step4Result.put("message", "No rows affected");
+                result.put("step4_delete", step4Result);
                 failed++;
             }
 
@@ -282,7 +314,11 @@ public class TkMapperTestController {
             failed++;
         }
 
-        result.put("summary", Map.of("total", passed + failed, "passed", passed, "failed", failed));
+        Map<String, Object> summary = new HashMap<>();
+        summary.put("total", passed + failed);
+        summary.put("passed", passed);
+        summary.put("failed", failed);
+        result.put("summary", summary);
         result.put("crudSuccess", failed == 0);
         return result;
     }
@@ -312,10 +348,10 @@ public class TkMapperTestController {
             User newUser = new User();
             newUser.setUsername("test_" + System.currentTimeMillis());
             newUser.setPassword("pass");
-            newUser.setPhone("13800000000");
-            newUser.setEmail("test@test.com");
-            newUser.setNickname("Test");
-            newUser.setSex("1");
+            newUser.setUnexpired(true);
+            newUser.setEnabled(true);
+            newUser.setUnlocked(true);
+            newUser.setDeleted(false);
             newUser.setCreateTime(new Date());
             newUser.setUpdateTime(new Date());
             int id = iUserService.insertUser(newUser);

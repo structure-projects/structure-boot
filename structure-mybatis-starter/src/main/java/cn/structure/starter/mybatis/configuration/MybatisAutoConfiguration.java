@@ -19,15 +19,19 @@ import cn.hutool.core.lang.Snowflake;
 import cn.hutool.core.util.IdUtil;
 import cn.structure.starter.mybatis.plugin.OverWritePluginParameter;
 import com.github.pagehelper.PageInterceptor;
-import lombok.extern.slf4j.Slf4j;
 import jakarta.annotation.Resource;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.plugin.Interceptor;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.mybatis.spring.SqlSessionFactoryBean;
+import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
-import org.springframework.boot.autoconfigure.AutoConfiguration;
 
+import javax.sql.DataSource;
 import java.util.Properties;
 
 /**
@@ -46,6 +50,23 @@ public class MybatisAutoConfiguration {
 
     @Resource
     private MybatisProperties mybatisProperties;
+
+
+    @Bean
+    @ConditionalOnMissingBean(SqlSessionFactory.class)
+    public SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception {
+        log.info("[MybatisAutoConfiguration] 初始化SqlSessionFactory");
+        SqlSessionFactoryBean factory = new SqlSessionFactoryBean();
+        factory.setDataSource(dataSource);
+        return factory.getObject();
+    }
+
+    @Bean
+    @ConditionalOnMissingBean(SqlSessionTemplate.class)
+    public SqlSessionTemplate sqlSessionTemplate(SqlSessionFactory factory) {
+        log.info("[MybatisAutoConfiguration] 创建SqlSessionTemplate");
+        return new SqlSessionTemplate(factory);
+    }
 
     @Bean
     @ConditionalOnProperty(value = "structure.mybatis.plugin.over-write", havingValue = "true")

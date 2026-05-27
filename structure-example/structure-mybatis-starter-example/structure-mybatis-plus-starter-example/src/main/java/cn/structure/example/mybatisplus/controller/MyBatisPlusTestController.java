@@ -17,10 +17,8 @@ package cn.structure.example.mybatisplus.controller;
 
 import cn.structure.example.mybatisplus.pojo.po.User;
 import cn.structure.example.mybatisplus.service.IUserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
 import java.util.*;
 
 /**
@@ -36,8 +34,11 @@ import java.util.*;
 @RequestMapping("/mybatis-plus")
 public class MyBatisPlusTestController {
 
-    @Autowired
-    private IUserService iUserService;
+    private final IUserService iUserService;
+
+    public MyBatisPlusTestController(IUserService iUserService) {
+        this.iUserService = iUserService;
+    }
 
     /**
      * 健康检查
@@ -98,25 +99,25 @@ public class MyBatisPlusTestController {
     public Map<String, Object> testInsertUser(@RequestBody(required = false) Map<String, Object> userData) {
         Map<String, Object> result = new HashMap<>();
         try {
-            if (userData == null) {
-                userData = new HashMap<>();
+            String username = "mybatis-plus-test-" + System.currentTimeMillis();
+            if (userData != null && userData.containsKey("username")) {
+                username = userData.get("username").toString();
             }
-            User user = new User();
-            user.setUsername(userData.getOrDefault("username", "mp_user_" + System.currentTimeMillis()).toString());
-            user.setPassword(userData.getOrDefault("password", "password123").toString());
-            user.setUnexpired(true);
-            user.setEnabled(true);
-            user.setUnlocked(true);
-            user.setDeleted(false);
-            user.setCreateTime(LocalDateTime.now());
-            user.setUpdateTime(LocalDateTime.now());
+            
+            User newUser = new User();
+            newUser.setUsername(username);
+            newUser.setPassword("password123");
+            newUser.setUnexpired(true);
+            newUser.setEnabled(true);
+            newUser.setUnlocked(true);
+            newUser.setDeleted(false);
 
-            boolean success = iUserService.save(user);
+            boolean success = iUserService.save(newUser);
             result.put("success", success);
             result.put("operation", "save");
-            result.put("insertedId", user.getId());
-            result.put("data", user);
-            result.put("message", success ? "User inserted successfully with ID: " + user.getId() : "Failed to insert user");
+            result.put("insertedId", newUser.getId());
+            result.put("data", newUser);
+            result.put("message", success ? "User inserted successfully with ID: " + newUser.getId() : "Failed to insert user");
         } catch (Exception e) {
             result.put("success", false);
             result.put("operation", "save");
@@ -132,21 +133,20 @@ public class MyBatisPlusTestController {
     public Map<String, Object> testUpdateUser(@RequestParam Long id, @RequestBody(required = false) Map<String, Object> userData) {
         Map<String, Object> result = new HashMap<>();
         try {
-            if (userData == null) {
-                userData = new HashMap<>();
-            }
             User user = new User();
             user.setId(id);
-            if (userData.containsKey("username")) {
-                user.setUsername(userData.get("username").toString());
+            
+            if (userData != null) {
+                if (userData.containsKey("username")) {
+                    user.setUsername(userData.get("username").toString());
+                }
+                if (userData.containsKey("password")) {
+                    user.setPassword(userData.get("password").toString());
+                }
+                if (userData.containsKey("enabled")) {
+                    user.setEnabled(Boolean.parseBoolean(userData.get("enabled").toString()));
+                }
             }
-            if (userData.containsKey("password")) {
-                user.setPassword(userData.get("password").toString());
-            }
-            if (userData.containsKey("enabled")) {
-                user.setEnabled(Boolean.parseBoolean(userData.get("enabled").toString()));
-            }
-            user.setUpdateTime(LocalDateTime.now());
 
             boolean success = iUserService.updateById(user);
             result.put("success", success);
@@ -220,33 +220,31 @@ public class MyBatisPlusTestController {
         int failed = 0;
         String timestamp = String.valueOf(System.currentTimeMillis());
 
-        // Step 1: Insert
         try {
+            // Step 1: Insert
             User newUser = new User();
-            newUser.setUsername("mp_crud_" + timestamp);
+            newUser.setUsername("mp-crud-" + timestamp);
             newUser.setPassword("password123");
             newUser.setUnexpired(true);
             newUser.setEnabled(true);
             newUser.setUnlocked(true);
             newUser.setDeleted(false);
-            newUser.setCreateTime(LocalDateTime.now());
-            newUser.setUpdateTime(LocalDateTime.now());
 
             boolean insertSuccess = iUserService.save(newUser);
             
-            Map<String, Object> stepResult = new HashMap<>();
-            stepResult.put("success", insertSuccess);
-            stepResult.put("id", newUser.getId());
-            result.put("step1_insert", stepResult);
+            Map<String, Object> step1Result = new HashMap<>();
+            step1Result.put("success", insertSuccess);
+            step1Result.put("id", newUser.getId());
+            result.put("step1_insert", step1Result);
             if (insertSuccess) passed++;
             else failed++;
 
             // Step 2: Query by ID
             User fetchedUser = iUserService.getById(newUser.getId());
-            if (fetchedUser != null && fetchedUser.getUsername().equals("mp_crud_" + timestamp)) {
+            if (fetchedUser != null && fetchedUser.getUsername().equals("mp-crud-" + timestamp)) {
                 Map<String, Object> step2Result = new HashMap<>();
                 step2Result.put("success", true);
-                step2Result.put("user", fetchedUser);
+                step2Result.put("data", fetchedUser);
                 result.put("step2_select", step2Result);
                 passed++;
             } else {
@@ -334,31 +332,29 @@ public class MyBatisPlusTestController {
         // Test 1: Get user by ID
         try {
             User user = iUserService.getById(1L);
-            result.put("test1_getUserById", user != null);
+            result.put("test1_getById", user != null);
             totalTests++;
             if (user != null) passedTests++;
         } catch (Exception e) {
-            result.put("test1_getUserById", "FAILED: " + e.getMessage());
+            result.put("test1_getById", "FAILED: " + e.getMessage());
             totalTests++;
         }
 
         // Test 2: Insert user
         try {
             User newUser = new User();
-            newUser.setUsername("mp_test_" + System.currentTimeMillis());
+            newUser.setUsername("mp-test-all-" + System.currentTimeMillis());
             newUser.setPassword("pass");
             newUser.setUnexpired(true);
             newUser.setEnabled(true);
             newUser.setUnlocked(true);
             newUser.setDeleted(false);
-            newUser.setCreateTime(LocalDateTime.now());
-            newUser.setUpdateTime(LocalDateTime.now());
             boolean success = iUserService.save(newUser);
-            result.put("test2_insertUser", success);
+            result.put("test2_save", success);
             totalTests++;
             if (success) passedTests++;
         } catch (Exception e) {
-            result.put("test2_insertUser", "FAILED: " + e.getMessage());
+            result.put("test2_save", "FAILED: " + e.getMessage());
             totalTests++;
         }
 
