@@ -148,7 +148,7 @@
         <protostuff.version>1.0.8</protostuff.version>
 
         <!--数据库迁移工具-->
-        <flywaydb.version>5.2.4</flywaydb.version>
+        <!-- 注：Spring Boot 已统一管理 Flyway 版本，此处无需配置 -->
         <central-publishing-maven-plugin.version>0.9.0</central-publishing-maven-plugin.version>
     </properties>
     <dependencyManagement>
