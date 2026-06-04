@@ -30,7 +30,6 @@ import org.springframework.web.bind.annotation.*;
  */
 @RpcClient(value = "user-center")
 public interface UserClient {
-
     /**
      * 根据用户ID获取用户信息
      *
