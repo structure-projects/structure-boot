@@ -80,8 +80,8 @@
         <spring.version>6.2.17</spring.version>
         <spring-security.version>6.2.4</spring-security.version>
         <!--spring boot version -->
-        <spring-boot.version>4.0.6</spring-boot.version>
-        <spring-boot-starter-aop.version>3.4.3</spring-boot-starter-aop.version>
+        <spring-boot.version>3.3.5</spring-boot.version>
+        <spring-boot-starter-aop.version>3.3.1</spring-boot-starter-aop.version>
 
         <!-- 内部插件版本区域 -->
         <!-- mybatis 和mybatis plus 区域-->
@@ -101,8 +101,8 @@
         <dynamic-datasource-spring-boot-starter.version>3.1.0</dynamic-datasource-spring-boot-starter.version>
 
         <!-- mybatis plus -->
-        <mybatis-plus.version>3.5.16</mybatis-plus.version>
-        <mybatis-spring-boot-starter.version>4.0.0</mybatis-spring-boot-starter.version>
+        <mybatis-plus.version>3.5.9</mybatis-plus.version>
+        <mybatis-spring-boot-starter.version>3.0.3</mybatis-spring-boot-starter.version>
         <mysql.version>8.2.0</mysql.version>
 
         <!-- 模板版本 -->
