@@ -13,26 +13,33 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package cn.structure.oauth;
-
-import cn.structured.rpc.annotation.EnableRpcClients;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+package cn.structured.rpc.emuns;
 
 /**
- * <p>
- * 启动程序
- * </p>
+ * 认证类型枚举
+ * 定义RPC客户端支持的认证方式
  *
  * @author chuck
- * @version 1.0.1
- * @since 2021/3/10 21:35
  */
-@SpringBootApplication
-@EnableRpcClients(basePackages = "cn.structure.oauth.client")
-public class RpcExampleApplication {
+public enum AuthType {
 
-    public static void main(String[] args) {
-        SpringApplication.run(RpcExampleApplication.class, args);
-    }
+    /**
+     * 无认证模式
+     * 不添加任何认证头
+     */
+    NONE,
+
+    /**
+     * Basic认证模式
+     * 使用Base64编码的用户名密码作为Authorization头
+     * 格式: Basic base64(username:password)
+     */
+    BASIC,
+
+    /**
+     * Bearer认证模式
+     * 使用OAuth2的Access Token作为Authorization头
+     * 格式: Bearer <access_token>
+     */
+    BEARER
 }

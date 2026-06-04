@@ -22,14 +22,17 @@ import cn.structured.rpc.annotation.RpcClient;
 import org.springframework.web.bind.annotation.*;
 
 /**
- * 用户服务客户端接口（无认证）
- * 使用@RpcClient注解标记，类似FeignClient的使用方式
- * 使用Spring Web注解定义HTTP请求
+ * 用户服务客户端接口（Bearer认证-参数方式）
+ * 使用@RpcClient注解标记，使用Bearer Token进行身份认证
+ * 
+ * Bearer认证方式：通过远程认证服务器获取token，在请求头中添加 Authorization: Bearer token
+ * 此客户端使用参数方式获取token（client_id/client_secret放在请求体中）
  *
  * @author chuck
  */
-@RpcClient(value = "user-center")
-public interface UserClient {
+@RpcClient(value = "user-center-bearer")
+public interface UserClientBearer extends UserClient {
+
     /**
      * 根据用户ID获取用户信息
      *
@@ -46,7 +49,7 @@ public interface UserClient {
      * @return 用户信息
      */
     @GetMapping("/api/user/getByUsername")
-    UserInfo getUserByUsername(@RequestParam("username") String username);
+   UserInfo getUserByUsername(@RequestParam("username") String username);
 
     /**
      * 创建用户
@@ -60,7 +63,7 @@ public interface UserClient {
     /**
      * 更新用户信息
      *
-     * @param userId            用户ID
+     * @param userId 用户ID
      * @param userUpdateRequest 用户更新请求
      * @return 更新后的用户信息
      */
@@ -74,5 +77,6 @@ public interface UserClient {
      */
     @DeleteMapping("/api/user/delete/{userId}")
     void deleteUser(@PathVariable("userId") Long userId);
+
 
 }

@@ -24,19 +24,6 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-validation</artifactId>
-        </dependency>
-<!--        <dependency>-->
-<!--            <groupId>com.github.xiaoymin</groupId>-->
-<!--            <artifactId>swagger-bootstrap-ui</artifactId>-->
-<!--        </dependency>-->
-        <!-- web-restful风格依赖 -->
-        <dependency>
             <groupId>cn.structured</groupId>
             <artifactId>structure-restful-web-starter</artifactId>
         </dependency>
@@ -56,6 +43,8 @@
             <groupId>cn.structured</groupId>
             <artifactId>structure-rpc-starter</artifactId>
         </dependency>
+
+
     </dependencies>
     <dependencyManagement>
         <dependencies>
@@ -83,7 +72,6 @@
                     </execution>
                 </executions>
             </plugin>
-
         </plugins>
     </build>
 </project>

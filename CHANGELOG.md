@@ -10,6 +10,36 @@
 - **修订号（PATCH）**：向后兼容的问题修复
 
 ---
+## [1.4.0] - 2026-06-05
+
+### 变更内容
+
+**文档更新**
+- 为所有子模块创建/更新 README 文档
+- 添加详细的快速开始指南和使用示例
+- 补充代码注释和版权声明
+- 完善统一响应格式说明（ResultVO 和 ResResultVO）
+
+**新增 README 文档的模块**
+- structure-common - 通用工具模块
+- structure-log-starter - 日志处理模块
+- structure-minio-starter - MinIO 对象存储模块
+- structure-redisson-starter - Redisson 分布式锁和缓存模块
+- structure-mybatis-starter - MyBatis 集成模块
+- structure-mybatis-plus-starter - MyBatis Plus 集成模块
+- structure-mybatis-plus-generate - MyBatis Plus 代码生成器
+- structure-restful-web-starter - RESTful Web 开发模块
+- structure-redis-starter - Redis 集成模块
+- structure-rpc-starter - RPC 远程服务调用模块
+
+**代码注释补充**
+- 为 AuthType 枚举添加完整的注释和版权声明
+- 为 TokenManager 接口添加完整的注释和版权声明
+- 为 TokenProvider 接口添加完整的注释和版权声明
+- 为 TokenInfo 实体类添加版权声明
+
+---
+
 ## [1.3.7] - 2026-05-28
 
 ### 变更内容
