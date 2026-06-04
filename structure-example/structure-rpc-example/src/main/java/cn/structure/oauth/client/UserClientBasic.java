@@ -22,14 +22,16 @@ import cn.structured.rpc.annotation.RpcClient;
 import org.springframework.web.bind.annotation.*;
 
 /**
- * 用户服务客户端接口（无认证）
- * 使用@RpcClient注解标记，类似FeignClient的使用方式
- * 使用Spring Web注解定义HTTP请求
+ * 用户服务客户端接口（Basic认证）
+ * 使用@RpcClient注解标记，使用Basic Auth进行身份认证
+ * <p>
+ * Basic认证方式：在请求头中添加 Authorization: Basic base64(username:password)
  *
  * @author chuck
  */
-@RpcClient(value = "user-center")
-public interface UserClient {
+@RpcClient(value = "user-center-basic")
+public interface UserClientBasic extends UserClient {
+
     /**
      * 根据用户ID获取用户信息
      *

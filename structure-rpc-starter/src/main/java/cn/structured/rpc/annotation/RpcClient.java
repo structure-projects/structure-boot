@@ -15,11 +15,17 @@
  */
 package cn.structured.rpc.annotation;
 
-import org.springframework.stereotype.Component;
+import cn.structured.rpc.emuns.AuthType;
 
 import java.lang.annotation.*;
 
 /**
+ * RPC客户端注解
+ * 标记一个类或接口作为远程服务调用的客户端，类似FeignClient
+ * 支持配置文件配置和注解配置两种方式
+ * 
+ * 需要配合@EnableRpcClients注解使用
+ *
  * @author chuck
  * @version 2024/07/17 下午3:55
  * @since 1.8
@@ -27,27 +33,11 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 @Documented
-@Component
 public @interface RpcClient {
 
-
     /**
-     * 默认为服务名
+     * 服务名称，对应配置中的服务标识
      */
     String value() default "";
-
-    /**
-     * 远程调用的地址
-     *
-     * @return host
-     */
-    String host() default "";
-
-    /**
-     * 端口
-     *
-     * @return port
-     */
-    int port() default 80;
 
 }

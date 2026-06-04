@@ -15,6 +15,7 @@
  */
 package cn.structured.rpc.entity;
 
+import cn.structured.rpc.emuns.AuthType;
 import lombok.Data;
 import org.springframework.util.MultiValueMap;
 
@@ -39,6 +40,11 @@ public class RemoteService {
     private String secretKey;
 
     /**
+     * 认证方式 Basic Auth or Bearer Auth
+     */
+    private AuthType authType = AuthType.NONE;
+
+    /**
      * host
      */
     private String host;
@@ -52,5 +58,33 @@ public class RemoteService {
      * 请求头
      */
     private MultiValueMap<String, String> headers;
+
+    /**
+     * 认证服务地址（用于Bearer认证获取token，若未设置则使用host）
+     */
+    private String authHost;
+
+    /**
+     * 认证服务端口（用于Bearer认证获取token，若未设置则使用port）
+     */
+    private Integer authPort;
+
+    /**
+     * Token获取路径（默认 /oauth/token）
+     */
+    private String authPath = "/oauth/token";
+
+    /**
+     * 获取Token时是否使用Basic Auth（默认false，使用参数传递）
+     */
+    private Boolean tokenBasicAuth = false;
+
+    public String getAuthHost() {
+        return authHost != null && !authHost.isEmpty() ? authHost : host;
+    }
+
+    public Integer getAuthPort() {
+        return authPort != null ? authPort : port;
+    }
 
 }
