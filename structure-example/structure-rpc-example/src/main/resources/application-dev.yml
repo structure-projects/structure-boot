@@ -10,30 +10,16 @@ spring:
       password: 123456
       host: 172.16.0.249
   flyway:
-    enabled: true # 开启flyway
-    clean-disabled: true # 禁止清理数据表
-    table: flyway_schema_history # 版本控制信息表名，默认为flyway_schema_history
-    out-of-order: false # 是否允许不按顺序迁移
-    baseline-on-migrate: true # 如果数据库不是空表，需要设置为true，否则启动报错
-    baseline-version: 1 # 和baseline-on-migrate搭配使用，小于此版本的不执行
-    # schemas: 不设置使用默认Spring连接数据的地址和数据库
-    validate-on-migrate: true # 执行迁移时是否自动调用验证
+    enabled: true
+    clean-disabled: true
+    table: flyway_schema_history
+    out-of-order: false
+    baseline-on-migrate: true
+    baseline-version: 1
+    validate-on-migrate: true
     locations: classpath:db/migration
-  # 配置数据库，flyway那边就无需再进行数据的配置了
 
 structure:
-  oauth:
-    jwt:
-      jks-path: yunjida.jks
-      key-pair: yunjida
-      password: yueyankeji@yunjida
-    adapters:
-      weChat:
-        accessKey: aaa
-        secretKey: bbbb
-      dingTalk:
-        accessKey: ccc
-        secretKey: ddd
   log:
     aop:
       expression: execution(public * cn.structured.oauth.server.controller..*Controller.*(..))
@@ -41,11 +27,41 @@ structure:
   rpc:
     service-list:
       user-center:
+        access-key: client_id
+        secret-key: client_secret
         host: 127.0.0.1
-        port: 18001
+        port: 18002
+        auth-type: NONE
+      user-center-basic:
+        access-key: admin
+        secret-key: password
+        host: 127.0.0.1
+        port: 18002
+        auth-type: BASIC
+      user-center-bearer:
+        access-key: client_id
+        secret-key: client_secret
+        host: 127.0.0.1
+        port: 18002
+        auth-type: BEARER
+        auth-host: 127.0.0.1
+        auth-port: 18002
+        auth-path: /oauth/token
+        token-basic-auth: false
+      user-center-bearer-basic:
+        access-key: client_id
+        secret-key: client_secret
+        host: 127.0.0.1
+        port: 18002
+        auth-type: BEARER
+        auth-host: 127.0.0.1
+        auth-port: 18002
+        auth-path: /oauth/token
+        token-basic-auth: true
+
 swagger:
-  title: 用户中心API
-  description: structure-user
+  title: RPC示例 - OAuth2认证演示
+  description: 演示多种认证方式（NONE/BASIC/BEARER）的RPC调用
   version: v1.0.1
 server:
   port: 18002

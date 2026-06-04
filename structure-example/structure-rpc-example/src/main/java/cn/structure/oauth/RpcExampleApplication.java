@@ -15,6 +15,7 @@
  */
 package cn.structure.oauth;
 
+import cn.structured.rpc.annotation.EnableRpcClients;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -28,6 +29,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @since 2021/3/10 21:35
  */
 @SpringBootApplication
+@EnableRpcClients(basePackages = "cn.structure.oauth.client")
 public class RpcExampleApplication {
 
     public static void main(String[] args) {
