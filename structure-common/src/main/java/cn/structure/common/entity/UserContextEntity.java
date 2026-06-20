@@ -17,12 +17,12 @@ public class UserContextEntity {
     /**
      * 用户ID
      */
-    private String userId;
+    protected String userId;
 
     /**
      * 部门ID
      */
-    private String deptId;
+    protected String deptId;
 
     /**
      * 租户ID
@@ -37,16 +37,16 @@ public class UserContextEntity {
     /**
      * 角色ID
      */
-    private Set<String> roles;
+    protected Set<String> roles;
 
 
     /**
      * 权限ID
      */
-    private Set<String> permissions;
+    protected Set<String> permissions;
 
     /**
      * 登录时间
      */
-    private LocalDateTime loginTime;
+    protected LocalDateTime loginTime;
 }
