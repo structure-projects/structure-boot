@@ -1,4 +1,4 @@
-package cn.structure.common.ddd;
+package cn.structure.common.repository;
 
 import java.io.Serializable;
 
