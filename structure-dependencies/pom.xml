@@ -49,7 +49,7 @@
 
     <properties>
         <!-- 这个版本好只在开发时候有效，发布时时忽略的，建议使用预发布版本好定义 -->
-        <revision>1.4.0-SNAPSHOT</revision>
+        <revision>1.4.1-SNAPSHOT</revision>
         <!-- 注意版本升级时需要考虑相关依赖版本，谨慎升级 -->
         <structure.version>${project.version}</structure.version>
         <!-- jdk -->
@@ -187,11 +187,6 @@
 
             <!-- data 实例化相关插件  -->
             <!-- mybatis plus -->
-            <dependency>
-                <groupId>com.baomidou</groupId>
-                <artifactId>mybatis-plus-spring-boot4-starter</artifactId>
-                <version>${mybatis-plus.version}</version>
-            </dependency>
             <dependency>
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-spring-boot4-starter</artifactId>
