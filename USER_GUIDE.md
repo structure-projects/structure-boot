@@ -42,8 +42,8 @@ Structure Boot 是一个基于 Spring Boot 的快速开发框架，提供一系�
     <version>1.0.0</version>
 
     <properties>
-        <spring.boot.version>3.2.5</spring.boot.version>
-        <structure.version>1.3.5</structure.version>
+        <spring.boot.version>4.0.6</spring.boot.version>
+        <structure.version>1.4.2</structure.version>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
     </properties>

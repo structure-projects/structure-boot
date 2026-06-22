@@ -1,217 +1,209 @@
 # Changelog
 
-所有重要的项目变更都会记录在此文档中。
+所有重要的项目变更都会记录在此文档中。本文档是变更日志索引，详细变更内容请查看对应的版本文档。
+
+## 文档说明
+
+**文档结构：**
+
+```
+docs/
+├── v1.4.2/                      # v1.4.2 版本文档 (当前最新)
+│   ├── README.md               # 版本概述
+│   ├── COMPONENT_GUIDE.md      # 组件使用指南
+│   └── CHANGELOG.md            # 详细变更日志
+├── v1.4.1/                      # v1.4.1 版本文档
+│   ├── README.md               # 版本概述
+│   └── CHANGELOG.md            # 详细变更日志
+├── v1.4.0/                      # v1.4.0 版本文档
+│   ├── README.md               # 版本概述
+│   └── CHANGELOG.md            # 详细变更日志
+└── archive/
+    ├── 1.3.X.md               # 1.3.X 版本指南
+    ├── historical-summary.md   # 历史版本汇总 (1.0.x - 1.2.x)
+    └── README.md               # 版本文档索引
+```
+
+---
 
 ## 版本格式
 
 版本号遵循语义化版本控制（Semantic Versioning）：
+
 - **主版本号（MAJOR）**：不兼容的 API 更改
 - **次版本号（MINOR）**：向后兼容的功能新增
 - **修订号（PATCH）**：向后兼容的问题修复
 
 ---
-## [1.4.0] - 2026-06-05
 
-### 变更内容
+## 最新版本
 
-**文档更新**
-- 为所有子模块创建/更新 README 文档
-- 添加详细的快速开始指南和使用示例
-- 补充代码注释和版权声明
-- 完善统一响应格式说明（ResultVO 和 ResResultVO）
+### [1.4.2] - 2026-06-23
 
-**新增 README 文档的模块**
-- structure-common - 通用工具模块
-- structure-log-starter - 日志处理模块
-- structure-minio-starter - MinIO 对象存储模块
-- structure-redisson-starter - Redisson 分布式锁和缓存模块
-- structure-mybatis-starter - MyBatis 集成模块
-- structure-mybatis-plus-starter - MyBatis Plus 集成模块
-- structure-mybatis-plus-generate - MyBatis Plus 代码生成器
-- structure-restful-web-starter - RESTful Web 开发模块
-- structure-redis-starter - Redis 集成模块
-- structure-rpc-starter - RPC 远程服务调用模块
+**版本状态：** 当前最新版本
 
-**代码注释补充**
-- 为 AuthType 枚举添加完整的注释和版权声明
-- 为 TokenManager 接口添加完整的注释和版权声明
-- 为 TokenProvider 接口添加完整的注释和版权声明
-- 为 TokenInfo 实体类添加版权声明
+**变更类型：** 兼容性修复 + 安全修复
+
+**变更摘要：**
+
+- Spring Boot 4.x 兼容性修复
+- 安全漏洞修复 (CVE-2026-0636, CVE-2025-48976)
+
+**[查看详细变更](docs/v1.4.2/CHANGELOG.md)**
 
 ---
 
-## [1.3.7] - 2026-05-28
+## 版本索引
 
-### 变更内容
-
-**Bug 修复**
-- 修正打包依赖和导出内容问题
-- 修复mybatis plus 自动装配时加载auto-configuration 失败问题
----
-
----
-## [1.3.6] - 2026-05-23
-
-### 变更内容
-
-**Bug 修复**
-- 修正父项目中的依赖版本被意外移除导致子工程的项目无法使用父工程配置进行发布
-- 更新组件版本修复已知漏洞，更新 Spring Boot 4.0.6 版本
----
-
-## [1.3.5] - 2026-05-23
-
-### 变更内容
-
-**Bug 修复**
-- JDK 21 降级至 17
-- 添加版本变更说明文档
----
-
-## [1.3.4] - 2026-05-20
-
-### 变更内容
-
-**Bug 修复**
-- 修复 tk-mapper 支持 Spring Boot 3 的兼容性问题
-- 修复 Spring Boot 3 文档和兼容性检查
-- 修复 Redisson 模块：Spring Boot 3 无法解析 SpEL 表达式导致缓存和 Redis 锁失效的问题
-- 修复 Redis 模块：Spring Boot 3 无法解析 SpEL 表达式
-- 修复 Redis Lock 无法上锁和上锁失败的问题
+| 版本 | 日期 | 类型 | 变更摘要 |
+| :--- | :--- | :--- | :--- |
+| **[1.4.2](docs/v1.4.2/)** | 2026-06-23 | 兼容性修复 | Spring Boot 4.x 兼容性修复、安全漏洞修复 |
+| **[1.4.1](docs/v1.4.1/)** | 2026-06-15 | 依赖升级 | Spring Boot 4.0.6、Knife4j 4.5.0 |
+| **[1.4.0](docs/v1.4.0/)** | 2026-06-05 | 文档完善 | README 文档体系完善、代码注释补充 |
+| **[1.3.X](docs/archive/1.3.X.md)** | 2026-05-01 | 重大升级 | Spring Boot 3.2.x / JDK 21 |
+| **[历史版本汇总](docs/archive/historical-summary.md)** | - | 历史 | 1.0.x - 1.2.x 版本汇总 |
 
 ---
 
-## [1.3.5] - 2026-05-23
+## 变更类型索引
 
-### 变更内容
+### Bug 修复
 
-**核心升级**
-- 将项目 JDK 版本从 21 降级至 17，提升兼容性
-- 统一更新所有模块的版本号至 1.3.5
+- [1.4.2](docs/v1.4.2/CHANGELOG.md) - Spring Boot 4.x 兼容性修复
+- [1.4.1](docs/v1.4.1/CHANGELOG.md) - 兼容性问题修复
+- [1.3.7](docs/archive/1.3.X.md#137---2026-05-28) - 打包依赖和自动装配问题
+- [1.3.4](docs/archive/1.3.X.md#134---2026-05-20) - SpEL 表达式和 Redis Lock 修复
 
-**配置更新**
-- 更新 `structure-dependencies/pom.xml` 中的 JDK 配置
-- 更新 CI/CD 流水线配置（`.github/workflows/release.yml`）
-- 更新示例项目的依赖版本
+### 功能新增
 
-**文档更新**
-- 更新 README.md 中的版本说明和环境要求
-- 更新 QUICKSTART.md 中的 JDK 版本要求
-- 更新 PROJECT_SPECIFICATION.md 中的技术栈说明
-- 更新 COMPONENT_GUIDE.md 中的环境要求
+- [1.4.0](docs/v1.4.0/CHANGELOG.md) - 文档体系完善
+- [1.3.1](docs/archive/1.3.X.md#131---2026-05-10) - 多租户支持和 RPC 调用
+- [1.2.0](docs/archive/historical-summary.md#120---2026-01-01) - MinIO、Redisson、日志模块
+- [1.1.0](docs/archive/historical-summary.md#110---2025-06-01) - Redis 缓存和 MyBatis Plus
 
----
+### 依赖升级
 
-## [1.3.4] - 未发布
+- [1.4.2](docs/v1.4.2/CHANGELOG.md) - springdoc 3.0.3、testcontainers 1.20.6 等
+- [1.4.1](docs/v1.4.1/CHANGELOG.md) - Spring Boot 4.0.6、Knife4j 4.5.0
+- [1.3.6](docs/archive/1.3.X.md#136---2026-05-23) - Spring Boot 4.0.6
+- [1.3.0](docs/archive/1.3.X.md#130---2026-05-01) - Spring Boot 3.2.x / JDK 21
 
-### 变更内容
+### 重大升级
 
-- 预留版本
-
----
-
-## [1.3.3] - 2026-05-18
-
-### 变更内容
-
-**Bug 修复**
-- 修复 SpEL 表达式参数解析问题，添加三层回退机制
-
-**配置更新**
-- 在 `structure-boot-parent/pom.xml` 中添加 `<parameters>true</parameters>` 配置
-- 更新 Redis 配置从 `spring.redis` 迁移至 `spring.data.redis`
+- [1.3.0](docs/archive/1.3.X.md#130---2026-05-01) - Spring Boot 3.2.x / JDK 21 / Spring Security 6.2.x
+- [1.2.0](docs/archive/historical-summary.md#120---2026-01-01) - Spring Boot 2.7.x
 
 ---
 
-## [1.3.2] - 2026-05-15
+## 模块变更索引
 
-### 变更内容
+### structure-common
 
-**功能增强**
-- 优化分布式锁实现
-- 增强 Redis 缓存功能
+- [1.4.0](docs/v1.4.0/CHANGELOG.md) - 代码注释补充
 
----
+### structure-restful-web-starter
 
-## [1.3.1] - 2026-05-10
+- [1.4.2](docs/v1.4.2/CHANGELOG.md) - GlobalControllerAdvice 修复、FastJsonHttpMessageConverters 修复
 
-### 变更内容
+### structure-mybatis-starter
 
-**功能新增**
-- 添加多租户支持模块
-- 添加 RPC 调用支持
+- [1.4.2](docs/v1.4.2/CHANGELOG.md) - MybatisProperties 配置优化
+- [1.3.7](docs/archive/1.3.X.md#137---2026-05-28) - 自动装配问题修复
 
-**Bug 修复**
-- 修复 MyBatis Plus 分页查询问题
+### structure-rpc-starter
 
----
+- [1.4.2](docs/v1.4.2/CHANGELOG.md) - RpcProperties 配置优化
 
-## [1.3.0] - 2026-05-01
+### structure-redis-starter
 
-### 变更内容
+- [1.3.4](docs/archive/1.3.X.md#134---2026-05-20) - SpEL 表达式和 Redis Lock 修复
 
-**重大升级**
-- 升级至 Spring Boot 3.2.x
-- 升级至 Spring Security 6.2.x
-- 升级至 JDK 21
+### structure-redisson-starter
 
-**模块重构**
-- 重构 Restful Web Starter
-- 重构 MyBatis Starter
-- 重构 Redis Starter
+- [1.3.4](docs/archive/1.3.X.md#134---2026-05-20) - SpEL 表达式修复
 
 ---
 
-## [1.2.13] - 2026-04-25
+## 快速导航
 
-### 变更内容
+### 按类型查找
 
-**Bug 修复**
-- 修复 Redis Lock 无法上锁和上锁失败的问题
-- 调整兼容性，修复部分名称使用默认名称导致 bean 名称重复的问题
+| 类型 | 可查看版本 |
+| :--- | :--- |
+| 安全修复 | [1.4.2](docs/v1.4.2/CHANGELOG.md#4-安全漏洞修复) |
+| 兼容性修复 | [1.4.2](docs/v1.4.2/CHANGELOG.md#1-spring-boot-4x-兼容性修复) |
+| 依赖升级 | [1.4.1](docs/v1.4.1/CHANGELOG.md#1-依赖版本更新) |
+| 重大升级 | [1.3.0](docs/archive/1.3.X.md#130---2026-05-01) |
 
----
+### 按组件查找
 
-## [1.2.11] - 2026-04-15
-
-### 变更内容
-
-**Bug 修复**
-- 修复日志记录器的性能问题
-- 修复 MinIO 存储模块的连接池问题
-
----
-
-## [1.2.0] - 2026-01-01
-
-### 变更内容
-
-**功能新增**
-- 添加 MinIO 对象存储支持
-- 添加 Redisson 分布式锁支持
-- 添加日志记录模块
-
-**技术升级**
-- 升级至 Spring Boot 2.7.x
+| 组件 | 可查看版本 |
+| :--- | :--- |
+| structure-restful-web-starter | [v1.4.2](docs/v1.4.2/COMPONENT_GUIDE.md) |
+| structure-mybatis-starter | [v1.4.2](docs/v1.4.2/COMPONENT_GUIDE.md) |
+| structure-mybatis-plus-starter | [v1.4.2](docs/v1.4.2/COMPONENT_GUIDE.md) |
+| structure-redis-starter | [v1.4.2](docs/v1.4.2/COMPONENT_GUIDE.md) |
+| structure-redisson-starter | [v1.4.2](docs/v1.4.2/COMPONENT_GUIDE.md) |
+| structure-minio-starter | [v1.4.2](docs/v1.4.2/COMPONENT_GUIDE.md) |
+| structure-log-starter | [v1.4.2](docs/v1.4.2/COMPONENT_GUIDE.md) |
+| structure-rpc-starter | [v1.4.2](docs/v1.4.2/COMPONENT_GUIDE.md) |
 
 ---
 
-## [1.1.0] - 2025-06-01
+## 版本升级指南
 
-### 变更内容
+### 从 1.4.x 升级到 1.4.2
 
-**功能新增**
-- 添加 Redis 缓存支持
-- 添加 MyBatis Plus 支持
+```xml
+<parent>
+    <groupId>cn.structured</groupId>
+    <artifactId>structure-dependencies</artifactId>
+    <version>1.4.2</version>
+</parent>
+```
+
+### 从 1.3.x 升级到 1.4.2
+
+```xml
+<parent>
+    <groupId>cn.structured</groupId>
+    <artifactId>structure-dependencies</artifactId>
+    <version>1.4.2</version>
+</parent>
+```
+
+**注意：** 1.4.x 系列无破坏性更改，1.3.x 用户可直接升级。
+
+### 从 1.2.x 升级到 1.3.x
+
+**主要变更：**
+
+- Spring Boot 2.x → 3.2.x
+- JDK 8/11 → 17/21
+- Jakarta EE 8 → Jakarta EE 9+
+
+**注意事项：**
+
+1. 数据库驱动可能需要更换（如 `mysql-connector-java` → `mysql-connector-j`）
+2. `spring.redis` 配置迁移至 `spring.data.redis`
+3. 部分 SpEL 表达式语法可能有变化
+4. 需要使用 `jakarta.*` 包名替代 `javax.*`
 
 ---
 
-## [1.0.0] - 2025-01-01
+## 相关文档
 
-### 变更内容
+- [用户开发指南](./USER_GUIDE.md) - 快速开始和开发指南
+- [组件指南](./docs/v1.4.2/COMPONENT_GUIDE.md) - 各组件详细说明
 
-**初始版本**
-- 项目初始化
-- 基础模块结构搭建
-- RESTful Web 支持
-- MyBatis 支持
+---
+
+## 更新日志
+
+| 日期 | 更新内容 |
+| :--- | :--- |
+| 2026-06-23 | 优化文档结构，整合 CHANGELOG 和 VERSION_UPDATE |
+| 2026-06-23 | 新增 1.4.2 版本记录 |
+| 2026-06-23 | 优化文档结构，创建 docs/archive/ 目录 |
+| 2026-06-15 | 新增 1.4.1 版本记录 |
+| 2026-06-05 | 新增 1.4.0 版本记录 |

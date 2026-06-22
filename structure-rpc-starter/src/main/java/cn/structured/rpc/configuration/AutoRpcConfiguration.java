@@ -17,13 +17,16 @@ package cn.structured.rpc.configuration;
 
 import cn.structured.rpc.properties.RpcProperties;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Import;
 
 /**
  * RPC自动配置
  * 配置RpcProperties和其他基础组件
- * 
+ *
  * 接口类型的@RpcClient由@EnableRpcClients扫描并创建动态代理
  * 类类型的@RpcClient由Spring自动扫描并初始化
  *
@@ -33,7 +36,8 @@ import org.springframework.boot.autoconfigure.AutoConfiguration;
  */
 @Slf4j
 @AutoConfiguration
-@ImportAutoConfiguration(RpcProperties.class)
+@EnableConfigurationProperties(RpcProperties.class)
+@Import(RpcProperties.class)
 public class AutoRpcConfiguration {
 
 }

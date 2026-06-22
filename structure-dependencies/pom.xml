@@ -49,7 +49,7 @@
 
     <properties>
         <!-- 这个版本好只在开发时候有效，发布时时忽略的，建议使用预发布版本好定义 -->
-        <revision>1.4.1-SNAPSHOT</revision>
+        <revision>1.4.2-SNAPSHOT</revision>
         <!-- 注意版本升级时需要考虑相关依赖版本，谨慎升级 -->
         <structure.version>${project.version}</structure.version>
         <!-- jdk -->
@@ -125,9 +125,22 @@
         <minio.version>8.6.0</minio.version>
         <okhttp.version>4.12.0</okhttp.version>
         <!--swagger -->
-        <springdoc.version>2.3.0</springdoc.version>
+        <springdoc.version>3.0.3</springdoc.version>
         <swagger2.version>2.9.2</swagger2.version>
         <swagger-bootstrap-ui.version>1.9.6</swagger-bootstrap-ui.version>
+        <knife4j.version>4.5.0</knife4j.version>
+
+        <!--testcontainers-->
+        <testcontainers.version>1.20.6</testcontainers.version>
+
+        <!--h2 database-->
+        <h2.version>2.2.224</h2.version>
+
+        <!-- CVE-2026-0636 修复 -->
+        <bouncycastle.version>1.84</bouncycastle.version>
+
+        <!-- CVE-2025-48976 修复 -->
+        <commons-fileupload.version>1.6.0</commons-fileupload.version>
 
         <!--lombok-->
         <lombok.version>1.18.30</lombok.version>
@@ -307,6 +320,56 @@
                 <groupId>com.github.xiaoymin</groupId>
                 <artifactId>swagger-bootstrap-ui</artifactId>
                 <version>${swagger-bootstrap-ui.version}</version>
+            </dependency>
+            <!--knife4j for Spring Boot 3.x-->
+            <dependency>
+                <groupId>com.github.xiaoymin</groupId>
+                <artifactId>knife4j-openapi3-jakarta-spring-boot-starter</artifactId>
+                <version>${knife4j.version}</version>
+            </dependency>
+
+            <!-- Testcontainers -->
+            <dependency>
+                <groupId>org.testcontainers</groupId>
+                <artifactId>testcontainers</artifactId>
+                <version>${testcontainers.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.testcontainers</groupId>
+                <artifactId>mysql</artifactId>
+                <version>${testcontainers.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.testcontainers</groupId>
+                <artifactId>junit-jupiter</artifactId>
+                <version>${testcontainers.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <!-- H2 Database for testing -->
+            <dependency>
+                <groupId>com.h2database</groupId>
+                <artifactId>h2</artifactId>
+                <version>${h2.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <!-- CVE-2026-0636 修复 -->
+            <dependency>
+                <groupId>org.bouncycastle</groupId>
+                <artifactId>bcprov-jdk18on</artifactId>
+                <version>${bouncycastle.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.bouncycastle</groupId>
+                <artifactId>bcpkix-jdk18on</artifactId>
+                <version>${bouncycastle.version}</version>
+            </dependency>
+            <!-- CVE-2025-48976 修复 -->
+            <dependency>
+                <groupId>commons-fileupload</groupId>
+                <artifactId>commons-fileupload</artifactId>
+                <version>${commons-fileupload.version}</version>
             </dependency>
             <!-- API -->
             <dependency>

@@ -24,7 +24,7 @@ import cn.structure.starter.web.restful.exception.ThirdPartyException;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 
 
@@ -38,7 +38,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @since 2020-01-03
  */
 @Slf4j
-@ResponseBody
+@RestControllerAdvice
 public class GlobalControllerAdvice {
 
     @Resource
@@ -46,15 +46,7 @@ public class GlobalControllerAdvice {
 
     /**
      * 全局异常捕捉处理
-     */
-    @ExceptionHandler(value = Exception.class)
-    public IResult exceptionHandler(Exception ex) {
-        log.error("[GlobalExceptionHandler] 全局未知异常捕获 - exceptionType: {}, message: {}", ex.getClass().getName(), ex.getMessage(), ex);
-        return iResultUtil.exception(ErrorCodeEnum.SYSTEM_ERROR.getErrorType(), "500", ex.getMessage());
-    }
-
-    /**
-     * 全局异常捕捉处理
+     * 捕获所有未处理的异常
      */
     @ExceptionHandler(value = Throwable.class)
     public IResult errorHandler(Throwable ex) {
