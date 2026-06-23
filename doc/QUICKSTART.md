@@ -93,8 +93,8 @@ demo/
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <spring.boot.version>3.2.5</spring.boot.version>
-        <structure.version>1.3.1</structure.version>
+        <spring.boot.version>4.0.6</spring.boot.version>
+        <structure.version>1.4.2</structure.version>
     </properties>
 
     <dependencyManagement>

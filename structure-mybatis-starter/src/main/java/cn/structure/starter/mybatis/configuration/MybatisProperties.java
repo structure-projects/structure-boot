@@ -19,10 +19,8 @@ import cn.structure.starter.mybatis.enums.GenerateIdType;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.NestedConfigurationProperty;
-import org.springframework.context.annotation.Configuration;
 
 
 /**
@@ -37,9 +35,7 @@ import org.springframework.context.annotation.Configuration;
 @Getter
 @Setter
 @ToString
-@Configuration
 @ConfigurationProperties(prefix = "structure.mybatis.plugin")
-@ImportAutoConfiguration(value = PageHelperProperties.class)
 public class MybatisProperties {
 
     /**

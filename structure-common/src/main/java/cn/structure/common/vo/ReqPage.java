@@ -35,14 +35,11 @@ import java.time.LocalDateTime;
 @Schema(description = "入参分页")
 public class ReqPage {
 
-    @Schema(description = "当前页")
-    private Integer currentPage;
+    @Schema(description = "页码", defaultValue = "1")
+    private Integer page = 1;
 
-    @Schema(description = "页码")
-    private Integer page;
-
-    @Schema(description = "每页数量")
-    private Integer pageSize;
+    @Schema(description = "每页数量", defaultValue = "10")
+    private Integer size = 10;
 
     @Schema(description = "关键字")
     private String keyword;
