@@ -31,6 +31,25 @@ import java.util.List;
 public interface IResultUtil {
 
     /**
+     * 构建一个成功的接口
+     *
+     * @param t 返回的数据
+     * @return IResult
+     */
+    <T> IResult ok(T t);
+
+    /**
+     * 构建一个失败的接口
+     *
+     * @param code    失败后的错误码
+     * @param message 错误消息
+     * @param t       返回的数据
+     * @return IResult
+     */
+    <T> IResult noOk(String code, String message,T t);
+
+
+    /**
      * 请求失败的接口
      *
      * @param code    失败后的错误码

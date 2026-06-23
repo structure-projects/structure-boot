@@ -15,6 +15,7 @@
  */
 package cn.structure.example.boot;
 
+import cn.structure.common.exception.CommonException;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -35,5 +36,10 @@ public class TestController {
     @GetMapping(value = "test")
     public String test() {
         return "ok";
+    }
+
+    @GetMapping(value = "test2")
+    public String test2() {
+        throw new CommonException("500", "测试异常");
     }
 }
