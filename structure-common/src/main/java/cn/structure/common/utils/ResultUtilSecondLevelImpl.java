@@ -57,6 +57,16 @@ public class ResultUtilSecondLevelImpl implements IResultUtil {
     }
 
     @Override
+    public <T> IResult ok(T t) {
+        return success(t);
+    }
+
+    @Override
+    public <T> IResult noOk(String code, String message, T t) {
+        return fail(code, message, t);
+    }
+
+    @Override
     public IResult fail(String code, String message) {
         return ResultVO.builder()
                 .code(ResultCodeEnum.FAIL.getCode())

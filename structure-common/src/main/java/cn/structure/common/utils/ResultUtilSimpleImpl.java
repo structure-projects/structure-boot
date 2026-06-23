@@ -53,6 +53,16 @@ public class ResultUtilSimpleImpl implements IResultUtil {
     }
 
     @Override
+    public <T> IResult ok(T t) {
+        return success(t);
+    }
+
+    @Override
+    public <T> IResult noOk(String code, String message, T t) {
+        return fail(code, message, t);
+    }
+
+    @Override
     public IResult fail(String code, String message) {
         return ResResultVO.builder()
                 .code(code)
