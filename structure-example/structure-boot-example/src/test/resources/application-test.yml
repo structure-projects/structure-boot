@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: boot-example-test
+
+server:
+  port: 0
+
+logging:
+  level:
+    org.springframework: WARN
+    cn.structure: DEBUG

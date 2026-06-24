@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: rpc-example-test
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+
+server:
+  port: 0
+
+logging:
+  level:
+    org.springframework: WARN
+    cn.structure: DEBUG

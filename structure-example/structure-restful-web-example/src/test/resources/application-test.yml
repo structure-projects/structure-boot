@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: restful-web-example-test
+
+server:
+  port: 0
+
+swagger:
+  title: 测试标题
+  description: 测试描述
+  version: v1.0.0
+
+logging:
+  level:
+    org.springframework: WARN
+    cn.structure: DEBUG

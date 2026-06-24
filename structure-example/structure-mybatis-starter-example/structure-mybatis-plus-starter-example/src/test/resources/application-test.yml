@@ -1,0 +1,38 @@
+spring:
+  application:
+    name: mybatis-plus-example-test
+  datasource:
+    url: jdbc:h2:mem:testdb;MODE=MySQL;DB_CLOSE_DELAY=-1;DATABASE_TO_LOWER=TRUE
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  sql:
+    init:
+      mode: always
+      schema-locations: classpath:schema-h2.sql
+
+mybatis-plus:
+  mapper-locations: classpath:mapper/**.xml
+  global-config:
+    db-config:
+      id-type: auto
+      db-type: h2
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+  configuration:
+    map-underscore-to-camel-case: true
+    call-setters-on-nulls: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+structure:
+  mybatis:
+    plugin:
+      split: false
+
+server:
+  port: 0
+
+logging:
+  level:
+    org.springframework: WARN
+    cn.structure: DEBUG
