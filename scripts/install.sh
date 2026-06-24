@@ -2,7 +2,7 @@
 #在本地仓库安装.RELEASE
 version=$1
 if [ -z "$version" ]; then
-    version=1.3.7
+    version=1.4.2-SNAPSHOT  
 fi
 cd ../
 cd structure-dependencies

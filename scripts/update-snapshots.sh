@@ -2,7 +2,7 @@
 # 更新快照版本
 version=$1
 if [ -z "$version" ]; then
-    version=1.3.7-SNAPSHOT
+    version=1.4.2-SNAPSHOT
 fi
 cd ../
 cd structure-dependencies
