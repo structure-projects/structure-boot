@@ -35,9 +35,18 @@ jobs:
 
       - name: Install dependencies
         run: |
-          chmod +x scripts/install.sh
-          ./scripts/install.sh
-        shell: bash
+          mvn clean install -Dmaven.test.skip=true -Drevision=1.4.2-SNAPSHOT
+        working-directory: structure-dependencies
+
+      - name: Install structure-common
+        run: |
+          mvn clean install -Dmaven.test.skip=true -Drevision=1.4.2-SNAPSHOT
+        working-directory: structure-common
+
+      - name: Install structure-boot-parent
+        run: |
+          mvn clean install -Dmaven.test.skip=true -Drevision=1.4.2-SNAPSHOT
+        working-directory: structure-boot-parent
 
       - name: Build and test structure-example
         working-directory: structure-example
