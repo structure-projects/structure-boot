@@ -15,15 +15,14 @@
  */
 package cn.structure.starter.web.restful.filter;
 
-import cn.structure.starter.web.restful.annotation.EnableFastJsonHttpConverters;
 import com.alibaba.fastjson.serializer.SerializeConfig;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.alibaba.fastjson.serializer.ToStringSerializer;
 import com.alibaba.fastjson.support.config.FastJsonConfig;
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -44,29 +43,31 @@ import java.util.List;
  */
 @Slf4j
 @Configuration
+@RequiredArgsConstructor
 public class FastJsonHttpMessageConvertersConfiguration {
 
     /**
      * 创建FastJsonHttpMessageConverter
      *
-     * @param enableFastJsonHttpConverters 注解配置
+     * @param properties 注解配置属性
      * @return FastJsonHttpMessageConverter
      */
     @Bean
     @ConditionalOnMissingBean(FastJsonHttpMessageConverter.class)
-    public FastJsonHttpMessageConverter fastJsonHttpMessageConverter(EnableFastJsonHttpConverters enableFastJsonHttpConverters) {
+    @ConditionalOnBean(FastJsonHttpMessageConvertersProperties.class)
+    public FastJsonHttpMessageConverter fastJsonHttpMessageConverter(FastJsonHttpMessageConvertersProperties properties) {
         log.info("[FastJsonHttpMessageConverters] 初始化FastJsonHttpMessageConverter - longToString: {}, nullShowValue: {}",
-                enableFastJsonHttpConverters.longToString(), enableFastJsonHttpConverters.nullShowValue());
+                properties.isLongToString(), properties.isNullShowValue());
 
         FastJsonHttpMessageConverter fastConverter = new FastJsonHttpMessageConverter();
         FastJsonConfig fastJsonConfig = new FastJsonConfig();
 
-        if (enableFastJsonHttpConverters.nullShowValue()) {
+        if (properties.isNullShowValue()) {
             fastJsonConfig.setSerializerFeatures(SerializerFeature.WriteMapNullValue);
         }
 
         SerializeConfig serializeConfig = SerializeConfig.globalInstance;
-        if (enableFastJsonHttpConverters.longToString()) {
+        if (properties.isLongToString()) {
             serializeConfig.put(Long.class, ToStringSerializer.instance);
             serializeConfig.put(Long.TYPE, ToStringSerializer.instance);
         }

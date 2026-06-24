@@ -38,9 +38,9 @@ import org.springframework.context.annotation.Configuration;
 public class WebAopConfigProperties {
 
     /**
-     * 公共配置
+     * 公共配置 - 默认匹配所有 Controller 方法
      */
-    private String expression;
+    private String expression = "execution(* *..controller..*.*(..))";
 
     /**
      * web Aop 开关

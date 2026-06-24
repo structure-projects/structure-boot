@@ -13,38 +13,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package cn.structure.starter.web.restful.annotation;
+package cn.structure.starter.web.restful.filter;
 
-import cn.structure.starter.web.restful.filter.FastJsonHttpMessageConvertersConfiguration;
-import cn.structure.starter.web.restful.filter.FastJsonHttpMessageConvertersRegistrar;
-import org.springframework.context.annotation.Import;
-
-import java.lang.annotation.*;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * <p>
- * 开启fastJson出参转换
+ * FastJson消息转换器配置属性
  * </p>
  *
  * @author chuck
  * @version 1.0.1
- * @since 2021-01-03
+ * @since 2025-06-25
  */
-@Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.TYPE)
-@Documented
-@Import({FastJsonHttpMessageConvertersRegistrar.class, FastJsonHttpMessageConvertersConfiguration.class})
-public @interface EnableFastJsonHttpConverters {
+@Getter
+@Setter
+public class FastJsonHttpMessageConvertersProperties {
 
     /**
      * 将long转换为String字符串 js没有long类型会有精度丢失
      */
-    boolean longToString() default false;
+    private boolean longToString = false;
 
     /**
      * 是否展示值为null的key
      */
-    boolean nullShowValue() default false;
-
-
+    private boolean nullShowValue = false;
 }

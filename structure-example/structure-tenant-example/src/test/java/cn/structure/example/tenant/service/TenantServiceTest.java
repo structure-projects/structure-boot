@@ -1,6 +1,7 @@
 package cn.structure.example.tenant.service;
 
 import cn.structure.starter.tenant.TenantContextHolder;
+import cn.structure.starter.tenant.resolver.TenantResolverChain;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -10,15 +11,22 @@ import static org.junit.jupiter.api.Assertions.*;
 class TenantServiceTest {
 
     private TenantService tenantService;
+    private TenantResolverChain originalResolverChain;
 
     @BeforeEach
     void setUp() {
+        // 保存原始的 resolverChain 并清除，确保单元测试不依赖 Spring 容器
+        originalResolverChain = TenantContextHolder.getResolverChain();
+        TenantContextHolder.setResolverChain(null);
+        TenantContextHolder.clear();
         tenantService = new TenantService();
     }
 
     @AfterEach
     void tearDown() {
         TenantContextHolder.clear();
+        // 恢复原始的 resolverChain
+        TenantContextHolder.setResolverChain(originalResolverChain);
     }
 
     @Test
