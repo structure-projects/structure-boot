@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: log-example-test
+
+structure:
+  log:
+    aop:
+      enable: true
+      expression: execution(public * cn.structure.example.log.controller..*Controller.*(..))
+
+server:
+  port: 0
+
+logging:
+  level:
+    org.springframework: WARN
+    cn.structure: DEBUG

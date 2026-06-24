@@ -18,6 +18,7 @@ package cn.structure.starter.tenant.filter;
 
 import cn.structure.starter.tenant.TenantContextHolder;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.core.annotation.Order;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import jakarta.servlet.FilterChain;
@@ -38,6 +39,7 @@ import java.io.IOException;
 @Slf4j
 public class TenantFilter extends OncePerRequestFilter {
 
+    @Order(99)
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         log.debug("[TenantFilter] 开始处理请求 - uri: {}", request.getRequestURI());

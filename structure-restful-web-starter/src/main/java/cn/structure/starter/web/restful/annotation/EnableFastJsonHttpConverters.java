@@ -16,6 +16,7 @@
 package cn.structure.starter.web.restful.annotation;
 
 import cn.structure.starter.web.restful.filter.FastJsonHttpMessageConvertersConfiguration;
+import cn.structure.starter.web.restful.filter.FastJsonHttpMessageConvertersRegistrar;
 import org.springframework.context.annotation.Import;
 
 import java.lang.annotation.*;
@@ -32,11 +33,11 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 @Documented
-@Import(FastJsonHttpMessageConvertersConfiguration.class)
+@Import({FastJsonHttpMessageConvertersRegistrar.class, FastJsonHttpMessageConvertersConfiguration.class})
 public @interface EnableFastJsonHttpConverters {
 
     /**
-     * 将long转换为String字符串 js没有long类型会有经度丢失
+     * 将long转换为String字符串 js没有long类型会有精度丢失
      */
     boolean longToString() default false;
 

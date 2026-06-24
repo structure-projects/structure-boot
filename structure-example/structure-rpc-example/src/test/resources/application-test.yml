@@ -1,0 +1,30 @@
+spring:
+  application:
+    name: rpc-example-test
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+
+server:
+  port: 0
+
+structure:
+  rpc:
+    serviceList:
+      user-center:
+        host: localhost
+        port: 8080
+      user-center-basic:
+        host: localhost
+        port: 8080
+      user-center-bearer:
+        host: localhost
+        port: 8080
+      user-center-bearer-basic:
+        host: localhost
+        port: 8080
+
+logging:
+  level:
+    org.springframework: WARN
+    cn.structure: DEBUG

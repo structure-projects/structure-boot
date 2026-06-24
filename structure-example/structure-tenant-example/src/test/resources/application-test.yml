@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: structure-tenant-example-test
+
+server:
+  port: 0
+
+structure:
+  tenant:
+    enabled: true
+    default-tenant-id: "1"
+    header:
+      enabled: true
+      name: "X-Tenant-Id"
+    param:
+      enabled: true
+      name: "tenantId"
+    resolver-order:
+      - "header"
+      - "param"
+
+logging:
+  level:
+    org.springframework: WARN
+    cn.structure: DEBUG

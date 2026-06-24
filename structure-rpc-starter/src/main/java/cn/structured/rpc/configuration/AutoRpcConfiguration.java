@@ -21,7 +21,6 @@ import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Import;
 
 /**
  * RPC自动配置
@@ -37,7 +36,6 @@ import org.springframework.context.annotation.Import;
 @Slf4j
 @AutoConfiguration
 @EnableConfigurationProperties(RpcProperties.class)
-@Import(RpcProperties.class)
 public class AutoRpcConfiguration {
 
 }

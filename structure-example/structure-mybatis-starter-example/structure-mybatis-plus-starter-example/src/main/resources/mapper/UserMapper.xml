@@ -16,7 +16,7 @@
 
     <insert id="insertUser" useGeneratedKeys="true" keyColumn="id" keyProperty="id"
             parameterType="cn.structure.example.mybatisplus.pojo.po.User">
-        INSERT INTO user
+        INSERT INTO `user`
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test='null != username'>
                 username,
@@ -33,22 +33,22 @@
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test='null != username'>
-                username,
+                #{username},
             </if>
             <if test='null != password'>
-                password,
+                #{password},
             </if>
             <if test='null != createTime'>
-                create_time,
+                #{createTime},
             </if>
             <if test='null != updateTime'>
-                update_time
+                #{updateTime}
             </if>
         </trim>
     </insert>
 
     <update id="updateUser" parameterType="cn.structure.example.mybatisplus.pojo.po.User">
-        UPDATE user
+        UPDATE `user`
         <set>
             <if test='null != username'>username = #{username},</if>
             <if test='null != password'>password = #{password},</if>
@@ -69,13 +69,13 @@
     <select id="getUserByUsername" parameterType="String" resultMap="baseMap">
         SELECT
         <include refid="baseColumnList"/>
-        FROM user WHERE username = #{username}
+        FROM `user` WHERE username = #{username}
     </select>
 
     <select id="listUserPage" resultMap="baseMap">
         SELECT
         <include refid="baseColumnList"/>
-        FROM user
+        FROM `user`
         <where>
             <if test="user.username!=null">username like CONCAT(CONCAT('%', #{user.username}), '%')</if>
         </where>

@@ -60,6 +60,15 @@ public class TenantContextHolder {
     }
 
     /**
+     * 获取租户识别器链
+     *
+     * @return 租户识别器链
+     */
+    public static TenantResolverChain getResolverChain() {
+        return resolverChain;
+    }
+
+    /**
      * 设置租户ID
      *
      * @param tenantId 租户ID

@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: minio-example-test
+
+structure:
+  minio:
+    url: http://127.0.0.1:9000
+    access-key: test-access-key
+    secret-key: test-secret-key
+    endpoint-enable: false
+
+server:
+  port: 0
+
+logging:
+  level:
+    org.springframework: WARN
+    cn.structure: DEBUG

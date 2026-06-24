@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: redisson-starter-example-test
+  autoconfigure:
+    exclude:
+      - cn.structure.starter.redisson.configuration.RedissonConfiguration
+      - org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration
+      - org.springframework.boot.autoconfigure.data.redis.RedisRepositoriesAutoConfiguration
+
+server:
+  port: 0
+
+logging:
+  level:
+    org.springframework: WARN
+    cn.structure: DEBUG
