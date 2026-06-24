@@ -33,6 +33,12 @@ jobs:
             ${{ runner.os }}-m2-structure-example-
             ${{ runner.os }}-m2-
 
+      - name: Install dependencies
+        run: |
+          chmod +x scripts/install.sh
+          ./scripts/install.sh
+        shell: bash
+
       - name: Build and test structure-example
         working-directory: structure-example
         run: |
