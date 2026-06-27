@@ -1,6 +1,6 @@
 package cn.structure.common.repository;
 
-import org.springframework.data.repository.Repository;
+import java.io.Serializable;
 
 /**
  * <p>
@@ -11,7 +11,7 @@ import org.springframework.data.repository.Repository;
  * @version 1.0.1
  * @since 2020/12/23 16:09
  */
-public interface ICrudRepository<T, ID>{
+public interface ICrudRepository<T> extends IQueryRepository<T> {
 
     /**
      * 保存
@@ -26,14 +26,14 @@ public interface ICrudRepository<T, ID>{
      *
      * @param id 主键
      */
-    void deleteById(ID id);
+    void removeById(Serializable id);
 
     /**
      * 查询
      *
-     * @param id 主键
+     * @param id 主键¬
      * @return 实体
      */
-    T findById(ID id);
+    T findById(Serializable id);
 
 }
