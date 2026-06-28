@@ -35,17 +35,17 @@ jobs:
 
       - name: Install dependencies
         run: |
-          mvn clean install -Dmaven.test.skip=true -Drevision=1.4.2-SNAPSHOT
+          mvn clean install -Dmaven.test.skip=true
         working-directory: structure-dependencies
 
       - name: Install structure-common
         run: |
-          mvn clean install -Dmaven.test.skip=true -Drevision=1.4.2-SNAPSHOT
+          mvn clean install -Dmaven.test.skip=true
         working-directory: structure-common
 
       - name: Install structure-boot-parent
         run: |
-          mvn clean install -Dmaven.test.skip=true -Drevision=1.4.2-SNAPSHOT
+          mvn clean install -Dmaven.test.skip=true
         working-directory: structure-boot-parent
 
       - name: Build and test structure-example
