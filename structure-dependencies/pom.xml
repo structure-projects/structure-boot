@@ -49,7 +49,7 @@
 
     <properties>
         <!-- 这个版本好只在开发时候有效，发布时时忽略的，建议使用预发布版本好定义 -->
-        <revision>1.4.2-SNAPSHOT</revision>
+        <revision>1.4.3-SNAPSHOT</revision>
         <!-- 注意版本升级时需要考虑相关依赖版本，谨慎升级 -->
         <structure.version>${project.version}</structure.version>
         <!-- jdk -->
@@ -112,7 +112,6 @@
 
         <!-- api -->
         <org-redisson.version>3.25.0</org-redisson.version>
-        <persistence-api.version>3.0.0</persistence-api.version>
 
         <!-- hutool util -->
         <hutool.version>5.8.40</hutool.version>
@@ -376,11 +375,6 @@
                 <groupId>jakarta.servlet</groupId>
                 <artifactId>jakarta.servlet-api</artifactId>
                 <version>${jakarta.servlet-api.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>jakarta.persistence</groupId>
-                <artifactId>jakarta.persistence-api</artifactId>
-                <version>${persistence-api.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.projectlombok</groupId>

@@ -16,7 +16,7 @@ import java.util.Optional;
  * @version 1.0.1
  * @since 2020/12/23 16:09
  */
-public interface IQueryRepository<T> {
+public interface IQueryRepository<T,ID> {
 
     /**
      * 根据id查询
@@ -24,7 +24,7 @@ public interface IQueryRepository<T> {
      * @param id 主键
      * @return 实体
      */
-    T queryById(Serializable id);
+    T queryById(ID id);
 
     /**
      * 根据id查询
@@ -32,7 +32,7 @@ public interface IQueryRepository<T> {
      * @param id 主键
      * @return 实体
      */
-    Optional<T> queryByIdOptional(Serializable id);
+    Optional<T> queryByIdOptional(ID id);
 
     /**
      * 根据条件查询

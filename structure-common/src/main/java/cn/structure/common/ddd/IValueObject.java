@@ -1,5 +1,7 @@
 package cn.structure.common.ddd;
 
+import java.io.Serializable;
+
 /**
  * <p>
  * 值对象接口
@@ -9,5 +11,5 @@ package cn.structure.common.ddd;
  * @version 1.0.1
  * @since 2020/12/23 16:09
  */
-public interface IValueObject {
+public interface IValueObject extends Serializable {
 }
