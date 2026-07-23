@@ -8,7 +8,11 @@
 
 ```
 docs/
-├── v1.4.2/                      # v1.4.2 版本文档 (当前最新)
+├── v1.4.4/                      # v1.4.4 版本文档 (当前最新)
+│   ├── README.md               # 版本概述
+│   ├── COMPONENT_GUIDE.md      # 组件使用指南
+│   └── CHANGELOG.md            # 详细变更日志
+├── v1.4.2/                      # v1.4.2 版本文档
 │   ├── README.md               # 版本概述
 │   ├── COMPONENT_GUIDE.md      # 组件使用指南
 │   └── CHANGELOG.md            # 详细变更日志
@@ -28,16 +32,14 @@ docs/
 
 ## 当前版本
 
-### [v1.4.2](./v1.4.2/README.md)
+### [v1.4.4](./v1.4.4/README.md)
 
 **版本状态**: ✅ 当前最新版本
 
 **主要内容**:
-- Spring Boot 4.x 兼容性修复
-- 安全漏洞修复 (CVE-2026-0636, CVE-2025-48976)
-- 组件使用指南
+- 版本号更新至 1.4.4
 
-**[查看版本文档](./v1.4.2/README.md)**
+**[查看版本文档](./v1.4.4/README.md)**
 
 ---
 
@@ -45,6 +47,7 @@ docs/
 
 | 版本 | 发布日期 | 类型 | 文档位置 |
 | :--- | :--- | :--- | :--- |
+| **[v1.4.4](./v1.4.4/)** | 2026-07-23 | 版本更新 | 版本号更新至 1.4.4 |
 | **[v1.4.2](./v1.4.2/)** | 2026-06-23 | 兼容性修复 | Spring Boot 4.x 兼容性修复、安全漏洞修复 |
 | **[v1.4.1](./v1.4.1/)** | 2026-06-15 | 依赖升级 | Spring Boot 4.0.6、Knife4j 4.5.0 |
 | **[v1.4.0](./v1.4.0/)** | 2026-06-05 | 文档完善 | README 文档体系完善、代码注释补充 |
@@ -68,14 +71,14 @@ docs/
 
 | 组件 | 可查看版本 |
 | :--- | :--- |
-| structure-restful-web-starter | [v1.4.2](./v1.4.2/COMPONENT_GUIDE.md#structure-restful-web-starter) |
-| structure-mybatis-starter | [v1.4.2](./v1.4.2/COMPONENT_GUIDE.md#structure-mybatis-starter) |
-| structure-mybatis-plus-starter | [v1.4.2](./v1.4.2/COMPONENT_GUIDE.md#structure-mybatis-plus-starter) |
-| structure-redis-starter | [v1.4.2](./v1.4.2/COMPONENT_GUIDE.md#structure-redis-starter) |
-| structure-redisson-starter | [v1.4.2](./v1.4.2/COMPONENT_GUIDE.md#structure-redisson-starter) |
-| structure-minio-starter | [v1.4.2](./v1.4.2/COMPONENT_GUIDE.md#structure-minio-starter) |
-| structure-log-starter | [v1.4.2](./v1.4.2/COMPONENT_GUIDE.md#日志组件) |
-| structure-rpc-starter | [v1.4.2](./v1.4.2/COMPONENT_GUIDE.md#structure-rpc-starter) |
+| structure-restful-web-starter | [v1.4.4](./v1.4.4/COMPONENT_GUIDE.md#structure-restful-web-starter) |
+| structure-mybatis-starter | [v1.4.4](./v1.4.4/COMPONENT_GUIDE.md#structure-mybatis-starter) |
+| structure-mybatis-plus-starter | [v1.4.4](./v1.4.4/COMPONENT_GUIDE.md#structure-mybatis-plus-starter) |
+| structure-redis-starter | [v1.4.4](./v1.4.4/COMPONENT_GUIDE.md#structure-redis-starter) |
+| structure-redisson-starter | [v1.4.4](./v1.4.4/COMPONENT_GUIDE.md#structure-redisson-starter) |
+| structure-minio-starter | [v1.4.4](./v1.4.4/COMPONENT_GUIDE.md#structure-minio-starter) |
+| structure-log-starter | [v1.4.4](./v1.4.4/COMPONENT_GUIDE.md#日志组件) |
+| structure-rpc-starter | [v1.4.4](./v1.4.4/COMPONENT_GUIDE.md#structure-rpc-starter) |
 
 ---
 

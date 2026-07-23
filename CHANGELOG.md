@@ -8,7 +8,11 @@
 
 ```
 docs/
-├── v1.4.2/                      # v1.4.2 版本文档 (当前最新)
+├── v1.4.4/                      # v1.4.4 版本文档 (当前最新)
+│   ├── README.md               # 版本概述
+│   ├── COMPONENT_GUIDE.md      # 组件使用指南
+│   └── CHANGELOG.md            # 详细变更日志
+├── v1.4.2/                      # v1.4.2 版本文档
 │   ├── README.md               # 版本概述
 │   ├── COMPONENT_GUIDE.md      # 组件使用指南
 │   └── CHANGELOG.md            # 详细变更日志
@@ -38,18 +42,17 @@ docs/
 
 ## 最新版本
 
-### [1.4.2] - 2026-06-23
+### [1.4.4] - 2026-07-23
 
 **版本状态：** 当前最新版本
 
-**变更类型：** 兼容性修复 + 安全修复
+**变更类型：** 版本更新
 
 **变更摘要：**
 
-- Spring Boot 4.x 兼容性修复
-- 安全漏洞修复 (CVE-2026-0636, CVE-2025-48976)
+- 版本号更新至 1.4.4
 
-**[查看详细变更](docs/v1.4.2/CHANGELOG.md)**
+**[查看详细变更](docs/v1.4.4/CHANGELOG.md)**
 
 ---
 
@@ -57,6 +60,7 @@ docs/
 
 | 版本 | 日期 | 类型 | 变更摘要 |
 | :--- | :--- | :--- | :--- |
+| **[1.4.4](docs/v1.4.4/)** | 2026-07-23 | 版本更新 | 版本号更新至 1.4.4 |
 | **[1.4.2](docs/v1.4.2/)** | 2026-06-23 | 兼容性修复 | Spring Boot 4.x 兼容性修复、安全漏洞修复 |
 | **[1.4.1](docs/v1.4.1/)** | 2026-06-15 | 依赖升级 | Spring Boot 4.0.6、Knife4j 4.5.0 |
 | **[1.4.0](docs/v1.4.0/)** | 2026-06-05 | 文档完善 | README 文档体系完善、代码注释补充 |
@@ -139,36 +143,36 @@ docs/
 
 | 组件 | 可查看版本 |
 | :--- | :--- |
-| structure-restful-web-starter | [v1.4.2](docs/v1.4.2/COMPONENT_GUIDE.md) |
-| structure-mybatis-starter | [v1.4.2](docs/v1.4.2/COMPONENT_GUIDE.md) |
-| structure-mybatis-plus-starter | [v1.4.2](docs/v1.4.2/COMPONENT_GUIDE.md) |
-| structure-redis-starter | [v1.4.2](docs/v1.4.2/COMPONENT_GUIDE.md) |
-| structure-redisson-starter | [v1.4.2](docs/v1.4.2/COMPONENT_GUIDE.md) |
-| structure-minio-starter | [v1.4.2](docs/v1.4.2/COMPONENT_GUIDE.md) |
-| structure-log-starter | [v1.4.2](docs/v1.4.2/COMPONENT_GUIDE.md) |
-| structure-rpc-starter | [v1.4.2](docs/v1.4.2/COMPONENT_GUIDE.md) |
+| structure-restful-web-starter | [v1.4.4](docs/v1.4.4/COMPONENT_GUIDE.md) |
+| structure-mybatis-starter | [v1.4.4](docs/v1.4.4/COMPONENT_GUIDE.md) |
+| structure-mybatis-plus-starter | [v1.4.4](docs/v1.4.4/COMPONENT_GUIDE.md) |
+| structure-redis-starter | [v1.4.4](docs/v1.4.4/COMPONENT_GUIDE.md) |
+| structure-redisson-starter | [v1.4.4](docs/v1.4.4/COMPONENT_GUIDE.md) |
+| structure-minio-starter | [v1.4.4](docs/v1.4.4/COMPONENT_GUIDE.md) |
+| structure-log-starter | [v1.4.4](docs/v1.4.4/COMPONENT_GUIDE.md) |
+| structure-rpc-starter | [v1.4.4](docs/v1.4.4/COMPONENT_GUIDE.md) |
 
 ---
 
 ## 版本升级指南
 
-### 从 1.4.x 升级到 1.4.2
+### 从 1.4.x 升级到 1.4.4
 
 ```xml
 <parent>
     <groupId>cn.structured</groupId>
     <artifactId>structure-dependencies</artifactId>
-    <version>1.4.2</version>
+    <version>1.4.4</version>
 </parent>
 ```
 
-### 从 1.3.x 升级到 1.4.2
+### 从 1.3.x 升级到 1.4.4
 
 ```xml
 <parent>
     <groupId>cn.structured</groupId>
     <artifactId>structure-dependencies</artifactId>
-    <version>1.4.2</version>
+    <version>1.4.4</version>
 </parent>
 ```
 
@@ -194,7 +198,7 @@ docs/
 ## 相关文档
 
 - [用户开发指南](./USER_GUIDE.md) - 快速开始和开发指南
-- [组件指南](./docs/v1.4.2/COMPONENT_GUIDE.md) - 各组件详细说明
+- [组件指南](./docs/v1.4.4/COMPONENT_GUIDE.md) - 各组件详细说明
 
 ---
 
