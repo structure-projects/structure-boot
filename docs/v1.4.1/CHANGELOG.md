@@ -60,4 +60,4 @@
 
 - [版本概述](./README.md)
 - [变更日志](../../CHANGELOG.md)
-- [组件使用指南](../v1.4.2/COMPONENT_GUIDE.md)
+- [组件使用指南](../v1.4.4/COMPONENT_GUIDE.md)

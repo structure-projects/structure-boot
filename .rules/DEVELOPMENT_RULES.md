@@ -30,15 +30,15 @@
 
 | 场景 | 版本格式 | 示例 |
 | :--- | :--- | :--- |
-| pom.xml 配置 | `x.y.z-SNAPSHOT` | `1.4.2-SNAPSHOT` |
-| 文档/示例 | `x.y.z` | `1.4.2` |
-| Git tag | `v.x.y.z` | `v1.4.2` |
+| pom.xml 配置 | `x.y.z-SNAPSHOT` | `1.4.4-SNAPSHOT` |
+| 文档/示例 | `x.y.z` | `1.4.4` |
+| Git tag | `v.x.y.z` | `v1.4.4` |
 
 ### 2.2 版本号递增规则
 
 | 变更类型 | 版本更新 | 代码配置 | 文档 |
 | :--- | :--- | :--- | :--- |
-| Bug 修复 | PATCH + 1 | `1.4.2-SNAPSHOT` | `1.4.2` |
+| Bug 修复 | PATCH + 1 | `1.4.4-SNAPSHOT` | `1.4.4` |
 | 新功能 | MINOR + 1, PATCH = 0 | `1.5.0-SNAPSHOT` | `1.5.0` |
 | 破坏性变更 | MAJOR + 1 | `2.0.0-SNAPSHOT` | `2.0.0` |
 
