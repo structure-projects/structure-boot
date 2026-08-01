@@ -1,7 +1,8 @@
 package cn.structure.example.web.restful.controller;
 
 import cn.structure.example.web.restful.pojo.vo.ReqTestVO;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.ObjectMapper;
+import tools.jackson.databind.json.JsonMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.MethodOrderer;
@@ -37,7 +38,7 @@ class RestTestControllerApiTest {
     void setUp() {
         RestTestController controller = new RestTestController();
         mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
-        objectMapper = new ObjectMapper();
+        objectMapper = JsonMapper.builder().build();
     }
 
     @Test

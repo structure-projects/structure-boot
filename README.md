@@ -2,7 +2,7 @@
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
 [![Maven Central](https://img.shields.io/maven-central/v/cn.structured/structure-boot-parent.svg)](https://search.maven.org/search?q=g:cn.structured)
-[![Java](https://img.shields.io/badge/Java-8+-green.svg)](https://www.oracle.com/java/)
+[![Java](https://img.shields.io/badge/Java-17+-green.svg)](https://www.oracle.com/java/)
 
 Structure Boot 是一个基于 Spring Boot 的快速开发框架，提供了一系列开箱即用的 Starter 组件，帮助开发者快速构建企业级应用。
 
@@ -10,7 +10,8 @@ Structure Boot 是一个基于 Spring Boot 的快速开发框架，提供了一�
 
 | 版本系列      | Spring Boot 版本  | JDK 版本  | 状态                  |
 | --------- | --------------- | ------- |---------------------|
-| **1.4.x** | Spring Boot 4.0.x | JDK 17+ | ✅ 最新版本，当前 1.4.2     |
+| **1.5.x** | Spring Boot 4.0.x | JDK 17+ | ✅ 最新版本，当前 1.5.0     |
+| **1.4.x** | Spring Boot 4.0.x | JDK 17+ | ✅ 持续支持中 |
 | **1.3.x** | Spring Boot 3.x | JDK 17+ | ✅ 持续支持中 |
 | **1.2.x** | Spring Boot 2.x | JDK 8+  | ✅ 持续支持中 |
 
@@ -61,7 +62,7 @@ Structure Boot 是一个基于 Spring Boot 的快速开发框架，提供了一�
 
     <properties>
         <spring.boot.version>4.0.6</spring.boot.version>
-        <structure.version>1.4.2</structure.version>
+        <structure.version>1.5.0</structure.version>
     </properties>
 
     <dependencyManagement>

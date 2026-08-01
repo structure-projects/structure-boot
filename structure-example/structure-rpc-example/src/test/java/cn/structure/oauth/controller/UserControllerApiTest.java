@@ -2,7 +2,8 @@ package cn.structure.oauth.controller;
 
 import cn.structure.oauth.dto.UserCreateRequest;
 import cn.structure.oauth.dto.UserUpdateRequest;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.ObjectMapper;
+import tools.jackson.databind.json.JsonMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.MethodOrderer;
@@ -38,7 +39,7 @@ class UserControllerApiTest {
     void setUp() {
         UserController userController = new UserController();
         mockMvc = MockMvcBuilders.standaloneSetup(userController).build();
-        objectMapper = new ObjectMapper();
+        objectMapper = JsonMapper.builder().build();
     }
 
     @Test

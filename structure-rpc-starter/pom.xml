@@ -74,6 +74,11 @@
             <artifactId>structure-common</artifactId>
             <scope>compile</scope>
         </dependency>
+        <!-- Jackson 3 (Spring Boot 4) -->
+        <dependency>
+            <groupId>tools.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+        </dependency>
 
     </dependencies>
     <build>

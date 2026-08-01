@@ -27,6 +27,5 @@ package cn.structure.starter.web.restful.enums;
 public enum HttpMessageConverterEnum {
 
     NONE,
-    FAST_JSON,
     ;
 }

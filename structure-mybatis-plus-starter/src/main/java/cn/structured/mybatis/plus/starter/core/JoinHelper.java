@@ -19,7 +19,7 @@ import cn.hutool.core.util.StrUtil;
 import cn.structured.mybatis.plus.starter.annotations.JoinCondition;
 import cn.structured.mybatis.plus.starter.enums.JoinResultEnum;
 import cn.structured.mybatis.plus.starter.enums.JoinTypeEnum;
-import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson2.JSONObject;
 import com.google.common.collect.Maps;
 
 import java.lang.reflect.Field;
