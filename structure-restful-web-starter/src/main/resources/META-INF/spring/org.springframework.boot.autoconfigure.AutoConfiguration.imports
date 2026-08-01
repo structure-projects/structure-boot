@@ -1,1 +1,1 @@
-cn.structure.starter.web.restful.configuration.RestfulWebAutoConfiguration
+cn.structure.starter.web.restful.configuration.JacksonConfig

@@ -4,7 +4,7 @@ import cn.structure.common.utils.BasicAuthGenerator;
 import cn.structure.common.utils.HttpClientUtil;
 import cn.structured.rpc.entity.RemoteService;
 import cn.structured.rpc.entity.TokenInfo;
-import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson2.JSON;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;

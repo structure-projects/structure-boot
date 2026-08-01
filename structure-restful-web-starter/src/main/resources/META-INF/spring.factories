@@ -1,1 +1,1 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=cn.structure.starter.web.restful.configuration.RestfulWebAutoConfiguration
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=cn.structure.starter.web.restful.configuration.JacksonConfig

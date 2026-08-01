@@ -23,8 +23,9 @@ import cn.structured.rpc.entity.TokenInfo;
 import cn.structured.rpc.token.DefaultTokenManager;
 import cn.structured.rpc.token.DefaultTokenProvider;
 import cn.structured.rpc.token.TokenManager;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.core.type.TypeReference;
+import tools.jackson.databind.ObjectMapper;
+import tools.jackson.databind.json.JsonMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpHost;
@@ -183,7 +184,7 @@ public class BaseHttpClient implements IRpcHandler {
         return tokenManager;
     }
 
-    private static final ObjectMapper objectMapper = new ObjectMapper();
+    private static final ObjectMapper objectMapper = JsonMapper.builder().build();
 
     public <T> T get(String path, Class<T> responseType) {
         return get(path, null, responseType);

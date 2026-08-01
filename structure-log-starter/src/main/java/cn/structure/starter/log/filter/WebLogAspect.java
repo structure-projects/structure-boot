@@ -17,7 +17,7 @@ package cn.structure.starter.log.filter;
 
 import cn.structure.common.entity.ControllerLog;
 import cn.structure.common.enums.LogEnums;
-import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson2.JSON;
 import lombok.extern.slf4j.Slf4j;
 import jakarta.servlet.http.HttpServletRequest;
 import org.aspectj.lang.JoinPoint;

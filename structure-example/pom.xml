@@ -30,7 +30,7 @@
     </modules>
 
     <properties>
-        <structure.version>1.4.4-SNAPSHOT</structure.version>
+        <structure.version>1.5.0-SNAPSHOT</structure.version>
         <springdoc.version>3.0.3</springdoc.version>
         <hutool.version>5.8.40</hutool.version>
         <mybatis-spring-boot.version>4.0.0</mybatis-spring-boot.version>
